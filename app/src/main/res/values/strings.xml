@@ -3,6 +3,7 @@
     <string name="success_login">로그인 되었습니다.</string>
     <string name="failed_login">로그인에 실패하였습니다.</string>
     <string name="facebook_app_id">884710338595518</string>
+    <string name="google_map_api_key">AIzaSyDLckUM-TfORiawBSqlsR4sIp5qk7rOr4o</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
 
 
