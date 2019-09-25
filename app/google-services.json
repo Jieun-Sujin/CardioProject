@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1005170287062",
+    "firebase_url": "https://mediaproject-515af.firebaseio.com",
+    "project_id": "mediaproject-515af",
+    "storage_bucket": "mediaproject-515af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005170287062:android:315e60694b0a71f6f34477",
+        "android_client_info": {
+          "package_name": "com.jieun.cardiocare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005170287062-gnl61mcbaue0k07827orvr2jcdfhc0rs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jieun.cardiocare",
+            "certificate_hash": "8c47fe1e9f5e320cf801c074b7e6675aa9000c2d"
+          }
+        },
+        {
+          "client_id": "1005170287062-fd8tbn4d8bi8vg5ju9coq9qj7pboe6om.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASodMglYLoEgfXihTV1gxhNEDt8bsK37o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005170287062-fd8tbn4d8bi8vg5ju9coq9qj7pboe6om.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
