@@ -355,7 +355,7 @@ public class AEDActivity extends AppCompatActivity
 
     public void getData(){
 
-        String key ="o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D";
+        String key ="@string/aed_api_key";
         String WGS84_LON =  Double.toString(longitude);
         String WGS84_LAT =  Double.toString(latitude);
 
