@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import android.os.Bundle;
@@ -12,7 +14,12 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -39,6 +47,7 @@ import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -62,18 +71,35 @@ public class HeartActivity extends AppCompatActivity {
     private boolean bCheckStarted = false;
     private boolean bGoogleConnected = false;
 
+    private LinearLayout beatLayout;
     private Button btnStart;
     private ProgressBar spinner;
     private PowerManager powerManager;
     private PowerManager.WakeLock wakeLock;
     private TextView textMon;
+    private ImageView beatanim;
+
+    private Drawable beatdraw;
+    private TextView resulttext;
+    private SeekBar bpmseekBar;
+
+    private TextView text_seekbar;
+    private Button storeBtn;
+    private ImageView finger;
+
+    //icon
+    private TextView iconText;
+    private RadioGroup icons;
+
+    //end layout
+    private LinearLayout endLayout;
 
 
-
+    @SuppressWarnings("Convert2Lambda")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_heart);
+        setContentView(R.layout.activity_main);
 
         //심박패턴을 측정하는 동안 화면이 꺼지지 않도록 제어하기 위해 전원관리자를 얻어옵니다
         powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
@@ -82,6 +108,8 @@ public class HeartActivity extends AppCompatActivity {
                         | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "WAKELOCK");
         wakeLock.acquire(5000);
         initUI();
+        initPrograssBar();
+        initIcons();
         //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
         checkAndRequestPermissions();
     }
@@ -90,9 +118,17 @@ public class HeartActivity extends AppCompatActivity {
         //심박수를 측정하는 Google API의 호출을 위해 API 클라이언트를 초기화 합니다
         initGoogleApiClient();
 
+        endLayout =(LinearLayout)findViewById(R.id.end_layout);
+
+        //beat anim
+        beatanim =(ImageView)findViewById(R.id.beatanim);
+        beatdraw =beatanim.getDrawable();
+        resulttext =(TextView)findViewById(R.id.resultText);
+        beatLayout =(LinearLayout)findViewById(R.id.beatLayout);
+        storeBtn=(Button)findViewById(R.id.storeBtn);
+        finger =(ImageView)findViewById(R.id.fingerImage);
+
         textMon = findViewById(R.id.textMon);
-        spinner = findViewById(R.id.progressBar1);
-        spinner.setVisibility(View.INVISIBLE);
         btnStart = findViewById(R.id.btnStart);
         btnStart.setText("Wait please ...");
         btnStart.setEnabled(false);
@@ -101,29 +137,41 @@ public class HeartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (bCheckStarted) {
+
                     //btnStart.setText(R.string.msg_start);
                     btnStart.setText("Start");
                     bCheckStarted = false;
-
+                    resulttext.setText("");
+                    finger.setVisibility(View.VISIBLE);
+                    beatLayout.setVisibility(View.GONE);
                     unregisterFitnessDataListener();
 
-                    spinner.setVisibility(View.INVISIBLE);
+//                    spinner.setVisibility(View.INVISIBLE);
 
                     wakeLock.release();
                 }
                 else {
                     //버튼을 처음 클릭할 경우 Google API 클라이언트에 로그인이 되어있는 상태인지를 확인합니다.
                     //만약 로그인이 되어 있는 상태라면,
+
+
                     if (bGoogleConnected == true) {
                         //심박수를 측정하기 위한 API를 설정합니다
                         findDataSources();
                         //심박수의 측정이 시작되면 심박수 정보를 얻을 콜백함수를 등록/설정하는 함수를 호출합니다
                         registerDataSourceListener(DataType.TYPE_HEART_RATE_BPM);
-                        btnStart.setText("Stop");
-                        //btnStart.setText(R.string.msg_stop);
-                        bCheckStarted = true;
 
-                        spinner.setVisibility(View.VISIBLE);
+                        if ( beatdraw instanceof AnimatedVectorDrawable) {
+                            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
+                            avd.start();
+                        } else if ( beatdraw instanceof AnimatedVectorDrawableCompat) {
+                            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
+                            avd.start();
+                        }
+                        finger.setVisibility(View.GONE);
+                        beatLayout.setVisibility(View.VISIBLE);
+                        btnStart.setText("Waiting");
+                        bCheckStarted = true;
                         //화면이 꺼지지 않도록 설정합니다
                         wakeLock.acquire();
 
@@ -137,6 +185,56 @@ public class HeartActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void initIcons(){
+        iconText =(TextView)findViewById(R.id.statusText);
+        icons =(RadioGroup)findViewById(R.id.statusIcons);
+        icons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    // Changes the textview's text to "Checked: example radiobutton text"
+                    iconText.setText("Check : " + checkedRadioButton.getText());
+                }
+            }
+        });
+
+    }
+    private void initPrograssBar(){
+        bpmseekBar =(SeekBar)findViewById(R.id.bpmseekbar);
+        text_seekbar =(TextView)findViewById(R.id.statusText);
+/*        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                text_seekbar.setText("" + progress);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });*/
+
+        storeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initGoogleApiClient() {
@@ -339,13 +437,21 @@ public class HeartActivity extends AppCompatActivity {
                         if (status.isSuccess()) {
                             Log.d(TAG, "Listener was removed!");
                             Toast.makeText(getApplicationContext(),"Listener was removed",Toast.LENGTH_LONG).show();
+
+                            if (beatdraw instanceof AnimatedVectorDrawable) {
+                                AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
+                                avd.stop();
+                            } else if (beatdraw instanceof AnimatedVectorDrawableCompat) {
+                                AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
+                                avd.stop();
+                            }
+
                         } else {
                             Toast.makeText(getApplicationContext(),"not removed",Toast.LENGTH_LONG).show();
                             Log.d(TAG, "Listener was not removed.");
                         }
                     }
                 });
-        // [END unregister_data_listener]
     }
 
 
@@ -391,16 +497,28 @@ public class HeartActivity extends AppCompatActivity {
 
     private synchronized void addContentToView(final float value) {
 
+        endLayout.setVisibility(View.VISIBLE);
         runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
 
-                if (spinner.getVisibility() == View.VISIBLE)
-                    spinner.setVisibility(View.INVISIBLE);
+//                if (spinner.getVisibility() == View.VISIBLE)
+//                    spinner.setVisibility(View.INVISIBLE);
 
+                if (beatdraw instanceof AnimatedVectorDrawable) {
+                    AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
+                    avd.stop();
+                } else if (beatdraw instanceof AnimatedVectorDrawableCompat) {
+                    AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
+                    avd.stop();
+                }
+                SimpleDateFormat sampleformat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
+                String format_time1 = sampleformat.format (System.currentTimeMillis());
+                textMon.setText(format_time1);
+                bpmseekBar.setProgress((int)value);
+                resulttext.setText("Heart Beat Rate Value \n " + value);
                 Log.d(TAG,"Heart Beat Rate Value : " + value);
-                textMon.setText("Heart Beat Rate Value : " + value);
+                btnStart.setText("Finish");
             }
         });
     }
