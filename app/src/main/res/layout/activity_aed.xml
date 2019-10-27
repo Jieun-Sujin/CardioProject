@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".AEDActivity">
-
     <Button
         android:id="@+id/button"
         android:layout_gravity="center_horizontal"
@@ -159,45 +158,4 @@
         </ScrollView>
 
     </LinearLayout>
-
-
-    <!--    <ScrollView-->
-    <!--        android:id="@+id/scrollView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
-
-    <!--        <LinearLayout-->
-    <!--            android:id="@+id/location_layout"-->
-    <!--            android:orientation="vertical"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:visibility="invisible" >-->
-
-    <!--            <ListView-->
-    <!--                android:id="@+id/listView"-->
-    <!--                android:visibility="visible"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="200dp">-->
-    <!--            </ListView>-->
-
-    <!--            <fragment-->
-    <!--                android:layout_marginTop="30dp"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="300dp"-->
-    <!--                android:id="@+id/map"-->
-    <!--                android:name="com.google.android.gms.maps.SupportMapFragment"/>-->
-
-    <!--            <TextView-->
-    <!--                android:layout_marginTop="30dp"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="100dp"-->
-    <!--                android:visibility="invisible"-->
-    <!--                android:id="@+id/selected_item_textview"-->
-    <!--                android:background="@android:color/holo_blue_light"-->
-    <!--                android:text="아래 목록에서 선택하세요!"/>-->
-
-    <!--        </LinearLayout>-->
-
-    <!--    </ScrollView>-->
-
 </LinearLayout>
