@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HeartActivity"></activity>
-        <activity android:name="com.jieun.cardiocare.MainActivity">
+        <activity android:name=".HeartGraphActivity"></activity>
+        <activity android:name=".HeartActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
