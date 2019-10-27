@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -7,41 +8,239 @@
     android:weightSum="5"
     tools:context=".HeartActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
-
-        <ProgressBar
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="30dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/textMon"
-            android:textAlignment="center"
-            android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:padding="3dp"
-            android:text="START"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#333"
-            android:typeface="normal" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:background="@drawable/button"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/btnStart"
+                    android:layout_width="330dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:padding="3dp"
+                    android:text="START"
+                    android:typeface="normal" />
+
+
+                <TextView
+                    android:textSize="18dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/textMon"
+                    android:text="Please Finger over the camera sensor"
+                    android:textAlignment="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+                <ImageView
+                    android:id="@+id/fingerImage"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="130dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/finger">
+
+                </ImageView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/beatLayout"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/beatanim"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/heart_rate" />
+
+                <TextView
+                    android:id="@+id/resultText"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textStyle="normal"
+                    android:textSize="18dp">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/end_layout"
+                android:visibility="visible"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/bpmText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="BPM"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="18dp">
+                    </TextView>
+
+                    <SeekBar
+                        android:layout_below="@id/bpmText"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/bpmseekbar"
+                        android:layout_width="340dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:max="120"
+                        android:progress="40"
+                        android:progressDrawable="@drawable/custom_seekbar"
+                        android:thumb="@drawable/custom_thumb"
+                        android:secondaryProgress="75" />
+
+                    <TextView
+                        android:layout_below="@id/bpmseekbar"
+                        android:id="@+id/minBpmNum"
+                        android:layout_marginLeft="54dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/minbpm">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_below="@id/bpmseekbar"
+                        android:id="@+id/maxBpmNum"
+                        android:layout_marginLeft="330dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/maxbpm">
+                    </TextView>
+                </RelativeLayout>
+                <!--select icon-->
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="vertical" android:layout_width="330dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textSize="18dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/statusText"
+                        android:text="Select Status">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/icon_tab"
+                        android:padding="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content">
+                        <RadioGroup
+                            android:orientation="horizontal"
+                            android:id="@+id/statusIcons"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <RadioButton
+                                android:textColor="@color/empty"
+                                android:text="Stable"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/stableBtn"
+                                android:button="@color/empty"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/icon_stable">
+                            </RadioButton>
+                            <RadioButton
+                                android:textColor="@color/empty"
+                                android:text="Excite"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/exciteBtn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:button="@color/empty"
+                                android:background="@drawable/icon_excite">
+                            </RadioButton>
+                            <RadioButton
+                                android:textColor="@color/empty"
+                                android:text="Run"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/runningBtn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:button="@color/empty"
+                                android:background="@drawable/icon_running">
+                            </RadioButton>
+                            <RadioButton
+                                android:textColor="@color/empty"
+                                android:text="Depres"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/depressBtn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:button="@color/empty"
+                                android:background="@drawable/icon_depress">
+                            </RadioButton>
+                            <RadioButton
+                                android:textColor="@color/empty"
+                                android:text="Sleep"
+                                android:layout_marginLeft="10dp"
+                                android:id="@+id/sleepBtn"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:button="@color/empty"
+                                android:background="@drawable/icon_sleep">
+                            </RadioButton>
+
+                        </RadioGroup>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <Button
+                    android:background="@drawable/button"
+                    android:layout_marginTop="40dp"
+                    android:id="@+id/storeBtn"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="330dp"
+                    android:text="store Heart Rate"
+                    android:layout_height="50dp">
+
+                </Button>
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+
+
 
 
 </LinearLayout>
