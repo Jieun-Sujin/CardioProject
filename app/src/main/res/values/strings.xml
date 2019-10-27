@@ -5,5 +5,14 @@
     <string name="facebook_app_id">884710338595518</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
 
+    <string name="heartpath_origin">
+        M 6 52 L 27 52 L 32 51 L 36 55 L 46 26 L 56 69 L 61 50 L 66 56 L 70 50 L 74 52 L 94 52
+    </string>
+    <string name="heartpath">
+        M 6 52 L 27 52 L 32 51 L 36 55 L 46 26 L 56 69 L 61 50 L 66 56 L 70 50 L 74 52 L 94 52 M 6 52 L 27 52 L 32 51
+    </string>
+    <string name="dash">-</string>
+    <string name="minbpm">40</string>
+    <string name="maxbpm">120</string>
 
 </resources>
