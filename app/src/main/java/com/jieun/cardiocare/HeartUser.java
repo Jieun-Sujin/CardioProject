@@ -5,12 +5,6 @@ public class HeartUser {
     private int status;
     private String date;
 
-    public HeartUser(float ppm, int status, String date) {
-        this.ppm = ppm;
-        this.status = status;
-        this.date = date;
-    }
-
     public float getPpm() {
         return ppm;
     }
