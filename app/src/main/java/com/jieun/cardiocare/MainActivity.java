@@ -27,6 +27,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
     // 구글api클라이언트
     private GoogleSignInClient mGoogleSignInClient;
 
-    // 파이어베이스 인증 객체 생성
+    // Firebase 인증 객체 생성
     private FirebaseAuth mAuth;
+
+    // Firebase DB
+    private DatabaseReference mDatabase;
 
     // 구글  로그인 버튼
     private SignInButton buttonGoogle;
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 파이어베이스 인증 객체 선언
         mAuth = FirebaseAuth.getInstance();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         buttonGoogle = findViewById(R.id.btn_googleSignIn);
 
@@ -130,6 +137,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { // 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Log.i("username",user.getDisplayName());
+                            Log.i("userid",user.getUid());
+
+                            String userId = user.getUid();
+                            String userName = user.getDisplayName();
+
+                            UserData userData = new UserData(userName);
+                            mDatabase.child("users").child(userId).child("BodyInfo").setValue(userData);
+
+                            Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
+                            intent.putExtra("userId",userId);
+                            startActivity(intent);
+
                             //updateUI(user);
                             Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
                         } else { // 로그인 실패
