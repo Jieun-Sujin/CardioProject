@@ -67,22 +67,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     app:srcCompat="@drawable/heart_rate" />
-
-                <TextView
-                    android:id="@+id/resultText"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textStyle="normal"
-                    android:textSize="18dp">
-                </TextView>
-
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/end_layout"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:layout_marginTop="50dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -121,7 +110,7 @@
                         android:layout_marginLeft="54dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/minbpm">
+                        android:text="@string/min_bpm">
 
                     </TextView>
 
@@ -131,7 +120,7 @@
                         android:layout_marginLeft="330dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/maxbpm">
+                        android:text="@string/max_bpm">
                     </TextView>
                 </RelativeLayout>
                 <!--select icon-->
