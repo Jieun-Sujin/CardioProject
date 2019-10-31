@@ -8,14 +8,25 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/btnAphi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:onClick="clickAphi"
+        android:text="mmHg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/ap_hi"
+        app:layout_constraintTop_toBottomOf="@+id/btnWeight" />
+
+    <Button
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
         android:layout_marginBottom="24dp"
         android:text="저장하기"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -109,13 +120,11 @@
         app:layout_constraintTop_toBottomOf="@+id/age" />
 
 
-
-
     <DatePicker
         android:id="@+id/datePicker"
         android:layout_width="230dp"
         android:layout_height="82dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
@@ -126,7 +135,7 @@
         android:id="@+id/genderSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="58dp"
         android:layout_marginTop="16dp"
         android:checkedButton="@id/man"
         android:orientation="horizontal"
@@ -146,61 +155,16 @@
             android:text="여" />
     </RadioGroup>
 
-    <NumberPicker
-        android:id="@+id/npkHeight"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@+id/height"
-        app:layout_constraintTop_toBottomOf="@+id/genderSelect" />
-
-    <NumberPicker
-        android:id="@+id/npkWeight"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/weight"
-        app:layout_constraintTop_toBottomOf="@+id/npkHeight" />
-
-    <NumberPicker
-        android:id="@+id/npkAphi"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/ap_hi"
-        app:layout_constraintTop_toBottomOf="@+id/npkWeight" />
-
-    <NumberPicker
-        android:id="@+id/npkAplo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/ap_lo"
-        app:layout_constraintTop_toBottomOf="@+id/npkAphi" />
-
-    <NumberPicker
-        android:id="@+id/npkChol"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/chol"
-        app:layout_constraintTop_toBottomOf="@+id/npkAplo" />
-
     <RadioGroup
         android:id="@+id/smokeSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:checkedButton="@id/Nonsmoker"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/smoke"
-        app:layout_constraintTop_toBottomOf="@+id/npkChol">
+        app:layout_constraintTop_toBottomOf="@+id/btnChol">
 
         <RadioButton
             android:id="@+id/smoker"
@@ -238,5 +202,64 @@
             android:layout_height="wrap_content"
             android:text="아니요" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="취소"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintStart_toEndOf="@+id/saveBtn" />
+
+    <Button
+        android:id="@+id/btnHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="24dp"
+        android:onClick="clickHeight"
+        android:text="cm"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/height"
+        app:layout_constraintTop_toBottomOf="@+id/genderSelect" />
+
+    <Button
+        android:id="@+id/btnAplo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:onClick="clickAplo"
+        android:text="mmHg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/ap_lo"
+        app:layout_constraintTop_toBottomOf="@+id/btnAphi" />
+
+    <Button
+        android:id="@+id/btnChol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:onClick="clickChol"
+        android:text="mg/dl"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/chol"
+        app:layout_constraintTop_toBottomOf="@+id/btnAplo" />
+
+    <Button
+        android:id="@+id/btnWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:onClick="clickWeight"
+        android:text="kg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/weight"
+        app:layout_constraintTop_toBottomOf="@+id/btnHeight" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

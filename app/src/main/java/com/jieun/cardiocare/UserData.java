@@ -8,7 +8,7 @@ import java.util.Map;
 public class UserData {
 
     private String name;
-    private long age;
+    private String age;
     private int gender;
     private float height;
     private float weight;
@@ -24,7 +24,7 @@ public class UserData {
     public UserData(String name) {
         this.name = name;
     }
-    public UserData(String name, int gender, long age, float height, float weight, int ap_hi, int ap_lo, int cholesterol, int smoke, int alco) {
+    public UserData(String name, int gender, String age, float height, float weight, int ap_hi, int ap_lo, int cholesterol, int smoke, int alco) {
 
         this.name = name;
         this.age = age;
@@ -46,11 +46,11 @@ public class UserData {
         this.name = name;
     }
 
-    public long getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(long age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
