@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-fitness:18.0.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     //implementation 'com.google.android.gms:play-services-auth:11.6.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     implementation 'com.github.hadiidbouk:ChartProgressBar-Android:2.0.6'
     testImplementation 'junit:junit:4.12'
 }

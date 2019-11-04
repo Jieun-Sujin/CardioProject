@@ -130,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { // 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            if(user != null) {
+                                Intent intent = new Intent(getApplicationContext(), HeartActivity.class);
+                                startActivity(intent);
+                            }
                             //updateUI(user);
                             Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
                         } else { // 로그인 실패
