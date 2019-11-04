@@ -47,6 +47,12 @@ import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import java.util.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +60,12 @@ import java.util.concurrent.TimeUnit;
 
 
 public class HeartActivity extends AppCompatActivity {
+
+    //firebase
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser fuser;
+
 
     private String TAG = MainActivity.class.getName();
     private GoogleApiClient googleApiClient;
@@ -80,11 +92,12 @@ public class HeartActivity extends AppCompatActivity {
     private ImageView beatanim;
 
     private Drawable beatdraw;
-    private TextView resulttext;
+    private TextView bpmText;
     private SeekBar bpmseekBar;
 
     private TextView text_seekbar;
-    private Button storeBtn;
+
+
     private ImageView finger;
 
     //icon
@@ -93,6 +106,12 @@ public class HeartActivity extends AppCompatActivity {
 
     //end layout
     private LinearLayout endLayout;
+    private LinearLayout btnLayout2;
+    private Button againBtn;
+    private Button storeBtn;
+
+    private static HeartUser user;
+    private static int status =-1;
 
 
     @SuppressWarnings("Convert2Lambda")
@@ -107,11 +126,18 @@ public class HeartActivity extends AppCompatActivity {
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                         | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "WAKELOCK");
         wakeLock.acquire(5000);
+
+        initFireBase();
         initUI();
         initPrograssBar();
         initIcons();
         //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
         checkAndRequestPermissions();
+    }
+    private void initFireBase(){
+        mAuth = FirebaseAuth.getInstance();
+        fuser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void initUI() {
@@ -119,12 +145,14 @@ public class HeartActivity extends AppCompatActivity {
         initGoogleApiClient();
 
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
-
+        btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
         //beat anim
         beatanim =(ImageView)findViewById(R.id.beatanim);
         beatdraw =beatanim.getDrawable();
-        resulttext =(TextView)findViewById(R.id.resultText);
+        bpmText =(TextView)findViewById(R.id.bpmText);
         beatLayout =(LinearLayout)findViewById(R.id.beatLayout);
+
+        againBtn=(Button)findViewById(R.id.againBtn);
         storeBtn=(Button)findViewById(R.id.storeBtn);
         finger =(ImageView)findViewById(R.id.fingerImage);
 
@@ -132,59 +160,54 @@ public class HeartActivity extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStart);
         btnStart.setText("Wait please ...");
         btnStart.setEnabled(false);
-
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (bCheckStarted) {
-
-                    //btnStart.setText(R.string.msg_start);
-                    btnStart.setText("Start");
-                    bCheckStarted = false;
-                    resulttext.setText("");
-                    finger.setVisibility(View.VISIBLE);
-                    beatLayout.setVisibility(View.GONE);
-                    unregisterFitnessDataListener();
-
-//                    spinner.setVisibility(View.INVISIBLE);
-
-                    wakeLock.release();
-                }
-                else {
-                    //버튼을 처음 클릭할 경우 Google API 클라이언트에 로그인이 되어있는 상태인지를 확인합니다.
-                    //만약 로그인이 되어 있는 상태라면,
-
-
-                    if (bGoogleConnected == true) {
-                        //심박수를 측정하기 위한 API를 설정합니다
-                        findDataSources();
-                        //심박수의 측정이 시작되면 심박수 정보를 얻을 콜백함수를 등록/설정하는 함수를 호출합니다
-                        registerDataSourceListener(DataType.TYPE_HEART_RATE_BPM);
-
-                        if ( beatdraw instanceof AnimatedVectorDrawable) {
-                            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
-                            avd.start();
-                        } else if ( beatdraw instanceof AnimatedVectorDrawableCompat) {
-                            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
-                            avd.start();
-                        }
-                        finger.setVisibility(View.GONE);
-                        beatLayout.setVisibility(View.VISIBLE);
-                        btnStart.setText("Waiting");
-                        bCheckStarted = true;
-                        //화면이 꺼지지 않도록 설정합니다
-                        wakeLock.acquire();
-
-                    }
-                    // Google API 클라이언트에 로그인이 되어 있지 않다면,
-                    else {
-                        //Google API 클라이언트에 로그인 합니다
-                        if (HeartActivity.this.googleApiClient != null)
-                            HeartActivity.this.googleApiClient.connect();
-                    }
-                }
+                Measure(btnStart);
             }
         });
+    }
+    private void Measure(Button btn){
+
+        if (bCheckStarted) {
+            endLayout.setVisibility(View.GONE);
+            btn.setText("Start");
+            bCheckStarted = false;
+            finger.setVisibility(View.VISIBLE);
+            beatLayout.setVisibility(View.GONE);
+            unregisterFitnessDataListener();
+            wakeLock.release();
+        }
+        else {
+
+            if (bGoogleConnected == true) {
+                //심박수를 측정하기 위한 API를 설정합니다
+                findDataSources();
+                //심박수의 측정이 시작되면 심박수 정보를 얻을 콜백함수를 등록/설정하는 함수를 호출합니다
+                registerDataSourceListener(DataType.TYPE_HEART_RATE_BPM);
+
+                if ( beatdraw instanceof AnimatedVectorDrawable) {
+                    AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
+                    avd.start();
+                } else if ( beatdraw instanceof AnimatedVectorDrawableCompat) {
+                    AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
+                    avd.start();
+                }
+                finger.setVisibility(View.GONE);
+                beatLayout.setVisibility(View.VISIBLE);
+                btn.setText("Waiting");
+                bCheckStarted = true;
+                //화면이 꺼지지 않도록 설정합니다
+                wakeLock.acquire();
+
+            }
+            // Google API 클라이언트에 로그인이 되어 있지 않다면,
+            else {
+                //Google API 클라이언트에 로그인 합니다
+                if (HeartActivity.this.googleApiClient != null)
+                    HeartActivity.this.googleApiClient.connect();
+            }
+        }
     }
     private void initIcons(){
         iconText =(TextView)findViewById(R.id.statusText);
@@ -200,7 +223,13 @@ public class HeartActivity extends AppCompatActivity {
                 if (isChecked)
                 {
                     // Changes the textview's text to "Checked: example radiobutton text"
+                    if(i ==R.id.stableBtn){ status =0;}
+                    if(i ==R.id.exciteBtn){ status =1;}
+                    if(i ==R.id.runningBtn){ status =2;}
+                    if(i ==R.id.depressBtn){ status =3;}
+                    if(i ==R.id.sleepBtn){ status =4;}
                     iconText.setText("Check : " + checkedRadioButton.getText());
+
                 }
             }
         });
@@ -227,13 +256,7 @@ public class HeartActivity extends AppCompatActivity {
             }
         });*/
 
-        storeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 
@@ -495,15 +518,27 @@ public class HeartActivity extends AppCompatActivity {
         }
     }
 
+    public String getDateStr(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfNow.format(date);
+    }
+
+    public String getTimeStr(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("HH:mm");
+        return sdfNow.format(date);
+    }
+
+
     private synchronized void addContentToView(final float value) {
 
         endLayout.setVisibility(View.VISIBLE);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-//                if (spinner.getVisibility() == View.VISIBLE)
-//                    spinner.setVisibility(View.INVISIBLE);
 
                 if (beatdraw instanceof AnimatedVectorDrawable) {
                     AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
@@ -512,13 +547,47 @@ public class HeartActivity extends AppCompatActivity {
                     AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
                     avd.stop();
                 }
-                SimpleDateFormat sampleformat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
-                String format_time1 = sampleformat.format (System.currentTimeMillis());
+                SimpleDateFormat Sformat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
+                String format_time1 = Sformat.format (System.currentTimeMillis());
                 textMon.setText(format_time1);
+                bpmText.setText("BPM is " + value);
                 bpmseekBar.setProgress((int)value);
-                resulttext.setText("Heart Beat Rate Value \n " + value);
-                Log.d(TAG,"Heart Beat Rate Value : " + value);
-                btnStart.setText("Finish");
+
+                btnStart.setVisibility(View.GONE);
+                btnLayout2.setVisibility(View.VISIBLE);
+                user =new HeartUser();
+                user.setDate(getDateStr()+"" +getTimeStr());
+                user.setBpm(value);
+                user.setStatus(status);
+
+                againBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        textMon.setText("Please Finger over the camera sensor");
+                        Measure(againBtn);
+                    }
+                });
+
+                storeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(status<0){
+                            storeBtn.setText("please check status");
+                        }else{
+                            String id = "ilsyA81vr9UygsO6OoJNwnA2pBo1";
+                            mDatabase.child("users").child(id).child("Bpm").child(getDateStr()).child(getTimeStr()).setValue(user);
+                            Toast.makeText(HeartActivity.this, "BPM 입력 완료", Toast.LENGTH_SHORT).show();
+
+                            Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
+                            intent.putExtra("user",user);
+                            startActivity(intent);
+
+                        }
+
+
+
+                    }
+                });
             }
         });
     }
