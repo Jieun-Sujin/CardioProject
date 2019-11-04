@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnAphi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:onClick="clickAphi"
+        android:text="mmHg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/ap_hi"
+        app:layout_constraintTop_toBottomOf="@+id/btnWeight" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="24dp"
+        android:text="저장하기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="80dp"
+        android:text="생년월일"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="신장"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender" />
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="39dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="몸무게"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height" />
+
+    <TextView
+        android:id="@+id/ap_hi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="최고혈압"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+    <TextView
+        android:id="@+id/ap_lo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="최저혈압"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ap_hi" />
+
+    <TextView
+        android:id="@+id/chol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="콜레스테롤"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ap_lo" />
+
+    <TextView
+        android:id="@+id/smoke"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="흡연여부"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chol" />
+
+    <TextView
+        android:id="@+id/alco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="음주여부"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/smoke" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="45dp"
+        android:text="성별"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age" />
+
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="230dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintStart_toEndOf="@+id/age"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/genderSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="16dp"
+        android:checkedButton="@id/man"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/gender"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker">
+
+        <RadioButton
+            android:id="@+id/man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남" />
+
+        <RadioButton
+            android:id="@+id/woman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="여" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/smokeSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:checkedButton="@id/Nonsmoker"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/smoke"
+        app:layout_constraintTop_toBottomOf="@+id/btnChol">
+
+        <RadioButton
+            android:id="@+id/smoker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="예" />
+
+        <RadioButton
+            android:id="@+id/Nonsmoker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아니요" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/alcoSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:checkedButton="@id/Nondrink"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/alco"
+        app:layout_constraintTop_toBottomOf="@+id/smokeSelect">
+
+        <RadioButton
+            android:id="@+id/drinking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="예" />
+
+        <RadioButton
+            android:id="@+id/Nondrink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아니요" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="취소"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintStart_toEndOf="@+id/saveBtn" />
+
+    <Button
+        android:id="@+id/btnHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="24dp"
+        android:onClick="clickHeight"
+        android:text="cm"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/height"
+        app:layout_constraintTop_toBottomOf="@+id/genderSelect" />
+
+    <Button
+        android:id="@+id/btnAplo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:onClick="clickAplo"
+        android:text="mmHg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/ap_lo"
+        app:layout_constraintTop_toBottomOf="@+id/btnAphi" />
+
+    <Button
+        android:id="@+id/btnChol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:onClick="clickChol"
+        android:text="mg/dl"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/chol"
+        app:layout_constraintTop_toBottomOf="@+id/btnAplo" />
+
+    <Button
+        android:id="@+id/btnWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:onClick="clickWeight"
+        android:text="kg"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/weight"
+        app:layout_constraintTop_toBottomOf="@+id/btnHeight" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
