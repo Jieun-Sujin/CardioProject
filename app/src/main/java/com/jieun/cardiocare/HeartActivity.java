@@ -62,7 +62,7 @@ import java.util.concurrent.TimeUnit;
 public class HeartActivity extends AppCompatActivity {
 
     //firebase
-    private DatabaseReference mDatabase;
+    public static DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser fuser;
 
@@ -574,7 +574,7 @@ public class HeartActivity extends AppCompatActivity {
                         if(status<0){
                             storeBtn.setText("please check status");
                         }else{
-                            String id = "ilsyA81vr9UygsO6OoJNwnA2pBo1";
+                            String id = fuser.getUid();
                             mDatabase.child("users").child(id).child("Bpm").child(getDateStr()).child(getTimeStr()).setValue(user);
                             Toast.makeText(HeartActivity.this, "BPM 입력 완료", Toast.LENGTH_SHORT).show();
 
