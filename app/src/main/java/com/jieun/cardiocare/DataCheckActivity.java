@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,18 +20,20 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DataCheckActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     TextView gender, age, height, weight, aphi, aplo, chol, smoke, alco;
-    String userId, userName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_check);
 
-        Intent intent = getIntent();
-        userId = intent.getExtras().getString("userId");
-        userName = intent.getExtras().getString("userName");
-
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        final String userId = user.getUid();
+        final String userName = user.getDisplayName();
         getUser(userId);
 
         gender = (TextView) findViewById(R.id.gendertxt);
@@ -53,7 +57,6 @@ public class DataCheckActivity extends AppCompatActivity {
 
                         UserData user = dataSnapshot.getValue(UserData.class);
                         if(user != null){
-                            Log.i("gender", String.valueOf(user.getGender()));
                             gender.setText(user.getGender() == 0 ? "여" : "남");
                             age.setText(user.getAge().substring(0,4) +"년 " + user.getAge().substring(4,6)+"월 " + user.getAge().substring(6) + "일");
                             //age.setText("만" + user.getAge()/365 + "세");
@@ -74,11 +77,14 @@ public class DataCheckActivity extends AppCompatActivity {
                 });
     }
 
-    public void btnChange(View view) {
+    public void clickPredict(View view) {
+
+        Intent intent = new Intent(getApplicationContext(), CardioPredictActivity.class);
+        startActivity(intent);
+    }
+    public void clickChange(View view) {
 
         Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
-        intent.putExtra("userId",userId);
-        intent.putExtra("userName",userName);
-        startActivity(intent);
+        startActivity(intent); //새로고침 처리 해줘야함
     }
 }

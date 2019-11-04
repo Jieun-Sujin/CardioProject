@@ -144,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                             Log.i("userid",user.getUid());
 
                             final String userId = user.getUid();
-                            final String userName = user.getDisplayName();
 
                             mDatabase.child("users").child(userId).addListenerForSingleValueEvent(
                                     new ValueEventListener() {
@@ -156,11 +155,9 @@ public class MainActivity extends AppCompatActivity {
                                             if(user == null){ // 가입되어 있지 않다면
                                                 intent = new Intent(getApplicationContext(), UserInfoActivity.class);
                                             }
-                                            else{ //가입되어 있으면
+                                            else{ // 가입되어 있으면 -> 최종적으로는 홈화면
                                                 intent = new Intent(getApplicationContext(), DataCheckActivity.class);
                                             }
-                                            intent.putExtra("userId",userId);
-                                            intent.putExtra("userName",userName);
                                             startActivity(intent);
                                         }
 
@@ -172,12 +169,7 @@ public class MainActivity extends AppCompatActivity {
                             /*
                             UserData userData = new UserData(userName);
                             mDatabase.child("users").child(userId).child("BodyInfo").setValue(userData);
-
-                            Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
-                            intent.putExtra("userId",userId);
-                            startActivity(intent);
                             */
-                            //updateUI(user);
                             Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
                         } else { // 로그인 실패
 

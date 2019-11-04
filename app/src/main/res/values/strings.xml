@@ -4,6 +4,6 @@
     <string name="failed_login">로그인에 실패하였습니다.</string>
     <string name="facebook_app_id">884710338595518</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
-
-
+    <string name="predict_info">님의 예상 심혈관질환 발병률</string>
+    <string name="TenYearsLater">10년후 발병률</string>
 </resources>

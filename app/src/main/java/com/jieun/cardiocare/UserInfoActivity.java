@@ -13,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class UserInfoActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     DatePicker birthday;
     RadioGroup genderSelect, smokeSelect, alcoSelect;
     RadioButton man, woman, smoker, nonSmoker, drinking, nonDrink;
@@ -40,10 +44,11 @@ public class UserInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userdata_input);
 
-        Intent intent = getIntent();
-        final String userId = intent.getExtras().getString("userId");
-        final String userName = intent.getExtras().getString("userName");
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        final String userId = user.getUid();
+        final String userName = user.getDisplayName();
         getUser(userId);
 
         birthday = (DatePicker) findViewById(R.id.datePicker);
@@ -99,17 +104,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
                 UserData user = new UserData(userName, gender, age, height, weight, aphi, aplo, chol, smoke, alco);
                 mDatabase.child("users").child(userId).child("BodyInfo").setValue(user);
-                /*
-                mDatabase.child("age").setValue(age);
-                mDatabase.child("gender").setValue(gender);
-                mDatabase.child("height").setValue(height);
-                mDatabase.child("weight").setValue(weight);
-                mDatabase.child("ap_hi").setValue(aphi);
-                mDatabase.child("ap_lo").setValue(aplo);
-                mDatabase.child("cholesterol").setValue(chol);
-                mDatabase.child("smoke").setValue(smoke);
-                mDatabase.child("alco").setValue(alco);
-                */
             }
         });
 
@@ -127,43 +121,6 @@ public class UserInfoActivity extends AppCompatActivity {
         String birthYMD = birthY + birthM + birthD;
 
         return birthYMD;
-    }
-
-    public long getAge(int mYear, int mMonth, int mDay){
-
-        long age = 0;
-
-        String birthY = birthday.getYear() + "";
-        String birthM = "";
-        if(birthday.getMonth() + 1 < 10)
-            birthM = "0" + (birthday.getMonth() + 1);
-        else
-            birthM = (birthday.getMonth() + 1) + "";
-        String birthD = birthday.getDayOfMonth() + "";
-
-        String today = "";
-        if(mMonth < 10)
-            today = Integer.toString(mYear) + "0" + String.valueOf(mMonth) + String.valueOf(mDay);
-        else
-            today = Integer.toString(mYear) + String.valueOf(mMonth) + String.valueOf(mDay);
-
-        String birthYMD = birthY + birthM + birthD;
-        Log.i("today", today);
-        Log.i("birthday",birthYMD);
-
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-
-        try{
-            Date startDate = format.parse(today);
-            Date endDate = format.parse(birthYMD);
-
-            age = (startDate.getTime() - endDate.getTime()) / (24*60*60*1000);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return age;
     }
 
     public int getGender() {
@@ -267,34 +224,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickHeight(View view) {
 
         String height = String.valueOf(heightBtn.getText());
-        showHeightpicker(height.substring(0, height.length()-2));
-    }
-
-    public void clickWeight(View view) {
-
-        String weight = String.valueOf(weightBtn.getText());
-        showWeightpicker(weight.substring(0, weight.length()-2));
-    }
-
-    public void clickAphi(View view) {
-
-        String aphi = String.valueOf(aphiBtn.getText());
-        showAphiPicker(aphi.substring(0,aphi.length()-4));
-    }
-
-    public void clickAplo(View view) {
-
-        String aplo = String.valueOf(aploBtn.getText());
-        showAploPicker(aplo.substring(0,aplo.length()-4));
-    }
-
-    public void clickChol(View view) {
-
-        String chol = String.valueOf(cholBtn.getText());
-        showCholPicker(chol.substring(0,chol.length()-5));
-    }
-
-    private void showHeightpicker(String setHeight) {
+        String setHeight = height.substring(0, height.length()-2);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -332,10 +262,12 @@ public class UserInfoActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = d.create();
         alertDialog.show();
-
     }
 
-    private void showWeightpicker(String setWeight) {
+    public void clickWeight(View view) {
+
+        String weight = String.valueOf(weightBtn.getText());
+        String setWeight = weight.substring(0, weight.length()-2);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -375,7 +307,10 @@ public class UserInfoActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void showAphiPicker(String setAphi) {
+    public void clickAphi(View view) {
+
+        String aphi = String.valueOf(aphiBtn.getText());
+        String setAphi = aphi.substring(0,aphi.length()-4);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -407,7 +342,10 @@ public class UserInfoActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void showAploPicker(String setAplo) {
+    public void clickAplo(View view) {
+
+        String aplo = String.valueOf(aploBtn.getText());
+        String setAplo = aplo.substring(0,aplo.length()-4);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -422,12 +360,6 @@ public class UserInfoActivity extends AppCompatActivity {
         numberPicker.setValue(Integer.parseInt(setAplo));
         numberPicker.setWrapSelectorWheel(false);
 
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-
-            }
-        });
         d.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -443,10 +375,12 @@ public class UserInfoActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = d.create();
         alertDialog.show();
-
     }
 
-    private void showCholPicker(String setChol) {
+    public void clickChol(View view) {
+
+        String chol = String.valueOf(cholBtn.getText());
+        String setChol = chol.substring(0,chol.length()-5);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -461,12 +395,6 @@ public class UserInfoActivity extends AppCompatActivity {
         numberPicker.setValue(Integer.parseInt(setChol));
         numberPicker.setWrapSelectorWheel(false);
 
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-
-            }
-        });
         d.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -483,4 +411,5 @@ public class UserInfoActivity extends AppCompatActivity {
         AlertDialog alertDialog = d.create();
         alertDialog.show();
     }
+
 }
