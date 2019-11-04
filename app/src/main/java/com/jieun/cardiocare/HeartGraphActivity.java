@@ -27,20 +27,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hadiidbouk.charts.BarData;
 import com.hadiidbouk.charts.ChartProgressBar;
 import com.hadiidbouk.charts.OnBarClickedListener;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.jieun.cardiocare.MainActivity.mDatabase;
 
 public class HeartGraphActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -73,8 +71,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
     //firebase
 
-    //firebase
-    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser fuser;
 
@@ -91,7 +87,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     private void initFireBase(){
         mAuth = FirebaseAuth.getInstance();
         fuser = mAuth.getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public void init() {
@@ -158,7 +153,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     private void calculateWeekData() {
 
         final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
-        final String id = fuser.getUid();
+        String id = fuser.getUid();
 
         mDatabase.child("users").child(id).child("Bpm").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -185,10 +180,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
                     }
 
                 }
-
-
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -277,7 +269,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
             }
 
         });
-
 
     }
 
@@ -436,7 +427,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         if (clicked1 == 1) {
             xVals.clear();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < WEEK; i++) {
                 String input = (i + 1) + "주";
                 xVals.add(input);
             }
@@ -445,7 +436,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         if (clicked1 == 2) {
             xVals.clear();
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < MONTH; i++) {
                 String input = (i + 1) + "월";
                 xVals.add(input);
             }
@@ -460,7 +451,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         if (clicked1 == 0) {
             yVals.clear();
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < DAILY; i++) {
                 if (daily[i][clicked2] != 0) {
                     yVals.add(new Entry(daily_avg[i][clicked2], i));
                 }
@@ -470,7 +461,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         if (clicked1 == 1) {
             yVals.clear();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < WEEK; i++) {
                 if (week[i][clicked2] != 0) {
                     yVals.add(new Entry(weekly_avg[i][clicked2], i));
                 }
@@ -481,7 +472,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         if (clicked1 == 2) {
             yVals.clear();
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < MONTH; i++) {
                 if (month[i][clicked2] != 0) {
                     yVals.add(new Entry(month_avg[i][clicked2], i));
                 }
