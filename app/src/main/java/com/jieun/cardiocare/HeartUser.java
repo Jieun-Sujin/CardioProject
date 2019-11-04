@@ -1,16 +1,18 @@
 package com.jieun.cardiocare;
 
-public class HeartUser {
-    private float ppm;
+import java.io.Serializable;
+
+public class HeartUser implements Serializable {
+    private float bpm;
     private int status;
     private String date;
 
-    public float getPpm() {
-        return ppm;
+    public float getBpm() {
+        return bpm;
     }
 
-    public void setPpm(float ppm) {
-        this.ppm = ppm;
+    public void setBpm(float bpm) {
+        this.bpm = bpm;
     }
 
     public int getStatus() {
