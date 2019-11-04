@@ -1,12 +1,15 @@
 package com.jieun.cardiocare;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.UserData;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.R.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import shortbread.Shortbread;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Shortbread.create(this);
 
         // 파이어베이스 인증 객체 선언
         mAuth = FirebaseAuth.getInstance();
@@ -156,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
                                                 intent = new Intent(getApplicationContext(), UserInfoActivity.class);
                                             }
                                             else{ // 가입되어 있으면 -> 최종적으로는 홈화면
-                                                intent = new Intent(getApplicationContext(), DataCheckActivity.class);
+                                                intent = new Intent(getApplicationContext(), HomeActivity.class);
+
                                             }
                                             startActivity(intent);
                                         }
@@ -166,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                                             // Getting Post failed, log a message
                                         }
                                     });
+
                             /*
                             UserData userData = new UserData(userName);
                             mDatabase.child("users").child(userId).child("BodyInfo").setValue(userData);
