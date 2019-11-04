@@ -4,6 +4,10 @@
     <string name="failed_login">로그인에 실패하였습니다.</string>
     <string name="facebook_app_id">884710338595518</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
+    <string name="dataInputBtnText">내 정보 입력하기</string>
+    <string name="predictBtnText">심혈관질환 예측하기</string>
+    <string name="bpmBtnText">심박수 측정하기</string>
+    <string name="aedBtnText">주변 AED 찾아보기</string>
 
 
 </resources>
