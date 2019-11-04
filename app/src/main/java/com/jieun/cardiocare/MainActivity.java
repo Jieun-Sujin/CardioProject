@@ -37,7 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-
     // 구글로그인 result 상수
     private static final int RC_SIGN_IN = 900;
 
