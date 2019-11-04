@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     // Firebase DB
-    private DatabaseReference mDatabase;
+    public static DatabaseReference mDatabase;
 
     // 구글  로그인 버튼
     private SignInButton buttonGoogle;
