@@ -3,4 +3,26 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="empty">@android:color/transparent</color>
+    
+    <!--prograss bar !-->
+    <color name="progress_bar">#F2912C</color>
+    <color name="progress_disable">@android:color/darker_gray</color>
+    <color name="progress_click">#F2912C</color>
+     
+    <!--pin !-->
+    <color name="pin_background">#E2335E</color>
+    <color name="pin_text">#ffffff</color>
+    
+    <!--bar!-->
+    <color name="bar_title_color">@android:color/black</color>
+    <color name="bar_title_selected_color">#FFFFFF</color>
+    <color name="bpm_seekbar_color">@android:color/darker_gray</color>
+    
+    <!--graph!-->
+    <color name="colorGraph">#DF013A</color>
+    <color name="colorButtonInside">#ffffff</color>
+    <color name="colorButtonLine">#DF013A</color>
+    <color name="colorGraph2">@android:color/black</color>
 </resources>

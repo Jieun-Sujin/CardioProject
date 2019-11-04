@@ -43,6 +43,10 @@ dependencies {
     
     //facebook
     implementation 'com.facebook.android:facebook-login:[5,6)'
+
+    //graph  
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    implementation 'com.github.hadiidbouk:ChartProgressBar-Android:2.0.6'
     
     //tensorflow
     implementation 'org.tensorflow:tensorflow-lite:+'
@@ -52,5 +56,4 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 }
-
 apply plugin: 'com.google.gms.google-services'

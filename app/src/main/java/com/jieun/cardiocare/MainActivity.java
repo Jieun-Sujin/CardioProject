@@ -1,11 +1,11 @@
 package com.jieun.cardiocare;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.UserData;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import android.R.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import shortbread.Shortbread;
@@ -37,7 +37,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-
 
     // 구글로그인 result 상수
     private static final int RC_SIGN_IN = 900;
@@ -144,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { // 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            if(user != null) {
+                                Intent intent = new Intent(getApplicationContext(), HeartActivity.class);
+                                startActivity(intent);
+                            }
+     
                             Log.i("username",user.getDisplayName());
                             Log.i("userid",user.getUid());
 

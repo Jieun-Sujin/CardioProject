@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".HeartGraphActivity">
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:background="@drawable/current_tab"
+        android:id="@+id/current_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="350dp"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/dateText"
+                    android:text="2019 - 10- 08"
+                    android:textSize="13dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/timeText"
+                    android:text="18 : 30 "
+                    android:textSize="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:id="@+id/statusText"
+                android:layout_marginLeft="30dp"
+                android:text="EXCITE"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/bpmText"
+                android:text="75 BPM"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/current_layout"
+        android:id="@+id/spinner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <RelativeLayout
+            android:id="@+id/time_layout"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="3dp"
+            android:layout_weight=".28"
+            android:background="@drawable/spinner_border"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/time_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:autofillHints="time"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/drop" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/staus_layout"
+            android:layout_toRightOf="@+id/time_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight=".28"
+            android:background="@drawable/spinner_border"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/status_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:autofillHints="status"
+                android:layout_marginLeft="5dp"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/drop" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/spinner_layout"
+        android:id="@+id/graph_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:id="@+id/valuetable"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TableRow
+                android:id="@+id/value">
+                <TextView
+                    android:id="@+id/max"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:text="MAX |"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/max_v"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_width="50dp"
+                    android:text=""
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/avg"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="50dp"
+                    android:text="AVG |"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/avg_v"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_width="50dp"
+                    android:text=""
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/min"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="MIN |"
+                    android:layout_width="50dp"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/min_v"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_width="50dp"
+                    android:text=""
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </TableRow>
+        </TableLayout>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/linechart"
+            android:layout_width="350dp"
+            android:layout_height="380dp"
+            android:layout_below="@+id/valuetable"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp">
+
+        </com.github.mikephil.charting.charts.LineChart>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
