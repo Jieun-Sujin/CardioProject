@@ -13,5 +13,10 @@
         <item name="android:drawableBottom">?android:attr/listChoiceIndicatorSingle</item>
         <item name="android:gravity">center_horizontal|bottom</item>
     </style>
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+    </style>
 
 </resources>
