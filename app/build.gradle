@@ -30,7 +30,7 @@ dependencies {
     //Google
     implementation 'com.google.android.gms:play-services-fitness:18.0.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    //implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     //implementation 'com.google.android.gms:play-services-auth:11.6.2'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -50,7 +50,7 @@ dependencies {
     
     //tensorflow
     implementation 'org.tensorflow:tensorflow-lite:+'
-    
+
     //shortbread
     implementation 'com.github.matthiasrobbers:shortbread:1.0.2'
 

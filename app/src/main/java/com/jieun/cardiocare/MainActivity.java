@@ -33,6 +33,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     // 구글api클라이언트
     private GoogleSignInClient mGoogleSignInClient;
 
-    // 파이어베이스 인증 객체 생성
+    // Firebase 인증 객체 생성
     private FirebaseAuth mAuth;
 
     // Firebase DB
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 파이어베이스 인증 객체 선언
         mAuth = FirebaseAuth.getInstance();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         buttonGoogle = findViewById(R.id.btn_googleSignIn);
 
@@ -159,10 +162,11 @@ public class MainActivity extends AppCompatActivity {
                                             UserData user = dataSnapshot.getValue(UserData.class);
                                             Intent intent;
                                             if(user == null){ // 가입되어 있지 않다면
-                                                intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                                intent = new Intent(getApplicationContext(), UserInfoActivity.class);
                                             }
                                             else{ // 가입되어 있으면 -> 최종적으로는 홈화면
                                                 intent = new Intent(getApplicationContext(), HomeActivity.class);
+
                                             }
                                             startActivity(intent);
                                         }
@@ -172,7 +176,11 @@ public class MainActivity extends AppCompatActivity {
                                             // Getting Post failed, log a message
                                         }
                                     });
-                          
+
+                            /*
+                            UserData userData = new UserData(userName);
+                            mDatabase.child("users").child(userId).child("BodyInfo").setValue(userData);
+                            */
                             Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
                         } else { // 로그인 실패
 
@@ -201,4 +209,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

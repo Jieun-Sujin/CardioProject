@@ -32,8 +32,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".UserInfoActivity"/>
+        <activity android:name=".CardioPredictActivity"/>
+        <activity android:name=".DataCheckActivity"/>
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api_key" />
+      
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

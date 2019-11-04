@@ -10,13 +10,17 @@
     <string name="aed_api_key">o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
     
-        
+    <!-- CardioPredictActivity -->
+
+    <string name="predict_info">님의 예상 심혈관질환 발병률</string>
+    <string name="TenYearsLater">10년후 발병률</string>
+
     <!-- HomeActivity -->
     <string name="dataInputBtnText">내 정보 입력하기</string>
     <string name="predictBtnText">심혈관질환 예측하기</string>
     <string name="bpmBtnText">심박수 측정하기</string>
     <string name="aedBtnText">주변 AED 찾아보기</string>
-        
+
     <!-- HeartAnim -->
     <string name="heartpath_origin">
         M 6 52 L 27 52 L 32 51 L 36 55 L 46 26 L 56 69 L 61 50 L 66 56 L 70 50 L 74 52 L 94 52
