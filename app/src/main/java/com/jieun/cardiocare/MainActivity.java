@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static DatabaseReference mDatabase;
 
     // 구글  로그인 버튼
+
     private SignInButton buttonGoogle;
 
     // 페이스북 콜백 매니저
