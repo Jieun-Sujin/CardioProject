@@ -32,4 +32,10 @@
     <string name="min_bpm">40</string>
     <string name="max_bpm">120</string>
 
+    <!--shortboard labels-->
+    <string name="label_aed">AED</string>
+    <string name="label_bpm">BPM</string>
+    <string name="label_predict">PREDICT</string>
+    <string name="label_profile">PROFILE</string>
+
 </resources>
