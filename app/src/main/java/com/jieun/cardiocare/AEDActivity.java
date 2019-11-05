@@ -43,6 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import shortbread.Shortcut;
+
+//@Shortcut(id = "AED", icon = R.drawable.ic_noun_map, shortLabelRes = R.string.label_aed, rank = 3)
 public class AEDActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 

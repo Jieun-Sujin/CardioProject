@@ -58,6 +58,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import shortbread.Shortcut;
+
+//@Shortcut(id = "BPM", icon = R.drawable.ic_noun_heart, shortLabelRes = R.string.label_bpm, rank = 2)
 
 public class HeartActivity extends AppCompatActivity {
 
@@ -390,7 +393,6 @@ public class HeartActivity extends AppCompatActivity {
 
                             if (dataSource.getDataType().equals(DataType.TYPE_HEART_RATE_BPM)
                                     && onDataPointListener == null) {
-                                Log.d(TAG, "findDataSources onResult() registering dataSource=" + dataSource);
                                 registerDataSourceListener(DataType.TYPE_HEART_RATE_BPM);
 
                             }

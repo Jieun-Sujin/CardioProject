@@ -36,6 +36,9 @@ import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import shortbread.Shortcut;
+
+//@Shortcut(id = "PREDICT", icon = R.drawable.ic_noun_neural_network1, shortLabelRes = R.string.label_predict, rank = 1)
 public class CardioPredictActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
