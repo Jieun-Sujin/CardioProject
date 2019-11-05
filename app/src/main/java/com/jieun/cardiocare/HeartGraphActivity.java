@@ -28,9 +28,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.hadiidbouk.charts.BarData;
-import com.hadiidbouk.charts.ChartProgressBar;
-import com.hadiidbouk.charts.OnBarClickedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +42,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     final static int DAILY = 7;
     final static int WEEK = 5;
     final static int MONTH = 12;
+    final static int STATUS =5;
 
     TextView dateText, timeText, bpmText, statusText;
     Spinner timeSpinner, statusSpinner;
@@ -78,6 +76,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_graph);
+
 
         initFireBase();
         init();
@@ -120,8 +119,20 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         //chart
         mChart = (LineChart) findViewById(R.id.linechart);
 
-    }
 
+        Intent intent =getIntent();
+        HeartUser huser = (HeartUser)intent.getSerializableExtra("user");
+        if(huser !=null){
+            String[] statusList = getResources().getStringArray(R.array.status_array);
+            bpmText.setText(String.valueOf(huser.getBpm()));
+            statusText.setText(statusList[huser.getStatus()] + "BPM");
+
+        }else{
+            bpmText.setText("");
+            statusText.setText("");
+        }
+
+    }
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         setupGraph();
@@ -171,7 +182,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
                     }
                     calendar.setTime(convertedDate);
 
-                    //시간 별로
                     for (DataSnapshot timeData : data.getChildren()) {
                         int type = Integer.parseInt(timeData.child("status").getValue().toString());
                         float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
@@ -275,8 +285,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     private void calculateB() {
 
         if (clicked1 == 0) {
-            for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < DAILY; i++) {
+                for (int j = 0; j < STATUS; j++) {
                     if (daily[i][j] != 0) {
                         daily_avg[i][j] = daily[i][j] / daily_cnt[i][j];
                     }
@@ -285,8 +295,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         }
 
         if (clicked1 == 1) {
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < WEEK; i++) {
+                for (int j = 0; j < STATUS; j++) {
                     if (week[i][j] != 0) {
                         weekly_avg[i][j] = week[i][j] / week_cnt[i][j];
 
@@ -297,8 +307,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         }
 
         if (clicked1 == 2) {
-            for (int i = 0; i < 12; i++) {
-                for (int j = 0; j < 5; j++) {
+            for (int i = 0; i < MONTH; i++) {
+                for (int j = 0; j < STATUS; j++) {
                     if (month[i][j] != 0) {
                         month_avg[i][j] = month[i][j] / month_cnt[i][j];
 
@@ -322,7 +332,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         int cnt = 0;
 
         if (period == 0) {
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < DAILY; i++) {
                 if (daily[i][status] != 0) {
                     min = min < daily_avg[i][status] ? min : daily_avg[i][status];
                     max = max > daily_avg[i][status] ? max : daily_avg[i][status];
@@ -333,7 +343,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         }
 
         if (period == 1) {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < WEEK; i++) {
                 if (week[i][status] != 0) {
                     min = min < weekly_avg[i][status] ? min : weekly_avg[i][status];
                     max = max > weekly_avg[i][status] ? max : weekly_avg[i][status];
@@ -344,7 +354,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         }
 
         if (period == 2) {
-            for (int i = 0; i < 12; i++) {
+            for (int i = 0; i < MONTH; i++) {
                 if (month[i][status] != 0) {
                     min = min < month_avg[i][status] ? min : month_avg[i][status];
                     max = max > month_avg[i][status] ? max : month_avg[i][status];
