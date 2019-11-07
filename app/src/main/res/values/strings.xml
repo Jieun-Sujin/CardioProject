@@ -40,4 +40,10 @@
     <string name="label_predict">PREDICT</string>
     <string name="label_profile">PROFILE</string>
 
+    <!--question-->
+    <string name="bpmtext1">심박수는 온도, 자세, 활동, 감정 등의 요인에 따라 \n영향을 받을 수 있습니다. </string>
+    <string name="bpmtext2">손가락을 카메라 옆에 있는 \n 센서에 가져다 주세요. </string>
+    <string name="bpmtext3">측정이 완료 될때 까지 \n 손가락을 고정시켜 주세요.  </string>
+
+
 </resources>

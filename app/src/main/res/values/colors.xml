@@ -5,6 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="empty">@android:color/transparent</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
     
     <!--prograss bar !-->
     <color name="progress_bar">#F2912C</color>
@@ -25,4 +27,7 @@
     <color name="colorButtonInside">#ffffff</color>
     <color name="colorButtonLine">#DF013A</color>
     <color name="colorGraph2">@android:color/black</color>
+
+    <!--question-->
+    <color name="question_back">#dcdcdc</color>
 </resources>
