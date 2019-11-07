@@ -9,7 +9,7 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_googleSignIn"
-        android:layout_width="154dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
