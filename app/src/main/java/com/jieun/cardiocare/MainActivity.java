@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                             else{ // 가입되어 있으면 -> 최종적으로는 홈화면
                                                 intent = new Intent(getApplicationContext(), HomeActivity.class);
-
                                             }
                                             startActivity(intent);
                                         }

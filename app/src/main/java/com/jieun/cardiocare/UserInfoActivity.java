@@ -43,6 +43,7 @@ public class UserInfoActivity extends AppCompatActivity {
     RadioButton man, woman, smoker, nonSmoker, drinking, nonDrink;
     Button heightBtn, weightBtn, aphiBtn, aploBtn, cholBtn;
     int mYear, mMonth, mDay;
+    private Boolean join = false; // 가입되어있는지
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,12 @@ public class UserInfoActivity extends AppCompatActivity {
                 UserData user = new UserData(userName, gender, age, height, weight, chol, aphi, aplo, smoke, alco);
                 mDatabase.child("BodyInfo").child(userId).setValue(user);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                if(!join) { // 새로 가입하여 처음 저장하는 경우
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                }
+                finish();
             }
         });
 
@@ -126,9 +133,9 @@ public class UserInfoActivity extends AppCompatActivity {
             birthM = (birthday.getMonth() + 1) + "";
 
         if(birthday.getDayOfMonth() < 10)
-            birthM = "0" + (birthday.getDayOfMonth());
+            birthD = "0" + (birthday.getDayOfMonth());
         else
-            birthM = (birthday.getDayOfMonth()) + "";
+            birthD = (birthday.getDayOfMonth()) + "";
 
         String birthYMD = birthY + birthM + birthD;
 
@@ -189,7 +196,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
                         UserData user = dataSnapshot.getValue(UserData.class);
                         if(user != null){ // 이미 가입되어 있다면 저장되어 있던 데이터 보여주기
-
+                            join = true;
                             int birhtY = Integer.parseInt(user.getAge().substring(0,4));
                             int birthM = Integer.parseInt(user.getAge().substring(4,6));
                             int birthD = Integer.parseInt(user.getAge().substring(6));
@@ -217,6 +224,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 alcoSelect.check(drinking.getId());
                         }
                         else{ // 가입안했다면 기본값으로 보여주기
+                            join = false;
                             birthday.init(mYear,mMonth -1,mDay,null); //오늘날짜
                             heightBtn.setText(150 + "cm");
                             weightBtn.setText(50 + "kg");

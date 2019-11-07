@@ -85,6 +85,7 @@ public class DataCheckActivity extends AppCompatActivity {
     public void clickChange(View view) {
 
         Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
-        startActivity(intent); //새로고침 처리 해줘야함
+        startActivity(intent);
+        finish();
     }
 }
