@@ -30,6 +30,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -57,6 +58,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+//import static com.jieun.cardiocare.MainActivity.googleSignInOptions;
 
 import shortbread.Shortcut;
 
@@ -69,19 +71,19 @@ public class HeartActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser fuser;
 
-
     private String TAG = MainActivity.class.getName();
-    private GoogleApiClient googleApiClient;
-    private boolean authInProgress = false;
+    //private GoogleApiClient googleApiClient;
+    //private boolean authInProgress = false;
     private OnDataPointListener onDataPointListener;
-    private static final int AUTH_REQUEST = 1;
-
+    //private static final int AUTH_REQUEST = 1;
+    /*
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
             Manifest.permission.BODY_SENSORS
     };
+     */
 
-    private static final int REQUEST_PERMISSION_CODE = 12345;
-    private List<String> missingPermission = new ArrayList<>();
+    //private static final int REQUEST_PERMISSION_CODE = 12345;
+    //private List<String> missingPermission = new ArrayList<>();
 
     private boolean bCheckStarted = false;
     private boolean bGoogleConnected = false;
@@ -99,8 +101,6 @@ public class HeartActivity extends AppCompatActivity {
     private SeekBar bpmseekBar;
 
     private TextView text_seekbar;
-
-
     private ImageView finger;
 
     //icon
@@ -135,8 +135,9 @@ public class HeartActivity extends AppCompatActivity {
         initPrograssBar();
         initIcons();
         //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
-        checkAndRequestPermissions();
+        //checkAndRequestPermissions();
     }
+
     private void initFireBase(){
         mAuth = FirebaseAuth.getInstance();
         fuser = mAuth.getCurrentUser();
@@ -145,7 +146,7 @@ public class HeartActivity extends AppCompatActivity {
 
     private void initUI() {
         //심박수를 측정하는 Google API의 호출을 위해 API 클라이언트를 초기화 합니다
-        initGoogleApiClient();
+        //initGoogleApiClient();
 
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
@@ -161,8 +162,13 @@ public class HeartActivity extends AppCompatActivity {
 
         textMon = findViewById(R.id.textMon);
         btnStart = findViewById(R.id.btnStart);
-        btnStart.setText("Wait please ...");
-        btnStart.setEnabled(false);
+        //btnStart.setText("Wait please ...");
+        //btnStart.setEnabled(false);
+
+        bGoogleConnected = true; //추가
+        btnStart.setText("Start");
+        btnStart.setEnabled(true);
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,6 +176,7 @@ public class HeartActivity extends AppCompatActivity {
             }
         });
     }
+
     private void Measure(Button btn){
 
         if (bCheckStarted) {
@@ -207,8 +214,8 @@ public class HeartActivity extends AppCompatActivity {
             // Google API 클라이언트에 로그인이 되어 있지 않다면,
             else {
                 //Google API 클라이언트에 로그인 합니다
-                if (HeartActivity.this.googleApiClient != null)
-                    HeartActivity.this.googleApiClient.connect();
+                if (MainActivity.mGoogleApiClient != null)
+                    MainActivity.mGoogleApiClient.connect();
             }
         }
     }
@@ -263,8 +270,10 @@ public class HeartActivity extends AppCompatActivity {
 
     }
 
+    /*
     private void initGoogleApiClient() {
         this.googleApiClient = new GoogleApiClient.Builder(this)
+                //.addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions) //추가
                 .addApi(Fitness.SENSORS_API)
                 .addScope(new Scope(Scopes.FITNESS_BODY_READ))
                 //.addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ))
@@ -325,10 +334,14 @@ public class HeartActivity extends AppCompatActivity {
                 .build();
     }
 
+    */
+
     /**
      * Checks if there is any missing permissions, and
      * requests runtime permission if needed.
      */
+
+    /*
     private void checkAndRequestPermissions() {
         // Check for permissions
         for (String eachPermission : REQUIRED_PERMISSION_LIST) {
@@ -351,9 +364,13 @@ public class HeartActivity extends AppCompatActivity {
 
     }
 
+
+     */
     /**
      * Result of runtime permission request
      */
+
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -378,8 +395,9 @@ public class HeartActivity extends AppCompatActivity {
         }
     }
 
+     */
     private void findDataSources() {
-        Fitness.SensorsApi.findDataSources(googleApiClient, new DataSourcesRequest.Builder()
+        Fitness.SensorsApi.findDataSources(MainActivity.mGoogleApiClient, new DataSourcesRequest.Builder()
                 .setDataTypes(DataType.TYPE_HEART_RATE_BPM)
                 // .setDataTypes(DataType.TYPE_SPEED)
                 // .setDataTypes(DataType.TYPE_STEP_COUNT_CUMULATIVE)
@@ -420,7 +438,7 @@ public class HeartActivity extends AppCompatActivity {
         };
 
         Fitness.SensorsApi.add(
-                googleApiClient,
+                MainActivity.mGoogleApiClient,
                 new SensorRequest.Builder()
                         .setDataType(dataType)
                         .setSamplingRate(2, TimeUnit.SECONDS)
@@ -445,16 +463,16 @@ public class HeartActivity extends AppCompatActivity {
             return;
         }
 
-        if (this.googleApiClient == null) {
+        if (MainActivity.mGoogleApiClient == null) {
             return;
         }
 
-        if (this.googleApiClient.isConnected() == false) {
+        if (MainActivity.mGoogleApiClient.isConnected() == false) {
             return;
         }
 
         Fitness.SensorsApi.remove(
-                this.googleApiClient,
+                MainActivity.mGoogleApiClient,
                 this.onDataPointListener)
                 .setResultCallback(new ResultCallback<Status>() {
                     @Override
@@ -492,8 +510,8 @@ public class HeartActivity extends AppCompatActivity {
         super.onStop();
         unregisterFitnessDataListener();
 
-        if (this.googleApiClient != null && this.googleApiClient.isConnected()) {
-            this.googleApiClient.disconnect();
+        if (MainActivity.mGoogleApiClient != null && MainActivity.mGoogleApiClient.isConnected()) {
+            MainActivity.mGoogleApiClient.disconnect();
         }
     }
 
@@ -502,6 +520,7 @@ public class HeartActivity extends AppCompatActivity {
         super.onDetachedFromWindow();
     }
 
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -519,6 +538,8 @@ public class HeartActivity extends AppCompatActivity {
             }
         }
     }
+
+     */
 
     public String getDateStr(){
         long now = System.currentTimeMillis();
@@ -557,8 +578,8 @@ public class HeartActivity extends AppCompatActivity {
 
                 btnStart.setVisibility(View.GONE);
                 btnLayout2.setVisibility(View.VISIBLE);
-                user =new HeartUser();
-                user.setDate(getDateStr()+"" +getTimeStr());
+                user = new HeartUser();
+                user.setDate(getDateStr() + "" + getTimeStr());
                 user.setBpm(value);
                 user.setStatus(status);
 
@@ -577,7 +598,7 @@ public class HeartActivity extends AppCompatActivity {
                             storeBtn.setText("please check status");
                         }else{
                             String id = fuser.getUid();
-                            mDatabase.child("users").child(id).child("Bpm").child(getDateStr()).child(getTimeStr()).setValue(user);
+                            mDatabase.child("Bpm").child(id).child(getDateStr()).child(getTimeStr()).setValue(user);
                             Toast.makeText(HeartActivity.this, "BPM 입력 완료", Toast.LENGTH_SHORT).show();
 
                             Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
@@ -585,9 +606,6 @@ public class HeartActivity extends AppCompatActivity {
                             startActivity(intent);
 
                         }
-
-
-
                     }
                 });
             }

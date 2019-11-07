@@ -12,6 +12,7 @@ import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -106,8 +107,9 @@ public class UserInfoActivity extends AppCompatActivity {
                 int smoke = getSmoke();
                 int alco = getAlco();
 
-                UserData user = new UserData(userName, gender, age, height, weight, aphi, aplo, chol, smoke, alco);
-                mDatabase.child("users").child(userId).child("BodyInfo").setValue(user);
+                UserData user = new UserData(userName, gender, age, height, weight, chol, aphi, aplo, smoke, alco);
+                mDatabase.child("BodyInfo").child(userId).setValue(user);
+                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -116,11 +118,17 @@ public class UserInfoActivity extends AppCompatActivity {
 
         String birthY = birthday.getYear() + "";
         String birthM = "";
+        String birthD = "";
+
         if(birthday.getMonth() + 1 < 10)
             birthM = "0" + (birthday.getMonth() + 1);
         else
             birthM = (birthday.getMonth() + 1) + "";
-        String birthD = birthday.getDayOfMonth() + "";
+
+        if(birthday.getDayOfMonth() < 10)
+            birthM = "0" + (birthday.getDayOfMonth());
+        else
+            birthM = (birthday.getDayOfMonth()) + "";
 
         String birthYMD = birthY + birthM + birthD;
 
@@ -174,7 +182,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
     public void getUser(String userId){
 
-        mDatabase.child("users").child(userId).child("BodyInfo").addListenerForSingleValueEvent(
+        mDatabase.child("BodyInfo").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -228,7 +236,10 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickHeight(View view) {
 
         String height = String.valueOf(heightBtn.getText());
-        String setHeight = height.substring(0, height.length()-2);
+        String num = height.substring(0, height.length()-4);
+        String dec = height.substring(height.length()-3,height.length()-2);
+        Log.i("num", num + "");
+        Log.i("dec", dec + "");
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -246,8 +257,8 @@ public class UserInfoActivity extends AppCompatActivity {
         decimalPicker.setMaxValue(9);
         decimalPicker.setMinValue(0);
 
-        numberPicker.setValue(Integer.parseInt(setHeight.substring(0, setHeight.length() -2 )));
-        decimalPicker.setValue(Integer.parseInt(setHeight.substring(setHeight.length() -1)));
+        numberPicker.setValue(Integer.parseInt(num));
+        decimalPicker.setValue(Integer.parseInt(dec));
         numberPicker.setWrapSelectorWheel(false);
         decimalPicker.setWrapSelectorWheel(true);
 
@@ -271,7 +282,8 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickWeight(View view) {
 
         String weight = String.valueOf(weightBtn.getText());
-        String setWeight = weight.substring(0, weight.length()-2);
+        String num = weight.substring(0, weight.length()-4);
+        String dec = weight.substring(weight.length()-3, weight.length()-2);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -289,8 +301,8 @@ public class UserInfoActivity extends AppCompatActivity {
         decimalPicker.setMaxValue(9);
         decimalPicker.setMinValue(0);
 
-        numberPicker.setValue(Integer.parseInt(setWeight.substring(0, setWeight.length() -2 )));
-        decimalPicker.setValue(Integer.parseInt(setWeight.substring(setWeight.length() -1)));
+        numberPicker.setValue(Integer.parseInt(num));
+        decimalPicker.setValue(Integer.parseInt(dec));
         numberPicker.setWrapSelectorWheel(false);
         decimalPicker.setWrapSelectorWheel(true);
 

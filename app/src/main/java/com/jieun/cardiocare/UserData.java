@@ -5,7 +5,7 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserData {
+public class UserData{
 
     private String name;
     private String age;
@@ -18,12 +18,9 @@ public class UserData {
     private int smoke;
     private int alco;
 
-    public UserData() {
-    }
+    public UserData() { }
 
-    public UserData(String name) {
-        this.name = name;
-    }
+
     public UserData(String name, int gender, String age, float height, float weight, int ap_hi, int ap_lo, int cholesterol, int smoke, int alco) {
 
         this.name = name;
@@ -118,6 +115,7 @@ public class UserData {
         this.alco = alco;
     }
 
+
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -133,4 +131,5 @@ public class UserData {
         result.put("alco", alco);
         return result;
     }
+
 }

@@ -78,7 +78,7 @@ public class CardioPredictActivity extends AppCompatActivity {
 
         cardio_pst = (TextView) findViewById(R.id.cardio_pst);
 
-        mDatabase.child("users").child(userId).child("BodyInfo").addListenerForSingleValueEvent(
+        mDatabase.child("BodyInfo").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

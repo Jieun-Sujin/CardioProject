@@ -166,7 +166,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
         String id = fuser.getUid();
 
-        mDatabase.child("users").child(id).child("Bpm").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
@@ -199,7 +199,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         });
 
-        mDatabase.child("users").child(id).child("Bpm").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
@@ -242,7 +242,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         });
 
-        mDatabase.child("users").child(id).child("Bpm").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {

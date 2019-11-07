@@ -9,6 +9,8 @@
     <string name="google_map_api_key">AIzaSyDLckUM-TfORiawBSqlsR4sIp5qk7rOr4o</string>
     <string name="aed_api_key">o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
+    <string name="permission_failed1">퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.</string>
+    <string name="permission_failed2">퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다.</string>
     
     <!-- CardioPredictActivity -->
 

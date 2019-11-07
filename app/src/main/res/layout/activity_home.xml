@@ -9,18 +9,25 @@
     <Button
         android:id="@+id/dataInputBtn"
         android:layout_width="325dp"
-        android:layout_height="61dp"
+        android:layout_height="65dp"
         android:layout_marginTop="150dp"
-        android:text="@string/dataInputBtnText"
         android:drawableStart="@drawable/ic_noun_person_data"
+        android:drawablePadding="-70dp"
+        android:onClick="clickInputMydata"
+        android:paddingLeft="52dp"
+        android:text="@string/dataInputBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <Button
         android:id="@+id/aedBtn"
         android:layout_width="325dp"
-        android:layout_height="61dp"
+        android:layout_height="65dp"
         android:layout_marginTop="32dp"
+        android:drawableStart="@drawable/ic_noun_map"
+        android:drawablePadding="-70dp"
+        android:onClick="clickAed"
+        android:paddingLeft="50dp"
         android:text="@string/aedBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bpmBtn" />
@@ -28,8 +35,12 @@
     <Button
         android:id="@+id/predictBtn"
         android:layout_width="325dp"
-        android:layout_height="61dp"
+        android:layout_height="65dp"
         android:layout_marginTop="32dp"
+        android:drawableStart="@drawable/ic_noun_neural_network1"
+        android:drawablePadding="-70dp"
+        android:onClick="clickMyPredict"
+        android:paddingLeft="40dp"
         android:text="@string/predictBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataInputBtn" />
@@ -37,8 +48,12 @@
     <Button
         android:id="@+id/bpmBtn"
         android:layout_width="325dp"
-        android:layout_height="61dp"
+        android:layout_height="65dp"
         android:layout_marginTop="32dp"
+        android:drawableStart="@drawable/ic_noun_heart"
+        android:drawablePadding="-75dp"
+        android:onClick="clickHeart"
+        android:paddingLeft="53dp"
         android:text="@string/bpmBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/predictBtn" />

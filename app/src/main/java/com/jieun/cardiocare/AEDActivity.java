@@ -52,9 +52,9 @@ public class AEDActivity extends AppCompatActivity
     private GoogleMap mMap;
     private GpsTracker gpsTracker;
 
-    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    //private static final int GPS_ENABLE_REQUEST_CODE = 2001;
+    //private static final int PERMISSIONS_REQUEST_CODE = 100;
+    //String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
     static double latitude,longitude;
     static String address;
@@ -77,13 +77,13 @@ public class AEDActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aed);
 
+        /*
         if (!checkLocationServicesStatus()) {
-
             showDialogForLocationServiceSetting();
         }else {
-
             checkRunTimePermission();
         }
+         */
 
         //textView =(TextView)findViewById(R.id.textView);
         location_layout =(LinearLayout)findViewById(R.id.location_layout);
@@ -134,8 +134,6 @@ public class AEDActivity extends AppCompatActivity
                     }
 
                 }).start();
-
-
             }
         });
 
@@ -158,8 +156,6 @@ public class AEDActivity extends AppCompatActivity
                 mapFragment.getMapAsync(AEDActivity.this);
             }
         });
-
-
     }
 
     @Override
@@ -179,6 +175,7 @@ public class AEDActivity extends AppCompatActivity
 
     }
 
+    /*
     @Override
     public void onRequestPermissionsResult(int permsRequestCode,
                                            @NonNull String[] permissions,
@@ -187,12 +184,9 @@ public class AEDActivity extends AppCompatActivity
         if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
-
             boolean check_result = true;
 
-
             // 모든 퍼미션을 허용했는지 체크합니다.
-
             for (int result : grandResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
                     check_result = false;
@@ -200,33 +194,27 @@ public class AEDActivity extends AppCompatActivity
                 }
             }
 
-
             if ( check_result ) {
-
                 //위치 값을 가져올 수 있음
-                ;
             }
             else {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
-
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
                         || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
 
-                    Toast.makeText(AEDActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AEDActivity.this, R.string.permission_failed1, Toast.LENGTH_LONG).show();
                     finish();
-
-
                 }else {
-
-                    Toast.makeText(AEDActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(AEDActivity.this, R.string.permission_failed2, Toast.LENGTH_LONG).show();
                 }
             }
-
         }
     }
 
-    void checkRunTimePermission(){
+     */
+
+    /*
+    public void checkRunTimePermission(){
 
         //런타임 퍼미션 처리
         // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
@@ -234,7 +222,6 @@ public class AEDActivity extends AppCompatActivity
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(AEDActivity.this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
-
 
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
@@ -250,18 +237,15 @@ public class AEDActivity extends AppCompatActivity
                 ActivityCompat.requestPermissions(AEDActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
 
-
             } else {
                 // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
                 // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(AEDActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
-
         }
-
     }
-
+     */
 
     public String getCurrentAddress( double latitude, double longitude) {
 
@@ -299,7 +283,7 @@ public class AEDActivity extends AppCompatActivity
 
     }
 
-
+    /*
     //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
 
@@ -325,7 +309,8 @@ public class AEDActivity extends AppCompatActivity
         builder.create().show();
     }
 
-
+     */
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -339,7 +324,7 @@ public class AEDActivity extends AppCompatActivity
                     if (checkLocationServicesStatus()) {
 
                         Log.d("@@@", "onActivityResult : GPS 활성화 되있음");
-                        checkRunTimePermission();
+                        //checkRunTimePermission();
                         return;
                     }
                 }
@@ -348,6 +333,7 @@ public class AEDActivity extends AppCompatActivity
         }
     }
 
+
     public boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -355,6 +341,8 @@ public class AEDActivity extends AppCompatActivity
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
+
+     */
 
     public void getData(){
 
@@ -481,7 +469,5 @@ public class AEDActivity extends AppCompatActivity
         listView.setAdapter(mMyAdapter);
 
     }
-
-
 
 }

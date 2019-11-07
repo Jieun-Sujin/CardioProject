@@ -2,7 +2,10 @@ package com.jieun.cardiocare;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +32,28 @@ public class HomeActivity extends AppCompatActivity {
         final String userName = user.getDisplayName();
 
         TextView userNameTxt = (TextView) findViewById(R.id.userName);
-        userNameTxt.setText(userName);
+        userNameTxt.setText(userName + "님");
 
     }
+
+    public void clickHeart(View view) {
+        Intent intent = new Intent(getApplicationContext(), HeartActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickInputMydata(View view) {
+        Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickMyPredict(View view) {
+        Intent intent = new Intent(getApplicationContext(), DataCheckActivity.class);
+        startActivity(intent);
+    }
+
+    public void clickAed(View view) {
+        Intent intent = new Intent(getApplicationContext(), AEDActivity.class);
+        startActivity(intent);
+    }
+
 }

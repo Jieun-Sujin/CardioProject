@@ -50,7 +50,7 @@ public class DataCheckActivity extends AppCompatActivity {
 
     public void getUser(String userId){
 
-        mDatabase.child("users").child(userId).child("BodyInfo").addListenerForSingleValueEvent(
+        mDatabase.child("BodyInfo").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
