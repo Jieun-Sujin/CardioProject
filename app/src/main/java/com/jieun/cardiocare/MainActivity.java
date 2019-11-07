@@ -18,12 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import shortbread.Shortbread;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -39,7 +34,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -69,12 +63,6 @@ public class MainActivity extends AppCompatActivity {
     // 구글  로그인 버튼
 
     private SignInButton buttonGoogle;
-
-    // 페이스북 콜백 매니저
-    private CallbackManager callbackManager;
-
-    // 페이스북 로그인 버튼
-    private LoginButton buttonFacebook;
 
     public static GoogleApiClient mGoogleApiClient;
     public static GoogleSignInOptions googleSignInOptions;
@@ -109,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             checkRunTimePermission();
         }
 
-        // 파이어베이스 인증 객체 선언
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -122,33 +110,14 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-        buttonGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
 
         initGoogleApiClient();
         checkAndRequestPermissions();
 
-        // 페이스북 콜백 등록
-        callbackManager = CallbackManager.Factory.create();
-
-        buttonFacebook = findViewById(R.id.btn_facebookSignIn);
-
-        buttonFacebook.setReadPermissions("email", "public_profile");
-        buttonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        buttonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel() {
-            }
-
-            @Override
-            public void onError(FacebookException error) {
+            public void onClick(View view) {
+                signIn();
             }
         });
 
@@ -159,11 +128,11 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         // 구글로그인 버튼 응답
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -185,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
                 if (!this.mGoogleApiClient.isConnecting() && !this.mGoogleApiClient.isConnected()) {
                     this.mGoogleApiClient.connect();
                     Log.d(TAG, "onActivityResult googleApiClient.connect() attempted in background");
-
                 }
             }
         }
@@ -252,24 +220,6 @@ public class MainActivity extends AppCompatActivity {
                             Log.v("login","failed");
                         }
 
-                    }
-                });
-    }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // 로그인 성공
-                            Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
-                        } else {
-                            // 로그인 실패
-                            Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
     }
@@ -361,6 +311,8 @@ public class MainActivity extends AppCompatActivity {
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
         // Check for granted permission and remove from missing list
         if (requestCode == REQUEST_PERMISSION_CODE) {
             for (int i = grantResults.length - 1; i >= 0; i--) {
@@ -374,11 +326,12 @@ public class MainActivity extends AppCompatActivity {
             initGoogleApiClient();
             if (this.mGoogleApiClient != null)
                 this.mGoogleApiClient.connect();
-
         } else {
             Toast.makeText(getApplicationContext(), "Failed get permissions", Toast.LENGTH_LONG).show();
+            Log.i("missingpermission", missingPermission.get(0) + "");
             //finish();
         }
+
         //gps
         if ( requestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
 
@@ -468,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        //mGoogleApiClient.connect();
     }
 
 }
