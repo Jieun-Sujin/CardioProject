@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="status_array">
-        <item>stable</item>
-        <item>excite</item>
-        <item>running</item>
-        <item>depress</item>
-        <item>sleep</item>
+        <item>안정</item>
+        <item>흥분</item>
+        <item>달리기</item>
+        <item>우울</item>
+        <item>피곤</item>
     </string-array>
     <string-array name="time_array">
         <item>일간</item>

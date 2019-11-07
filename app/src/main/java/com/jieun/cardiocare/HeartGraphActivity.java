@@ -124,10 +124,13 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         HeartUser huser = (HeartUser)intent.getSerializableExtra("user");
         if(huser !=null){
             String[] statusList = getResources().getStringArray(R.array.status_array);
+            dateText.setText(huser.getDate());
             bpmText.setText((int)huser.getBpm()+ " BPM");
             statusText.setText(statusList[huser.getStatus()]);
 
         }else{
+            dateText.setText("");
+            timeText.setText("");
             bpmText.setText("");
             statusText.setText("");
         }

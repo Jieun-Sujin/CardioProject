@@ -102,6 +102,7 @@ public class HeartActivity extends AppCompatActivity {
 
     private TextView text_seekbar;
     private ImageView finger;
+    private Button questionBtn;
 
     //icon
     private TextView iconText;
@@ -115,6 +116,8 @@ public class HeartActivity extends AppCompatActivity {
 
     private static HeartUser user;
     private static int userStatus = -1;
+
+
 
 
     @SuppressWarnings("Convert2Lambda")
@@ -132,6 +135,7 @@ public class HeartActivity extends AppCompatActivity {
 
         initFireBase();
         //initUI();
+        setTitle(R.string.bpmBtnText);
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
         //beat anim
@@ -148,6 +152,17 @@ public class HeartActivity extends AppCompatActivity {
         btnStart = findViewById(R.id.btnStart);
         //btnStart.setText("Wait please ...");
         //btnStart.setEnabled(false);
+
+        questionBtn =(Button)findViewById(R.id.questionBtn);
+        questionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
+                intent.putExtra("data", "Test Popup");
+                startActivityForResult(intent, 1);
+
+            }
+        });
 
         bGoogleConnected = true; //추가
         btnStart.setText("Start");
@@ -291,7 +306,6 @@ public class HeartActivity extends AppCompatActivity {
                 // If the radiobutton that has changed in check state is now checked...
                 if (isChecked)
                 {
-                    // Changes the textview's text to "Checked: example radiobutton text"
                     if(i == R.id.stableBtn){ userStatus = 0;}
                     if(i == R.id.exciteBtn){ userStatus = 1;}
                     if(i == R.id.runningBtn){ userStatus = 2;}
