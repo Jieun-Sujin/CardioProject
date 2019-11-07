@@ -108,7 +108,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 int smoke = getSmoke();
                 int alco = getAlco();
 
-                UserData user = new UserData(userName, gender, age, height, weight, chol, aphi, aplo, smoke, alco);
+                UserData user = new UserData(userName, gender, age, height, weight, aphi, aplo, chol, smoke, alco);
                 mDatabase.child("BodyInfo").child(userId).setValue(user);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -137,9 +137,7 @@ public class UserInfoActivity extends AppCompatActivity {
         else
             birthD = (birthday.getDayOfMonth()) + "";
 
-        String birthYMD = birthY + birthM + birthD;
-
-        return birthYMD;
+        return birthY + birthM + birthD;
     }
 
     public int getGender() {

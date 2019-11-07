@@ -114,7 +114,7 @@ public class HeartActivity extends AppCompatActivity {
     private Button storeBtn;
 
     private static HeartUser user;
-    private static int status =-1;
+    private static int userStatus = -1;
 
 
     @SuppressWarnings("Convert2Lambda")
@@ -131,9 +131,65 @@ public class HeartActivity extends AppCompatActivity {
         wakeLock.acquire(5000);
 
         initFireBase();
-        initUI();
+        //initUI();
+        endLayout =(LinearLayout)findViewById(R.id.end_layout);
+        btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
+        //beat anim
+        beatanim =(ImageView)findViewById(R.id.beatanim);
+        beatdraw =beatanim.getDrawable();
+        bpmText =(TextView)findViewById(R.id.bpmText);
+        beatLayout =(LinearLayout)findViewById(R.id.beatLayout);
+
+        againBtn=(Button)findViewById(R.id.againBtn);
+        storeBtn=(Button)findViewById(R.id.storeBtn);
+        finger =(ImageView)findViewById(R.id.fingerImage);
+
+        textMon = findViewById(R.id.textMon);
+        btnStart = findViewById(R.id.btnStart);
+        //btnStart.setText("Wait please ...");
+        //btnStart.setEnabled(false);
+
+        bGoogleConnected = true; //추가
+        btnStart.setText("Start");
+        btnStart.setEnabled(true);
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Measure(btnStart);
+            }
+        });
+
         initPrograssBar();
-        initIcons();
+        //initIcons();
+
+        iconText =(TextView)findViewById(R.id.statusText);
+        icons =(RadioGroup)findViewById(R.id.statusIcons);
+        icons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    // Changes the textview's text to "Checked: example radiobutton text"
+                    if(i == R.id.stableBtn){ userStatus = 0;}
+                    if(i == R.id.exciteBtn){ userStatus = 1;}
+                    if(i == R.id.runningBtn){ userStatus = 2;}
+                    if(i == R.id.depressBtn){ userStatus = 3;}
+                    if(i == R.id.sleepBtn){ userStatus = 4;}
+                    iconText.setText("Check : " + checkedRadioButton.getText());
+
+                }
+                else {
+                    Log.i("ischecked","check 안됨");
+                }
+            }
+        });
+
         //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
         //checkAndRequestPermissions();
     }
@@ -175,6 +231,8 @@ public class HeartActivity extends AppCompatActivity {
                 Measure(btnStart);
             }
         });
+
+
     }
 
     private void Measure(Button btn){
@@ -219,6 +277,7 @@ public class HeartActivity extends AppCompatActivity {
             }
         }
     }
+
     private void initIcons(){
         iconText =(TextView)findViewById(R.id.statusText);
         icons =(RadioGroup)findViewById(R.id.statusIcons);
@@ -233,18 +292,22 @@ public class HeartActivity extends AppCompatActivity {
                 if (isChecked)
                 {
                     // Changes the textview's text to "Checked: example radiobutton text"
-                    if(i ==R.id.stableBtn){ status =0;}
-                    if(i ==R.id.exciteBtn){ status =1;}
-                    if(i ==R.id.runningBtn){ status =2;}
-                    if(i ==R.id.depressBtn){ status =3;}
-                    if(i ==R.id.sleepBtn){ status =4;}
+                    if(i == R.id.stableBtn){ userStatus = 0;}
+                    if(i == R.id.exciteBtn){ userStatus = 1;}
+                    if(i == R.id.runningBtn){ userStatus = 2;}
+                    if(i == R.id.depressBtn){ userStatus = 3;}
+                    if(i == R.id.sleepBtn){ userStatus = 4;}
                     iconText.setText("Check : " + checkedRadioButton.getText());
 
+                }
+                else {
+                    Log.i("ischecked","check 안됨");
                 }
             }
         });
 
     }
+
     private void initPrograssBar(){
         bpmseekBar =(SeekBar)findViewById(R.id.bpmseekbar);
         text_seekbar =(TextView)findViewById(R.id.statusText);
@@ -578,10 +641,8 @@ public class HeartActivity extends AppCompatActivity {
 
                 btnStart.setVisibility(View.GONE);
                 btnLayout2.setVisibility(View.VISIBLE);
-                user = new HeartUser();
-                user.setDate(getDateStr() + "" + getTimeStr());
-                user.setBpm(value);
-                user.setStatus(status);
+
+                //Log.i("status" , userStatus + "");
 
                 againBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -594,9 +655,15 @@ public class HeartActivity extends AppCompatActivity {
                 storeBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(status<0){
+                        if(userStatus < 0){
                             storeBtn.setText("please check status");
                         }else{
+                            Log.i("tag", "여기실행");
+                            Log.i("userStatus", userStatus + "");
+                            user = new HeartUser();
+                            user.setDate(getDateStr() + "" + getTimeStr());
+                            user.setBpm(value);
+                            user.setStatus(userStatus);
                             String id = fuser.getUid();
                             mDatabase.child("Bpm").child(id).child(getDateStr()).child(getTimeStr()).setValue(user);
                             Toast.makeText(HeartActivity.this, "BPM 입력 완료", Toast.LENGTH_SHORT).show();

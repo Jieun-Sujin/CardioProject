@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.jieun.cardiocare.MainActivity.mDatabase;
+import static com.jieun.cardiocare.HeartActivity.mDatabase;
 
 public class HeartGraphActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -120,12 +120,12 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         mChart = (LineChart) findViewById(R.id.linechart);
 
 
-        Intent intent =getIntent();
+        Intent intent = getIntent();
         HeartUser huser = (HeartUser)intent.getSerializableExtra("user");
         if(huser !=null){
             String[] statusList = getResources().getStringArray(R.array.status_array);
-            bpmText.setText(String.valueOf(huser.getBpm()));
-            statusText.setText(statusList[huser.getStatus()] + "BPM");
+            bpmText.setText((int)huser.getBpm()+ " BPM");
+            statusText.setText(statusList[huser.getStatus()]);
 
         }else{
             bpmText.setText("");
