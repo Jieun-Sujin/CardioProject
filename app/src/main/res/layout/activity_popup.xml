@@ -11,8 +11,9 @@
         android:layout_height="53dp"
         android:background="@color/white"
         android:gravity="center"
-        android:text="How To"
-        android:textSize="20sp" />
+        android:text="HOW TO ?"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:background="@drawable/btn_done"
@@ -120,7 +121,7 @@
             android:textStyle="bold"
             android:text="CLOSE"
             android:textSize="15sp"
-            android:textColor="#FFBB33"
+            android:textColor="#DF3A01"
             android:padding="16dp"
             android:gravity="center"
             android:background="#00000000"
