@@ -12,4 +12,10 @@
         <item>주간</item>
         <item>월간</item>
     </string-array>
+    <string-array name="msg_array">
+        <item>Good Morning !</item>
+        <item>Everything will be okay~</item>
+        <item>Keep your good work.</item>
+        <item>Good Night ~ </item>
+    </string-array>
 </resources>

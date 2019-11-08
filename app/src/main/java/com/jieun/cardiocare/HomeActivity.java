@@ -13,11 +13,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HomeActivity extends AppCompatActivity {
 
     //private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    TextView msgText;
+    TextView userNameTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +37,34 @@ public class HomeActivity extends AppCompatActivity {
         final String userId = user.getUid();
         final String userName = user.getDisplayName();
 
-        TextView userNameTxt = (TextView) findViewById(R.id.userName);
+        userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "님");
 
     }
+
+
+    private void initUI(){
+
+        msgText =(TextView)findViewById(R.id.msgText);
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("HH");
+        int hour = Integer.parseInt(sdfNow.format(date));
+
+        String[] msgList = getResources().getStringArray(R.array.msg_array);
+
+        if(7<=hour && 9>=hour){
+            msgText.setText(msgList[0]);
+        }else if(9<hour && 18>=hour){
+            msgText.setText(msgList[1]);
+        }else if(18<hour && 22>=hour){
+            msgText.setText(msgList[2]);
+        }else{
+            msgText.setText(msgList[3]);
+        }
+    }
+
 
     public void clickHeart(View view) {
         Intent intent = new Intent(getApplicationContext(), HeartActivity.class);
