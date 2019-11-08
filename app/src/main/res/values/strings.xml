@@ -15,7 +15,11 @@
     <!-- CardioPredictActivity -->
 
     <string name="predict_info">님의 예상 심혈관질환 발병률</string>
-    <string name="TenYearsLater">10년후 발병률</string>
+    <string name="TenYearsLater">10년 후 발병률</string>
+    <string name="Pct20">건강 관리를 잘하고 계시네요!</string>
+    <string name="Pct40">조금 더 건강에 신경써주세요.</string>
+    <string name="Pct70">심장이 건강하지 않습니다. 더욱 더 주의를 귀울여 주세요.</string>
+    <string name="Pct100">당신의 심장이 매우 위험합니다. 의사의 진찰을 받아보세요.</string>
 
     <!-- HomeActivity -->
     <string name="dataInputBtnText">내 정보 입력하기</string>

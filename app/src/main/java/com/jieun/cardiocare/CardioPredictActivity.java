@@ -1,9 +1,10 @@
 package com.jieun.cardiocare;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,8 +36,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import shortbread.Shortcut;
 
 //@Shortcut(id = "PREDICT", icon = R.drawable.ic_noun_neural_network1, shortLabelRes = R.string.label_predict, rank = 1)
 public class CardioPredictActivity extends AppCompatActivity {
@@ -67,6 +65,7 @@ public class CardioPredictActivity extends AppCompatActivity {
         TextView userNameTxt = (TextView) findViewById(R.id.user_name);
         final ProgressBar ageBar = (ProgressBar) findViewById(R.id.ageBar);
         final TextView agePct = (TextView) findViewById(R.id.agePct);
+        final TextView comment = (TextView) findViewById(R.id.comment);
 
         final TextView cholPredictTxt = (TextView) findViewById(R.id.cholPredict);
         final ProgressBar cholBar = (ProgressBar) findViewById(R.id.cholBar);
@@ -76,9 +75,9 @@ public class CardioPredictActivity extends AppCompatActivity {
         final ProgressBar smokeBar = (ProgressBar) findViewById(R.id.smokeBar);
         final TextView smokePct = (TextView) findViewById(R.id.smokePct);
 
-        final TextView alcoPredictTxt = (TextView) findViewById(R.id.alcoPredict);
-        final ProgressBar alcoBar = (ProgressBar) findViewById(R.id.alcoBar);
-        final TextView alcoPct = (TextView) findViewById(R.id.alcoPct);
+        final TextView aphiPredictTxt = (TextView) findViewById(R.id.aphiPredict);
+        final ProgressBar aphiBar = (ProgressBar) findViewById(R.id.aphiBar);
+        final TextView aphiPct = (TextView) findViewById(R.id.aphiPct);
 
         userNameTxt.setText(userName);
 
@@ -113,6 +112,17 @@ public class CardioPredictActivity extends AppCompatActivity {
                             final float[] data = readCSV();
                             final float[] input = new float[]{age,gender,height,weight,aphi,aplo,cholesterol,smoke,alco}; //입력변수
                             final double percentage = predictCardio(data, input);
+
+                            //발병률 색상 분류
+                            if(percentage < 20) {
+                                mProgress.setProgressTintList(ColorStateList.valueOf(Color.argb(255,124,252,0)));
+                            } else if (percentage < 40) {
+                                mProgress.setProgressTintList(ColorStateList.valueOf(Color.argb(255,255, 215, 0)));
+                            } else if (percentage < 70) {
+                                mProgress.setProgressTintList(ColorStateList.valueOf(Color.argb(255,255,69,0)));
+                            } else {
+                                mProgress.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                            }
 
                             final Thread progressThread = new Thread(new Runnable() {
                                 @Override
@@ -160,14 +170,13 @@ public class CardioPredictActivity extends AppCompatActivity {
                                 smokeBar.setVisibility(View.GONE);
                             }
 
-                            //만약 음주자라면 비음주했을경우
-                            float[] input4 = new float[]{age,gender,height,weight,aphi,aplo,cholesterol,smoke, 0};
-                            final double nonAlcoPct = predictCardio(data, input4);
-                            if(alco == 1) {
-                               alcoPredictTxt.setText("비음주할 경우 발병률");
+                            float[] input4 = new float[]{age,gender,height,weight,aphi - 20 ,aplo,cholesterol,smoke, 0};
+                            final double lowAphiPct = predictCardio(data, input4);
+                            if(aphi > 140){
+                                aphiPredictTxt.setText("혈압을 낮출 경우 발병률");
                             } else {
-                                alcoPredictTxt.setVisibility(View.GONE);
-                                alcoBar.setVisibility(View.GONE);
+                                aphiPredictTxt.setVisibility(View.GONE);
+                                aphiBar.setVisibility(View.GONE);
                             }
 
                             new Thread((new Runnable() {
@@ -183,6 +192,17 @@ public class CardioPredictActivity extends AppCompatActivity {
                                                         cardio_pst.setText(percentage + "%");
                                                         ageBar.setProgress((int)tenYearsPct);
                                                         agePct.setText(tenYearsPct + "%");
+
+                                                        if(percentage < 20) {
+                                                            comment.setText(R.string.Pct20);
+                                                        } else if (percentage < 40) {
+                                                            comment.setText(R.string.Pct40);
+                                                        } else if (percentage < 70) {
+                                                            comment.setText(R.string.Pct70);
+                                                        } else {
+                                                            comment.setText(R.string.Pct100);
+                                                        }
+
                                                         if(cholesterol >= 2) {
                                                             cholBar.setProgress((int) lowcholPct);
                                                             cholPct.setText(lowcholPct + "%");
@@ -191,9 +211,10 @@ public class CardioPredictActivity extends AppCompatActivity {
                                                             smokeBar.setProgress((int)nonSmokePct);
                                                             smokePct.setText(nonSmokePct + "%");
                                                         }
-                                                        if(alco == 1) {
-                                                            alcoBar.setProgress((int)nonAlcoPct);
-                                                            alcoPct.setText(nonAlcoPct + "%");
+
+                                                        if(aphi > 140) {
+                                                            aphiBar.setProgress((int)lowAphiPct);
+                                                            aphiPct.setText(lowAphiPct + "%");
                                                         }
                                                     }
                                                 }
@@ -349,6 +370,7 @@ public class CardioPredictActivity extends AppCompatActivity {
         return Math.round(prediction*100)/100.0;
 
     }
+
     public long getAgeDay(String bYear, String bMonth, String bDay) {
 
         Calendar c = Calendar.getInstance();

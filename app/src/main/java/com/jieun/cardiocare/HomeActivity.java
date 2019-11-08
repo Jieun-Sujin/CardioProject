@@ -56,4 +56,9 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clickLogout(View view) {
+        mAuth.signOut();
+        finish();
+    }
+
 }

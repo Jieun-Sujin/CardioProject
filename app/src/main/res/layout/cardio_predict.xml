@@ -8,39 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/alcoPredict"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/smokeBar" />
-
-    <TextView
-        android:id="@+id/alcoPct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="13dp"
-        app:layout_constraintStart_toEndOf="@+id/alcoBar"
-        app:layout_constraintTop_toBottomOf="@+id/alcoPredict" />
-
-    <ProgressBar
-        android:id="@+id/alcoBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="250dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
-        android:max="100"
-        android:progressTint="#F03D30"
-        android:scaleY="3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alcoPredict" />
-
-    <TextView
-        android:id="@+id/smokePredict"
+        android:id="@+id/aphiPredict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -50,11 +18,45 @@
         app:layout_constraintTop_toBottomOf="@+id/cholBar" />
 
     <TextView
+        android:id="@+id/aphiPct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="13dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/aphiBar"
+        app:layout_constraintTop_toBottomOf="@+id/aphiPredict" />
+
+    <ProgressBar
+        android:id="@+id/aphiBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:max="100"
+        android:progressTint="#F03D30"
+        android:scaleY="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aphiPredict" />
+
+    <TextView
+        android:id="@+id/smokePredict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aphiBar" />
+
+    <TextView
         android:id="@+id/smokePct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/smokeBar"
         app:layout_constraintTop_toBottomOf="@+id/smokePredict" />
 
@@ -113,7 +115,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:indeterminate="false"
         android:max="100"
         android:progress="50"
@@ -128,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="TextView"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/circularProgressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -138,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="48dp"
         android:text="@string/TenYearsLater"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -196,6 +198,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/cholBar"
         app:layout_constraintTop_toBottomOf="@+id/cholPredict" />
 
