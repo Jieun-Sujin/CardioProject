@@ -32,7 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import shortbread.Shortcut;
 
-//@Shortcut(id = "PROFILE", icon = R.drawable.ic_noun_profile, shortLabelRes = R.string.label_profile, rank = 2)
+@Shortcut(id = "PROFILE", icon = R.drawable.ic_noun_profile, shortLabelRes = R.string.label_profile, rank = 1)
 
 public class UserInfoActivity extends AppCompatActivity {
 

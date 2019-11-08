@@ -62,7 +62,7 @@ import java.util.concurrent.TimeUnit;
 
 import shortbread.Shortcut;
 
-//@Shortcut(id = "BPM", icon = R.drawable.ic_noun_heart, shortLabelRes = R.string.label_bpm, rank = 2)
+@Shortcut(id = "BPM", icon = R.drawable.ic_noun_heart, shortLabelRes = R.string.label_bpm, rank = 3)
 
 public class HeartActivity extends AppCompatActivity {
 
