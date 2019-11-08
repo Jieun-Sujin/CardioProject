@@ -26,6 +26,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
@@ -70,6 +71,8 @@ public class HeartActivity extends AppCompatActivity {
     public static DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser fuser;
+
+    private Toolbar toolbar;
 
     private String TAG = MainActivity.class.getName();
     //private GoogleApiClient googleApiClient;
@@ -135,7 +138,17 @@ public class HeartActivity extends AppCompatActivity {
 
         initFireBase();
         //initUI();
+
+        //toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
         setTitle(R.string.bpmBtnText);
+
+        /* toolbar.setTitleMargin(0,0,10,0);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.navigator_left);
+
+
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
         //beat anim

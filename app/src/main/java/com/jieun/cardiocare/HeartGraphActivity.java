@@ -1,6 +1,7 @@
 package com.jieun.cardiocare;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -44,6 +45,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     final static int MONTH = 12;
     final static int STATUS =5;
 
+    Toolbar toolbar;
     TextView dateText, timeText, bpmText, statusText;
     Spinner timeSpinner, statusSpinner;
     TextView max_v, min_v, avg_v;
@@ -89,6 +91,15 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     }
 
     public void init() {
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        this.setSupportActionBar(toolbar);
+        setTitle("BPM Graph");
+        /* toolbar.setTitleMargin(0,0,10,0);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.navigator_left);
 
         dateText = (TextView) findViewById(R.id.dateText);
         timeText = (TextView) findViewById(R.id.timeText);

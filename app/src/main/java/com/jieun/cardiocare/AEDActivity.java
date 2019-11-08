@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -51,6 +52,8 @@ import shortbread.Shortcut;
 public class AEDActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
+
+    private Toolbar toolbar;
     private GoogleMap mMap;
     private GpsTracker gpsTracker;
 
@@ -87,16 +90,7 @@ public class AEDActivity extends AppCompatActivity
         }
          */
 
-        //textView =(TextView)findViewById(R.id.textView);
-        location_layout =(LinearLayout)findViewById(R.id.location_layout);
-        listView =(ListView)findViewById(R.id.listView);
-
-        select_linear_layout =(LinearLayout)findViewById(R.id.select_linear_layout);
-        buildAddressText =(TextView)findViewById(R.id.buildAddress);
-        buildPlaceText =(TextView)findViewById(R.id.buildPlace);
-        clerkTelText =(TextView)findViewById(R.id.clerkTel);
-        distanceText =(TextView)findViewById(R.id.distance);
-
+        init();
 
         final Button ShowLocationButton = (Button) findViewById(R.id.button);
         ShowLocationButton.setOnClickListener(new View.OnClickListener()
@@ -161,6 +155,29 @@ public class AEDActivity extends AppCompatActivity
                 mapFragment.getMapAsync(AEDActivity.this);
             }
         });
+    }
+
+    private void init(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
+        setTitle(R.string.aedBtnText);
+
+        /* toolbar.setTitleMargin(0,0,10,0);*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.navigator_left);
+
+
+        //textView =(TextView)findViewById(R.id.textView);
+        location_layout =(LinearLayout)findViewById(R.id.location_layout);
+        listView =(ListView)findViewById(R.id.listView);
+
+        select_linear_layout =(LinearLayout)findViewById(R.id.select_linear_layout);
+        buildAddressText =(TextView)findViewById(R.id.buildAddress);
+        buildPlaceText =(TextView)findViewById(R.id.buildPlace);
+        clerkTelText =(TextView)findViewById(R.id.clerkTel);
+        distanceText =(TextView)findViewById(R.id.distance);
+
+
     }
 
     @Override

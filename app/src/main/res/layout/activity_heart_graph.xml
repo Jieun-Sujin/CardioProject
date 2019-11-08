@@ -5,77 +5,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="15dp"
     tools:context=".HeartGraphActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
-        android:background="@drawable/current_tab_image2"
         android:id="@+id/current_layout1"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:background="@drawable/current_tab_image2">
+
+
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/current_text"
             android:layout_width="120dp"
             android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:text="최근 심박수"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:text="최근 심박수">
-        </TextView>
+            android:textColor="@color/black"></TextView>
+
         <RelativeLayout
-            android:layout_below="@+id/current_text"
             android:id="@+id/current_layout"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="60dp"
+            android:layout_below="@+id/current_text">
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
                 <LinearLayout
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical"
                     android:layout_width="100dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:textColor="@color/black"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/dateText"
-                        android:text="2019 - 10- 08"
-                        android:textSize="13dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    </TextView>
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:textColor="@color/black"
-                        android:id="@+id/timeText"
-                        android:text="18 : 30 "
-                        android:textSize="12dp"
+                        android:id="@+id/dateText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    </TextView>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="2019 - 10- 08"
+                        android:textColor="@color/black"
+                        android:textSize="13dp"></TextView>
+
+                    <TextView
+                        android:id="@+id/timeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18 : 30 "
+                        android:textColor="@color/black"
+                        android:textSize="12dp"></TextView>
 
                 </LinearLayout>
+
                 <TextView
-                    android:textColor="@color/black"
-                    android:layout_marginTop="15dp"
                     android:id="@+id/statusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
-                    android:text="EXCITE"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-                <TextView
-                    android:textColor="@color/black"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="40dp"
+                    android:text="EXCITE"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"></TextView>
+
+                <TextView
                     android:id="@+id/bpmText"
-                    android:text="75 BPM"
-                    android:textSize="20dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="15dp"
+                    android:text="75 BPM"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"></TextView>
 
 
             </LinearLayout>
@@ -240,7 +251,7 @@
             android:layout_width="350dp"
             android:layout_height="380dp"
             android:layout_below="@+id/valuetable"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp">
 
