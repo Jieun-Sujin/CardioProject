@@ -5,9 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="5"
     tools:context=".HeartActivity">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,22 +20,29 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/questionBtn"
+                    android:layout_marginLeft="340dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/question_mark_btn">
+                </Button>
                 <TextView
-                    android:layout_marginTop="30dp"
                     android:textSize="18dp"
                     android:id="@+id/textMon"
                     android:textColor="@android:color/black"
-                    android:text="Please  your  Finger \n on a Back Camera and a Flush"
                     android:textAlignment="center"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp" />
+                    android:layout_height="wrap_content"/>
+
                 <ImageView
                     android:id="@+id/fingerImage"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="200dp"
-                    android:layout_height="180dp"
-                    android:src="@drawable/finger">
+                    android:layout_width="300dp"
+                    android:layout_height="240dp"
+                    android:src="@drawable/bpm_image">
 
                 </ImageView>
 
@@ -194,63 +199,89 @@
 
                         </RadioGroup>
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnLayout2"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <Button
+                            android:id="@+id/againBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_bpm_again"
+                            android:padding="3dp"
+                            android:text="again"
+                            android:textColor="@color/white"
+                            android:typeface="normal" />
+
+                        <Button
+                            android:id="@+id/storeBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_history_graph"
+                            android:padding="3dp"
+                            android:text="STORE"
+                            android:textColor="@color/white"
+                            android:typeface="normal" />
+                    </LinearLayout>
                 </LinearLayout>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="60dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:background="@drawable/button"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/btnStart"
-                    android:layout_width="330dp"
-                    android:layout_height="50dp"
-                    android:layout_margin="10dp"
-                    android:padding="3dp"
-                    android:text="START"
-                    android:typeface="normal" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:layout_marginTop="60dp"
-                    android:visibility="gone"
-                    android:id="@+id/btnLayout2"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:layout_width="350dp"
+                    android:layout_marginTop="30dp"
+                    android:visibility="visible"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <Button
-                        android:id="@+id/againBtn"
-                        android:layout_width="0dp"
+                        android:id="@+id/btnStart"
+                        android:layout_width="300dp"
                         android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button"
-                        android:padding="3dp"
-                        android:text="again"
+                        android:background="@drawable/btn_bpm_drawable"
+                        android:padding="15dp"
+                        android:text="BPM  측정하기"
+                        android:textColor="@color/white"
                         android:typeface="normal" />
 
                     <Button
-                        android:background="@drawable/button"
-                        android:layout_gravity="center_horizontal"
-                        android:id="@+id/storeBtn"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                        android:id="@+id/btnHistory"
+                        android:layout_width="300dp"
                         android:layout_height="50dp"
-                        android:layout_margin="10dp"
-                        android:padding="3dp"
-                        android:text="STORE"
-                        android:typeface="normal" />
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="40dp"
+                        android:background="@drawable/btn_history_drawable"
+                        android:padding="15dp"
+                        android:text="BPM 그래프"
+                        android:textColor="@color/white"
+                        android:typeface="normal"/>
+
                 </LinearLayout>
-
-
-
             </LinearLayout>
 
 

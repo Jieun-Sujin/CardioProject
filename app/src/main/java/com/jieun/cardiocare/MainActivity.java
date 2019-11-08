@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         buttonGoogle = findViewById(R.id.btn_googleSignIn);
+        buttonGoogle.setSize(SignInButton.SIZE_WIDE);
 
         // Google 로그인을 앱에 통합
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
