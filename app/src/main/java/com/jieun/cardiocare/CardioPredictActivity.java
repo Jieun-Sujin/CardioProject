@@ -170,6 +170,7 @@ public class CardioPredictActivity extends AppCompatActivity {
                                 smokeBar.setVisibility(View.GONE);
                             }
 
+                            // 혈압이 높은 사람일 경우
                             float[] input4 = new float[]{age,gender,height,weight,aphi - 20 ,aplo,cholesterol,smoke, 0};
                             final double lowAphiPct = predictCardio(data, input4);
                             if(aphi > 140){
