@@ -120,27 +120,16 @@
         app:layout_constraintTop_toBottomOf="@+id/age" />
 
 
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="230dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="44dp"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"
-        app:layout_constraintStart_toEndOf="@+id/age"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RadioGroup
         android:id="@+id/genderSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="58dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:checkedButton="@id/man"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/gender"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker">
+        app:layout_constraintTop_toBottomOf="@+id/btnBirthday">
 
         <RadioButton
             android:id="@+id/man"
@@ -250,5 +239,16 @@
         android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@+id/weight"
         app:layout_constraintTop_toBottomOf="@+id/btnHeight" />
+
+    <Button
+        android:id="@+id/btnBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="68dp"
+        android:onClick="clickBirthday"
+        android:text="1900년 00월 00일"
+        app:layout_constraintStart_toEndOf="@+id/age"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

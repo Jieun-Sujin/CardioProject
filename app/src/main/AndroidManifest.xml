@@ -34,6 +34,7 @@
         <activity android:name=".UserInfoActivity"/>
         <activity android:name=".CardioPredictActivity"/>
         <activity android:name=".DataCheckActivity"/>
+        <activity android:name=".PopupActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

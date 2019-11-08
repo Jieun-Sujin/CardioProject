@@ -1,5 +1,6 @@
 package com.jieun.cardiocare;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,10 +39,10 @@ public class UserInfoActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    DatePicker birthday;
+    private DatePickerDialog.OnDateSetListener callbackMethod;
     RadioGroup genderSelect, smokeSelect, alcoSelect;
     RadioButton man, woman, smoker, nonSmoker, drinking, nonDrink;
-    Button heightBtn, weightBtn, aphiBtn, aploBtn, cholBtn;
+    Button birthBtn, heightBtn, weightBtn, aphiBtn, aploBtn, cholBtn;
     int mYear, mMonth, mDay;
     private Boolean join = false; // 가입되어있는지
 
@@ -57,7 +58,7 @@ public class UserInfoActivity extends AppCompatActivity {
         final String userName = user.getDisplayName();
         getUser(userId);
 
-        birthday = (DatePicker) findViewById(R.id.datePicker);
+        birthBtn = (Button) findViewById(R.id.btnBirthday);
         genderSelect = (RadioGroup) findViewById(R.id.genderSelect);
         heightBtn = (Button) findViewById(R.id.btnHeight);
         weightBtn = (Button) findViewById(R.id.btnWeight);
@@ -74,12 +75,13 @@ public class UserInfoActivity extends AppCompatActivity {
         nonDrink= (RadioButton) findViewById(R.id.Nondrink);
 
 
-        //생년월일 datepicker 설정
+        // 오늘 날짜
         Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH) + 1;
         mDay = c.get(Calendar.DAY_OF_MONTH);
-        birthday.init(mYear,mMonth,mDay,null);
+
+        InitializeListener(); //birthday dialog
 
         //데이터 저장
         Button saveBtn = (Button) findViewById(R.id.saveBtn);
@@ -87,7 +89,9 @@ public class UserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String age = getBirth();
+                String age = birthBtn.getText().toString().substring(0,4)
+                        + birthBtn.getText().toString().substring(6,8) + birthBtn.getText().toString().substring(10,12);
+
                 int gender = getGender();
 
                 String heightVal = String.valueOf(heightBtn.getText());
@@ -121,8 +125,9 @@ public class UserInfoActivity extends AppCompatActivity {
         });
 
     }
-    public String getBirth() {
+    public String getDay() {
 
+        /*
         String birthY = birthday.getYear() + "";
         String birthM = "";
         String birthD = "";
@@ -138,6 +143,24 @@ public class UserInfoActivity extends AppCompatActivity {
             birthD = (birthday.getDayOfMonth()) + "";
 
         return birthY + birthM + birthD;
+
+         */
+        String year = mYear + "";
+        String month = "";
+        String day = "";
+
+        if(mMonth < 10)
+            month = "0" + mMonth;
+        else
+            month = mMonth + "";
+
+        if(mDay < 10)
+            day = "0" + mDay;
+        else
+            day = mDay + "";
+
+        return year + "년 " + month + "월 " + day + "일";
+
     }
 
     public int getGender() {
@@ -195,11 +218,15 @@ public class UserInfoActivity extends AppCompatActivity {
                         UserData user = dataSnapshot.getValue(UserData.class);
                         if(user != null){ // 이미 가입되어 있다면 저장되어 있던 데이터 보여주기
                             join = true;
+                            /*
                             int birhtY = Integer.parseInt(user.getAge().substring(0,4));
                             int birthM = Integer.parseInt(user.getAge().substring(4,6));
                             int birthD = Integer.parseInt(user.getAge().substring(6));
                             Log.i("월",birthM+"");
-                            birthday.init(birhtY,birthM-1,birthD,null);
+                             */
+
+                            String birthday = user.getAge().substring(0,4) + "년 " + user.getAge().substring(4,6) + "월 " + user.getAge().substring(6) + "일";
+                            birthBtn.setText(birthday);
                             if(user.getGender() == 0)
                                 genderSelect.check(woman.getId());
                             else
@@ -223,7 +250,8 @@ public class UserInfoActivity extends AppCompatActivity {
                         }
                         else{ // 가입안했다면 기본값으로 보여주기
                             join = false;
-                            birthday.init(mYear,mMonth -1,mDay,null); //오늘날짜
+                            String today = getDay();
+                            birthBtn.setText(today);
                             heightBtn.setText(150 + "cm");
                             weightBtn.setText(50 + "kg");
                             aphiBtn.setText(120 + "mmHg");
@@ -237,6 +265,38 @@ public class UserInfoActivity extends AppCompatActivity {
                         // Getting Post failed, log a message
                     }
                 });
+    }
+
+    public void clickBirthday(View view) {
+
+        int year = Integer.parseInt(birthBtn.getText().toString().substring(0,4));
+        int month = Integer.parseInt(birthBtn.getText().toString().substring(6,8));
+        int day = Integer.parseInt(birthBtn.getText().toString().substring(10,12));
+
+        DatePickerDialog dialog = new DatePickerDialog(this, callbackMethod, year, month-1, day);
+        dialog.show();
+    }
+
+    public void InitializeListener()
+    {
+        callbackMethod = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+            {
+                monthOfYear++;
+                String Year =  year + "";
+                String Month = monthOfYear + "";
+                String Day = dayOfMonth + "";
+
+                if(monthOfYear < 10)
+                    Month = "0" + Month;
+                if(dayOfMonth < 10)
+                    Day = "0" + Day;
+
+                birthBtn.setText(Year + "년 " + Month + "월 " + Day + "일");
+            }
+        };
     }
 
     public void clickHeight(View view) {
