@@ -49,5 +49,9 @@
     <string name="bpmtext2">손가락을 카메라 옆에 있는 \n 센서에 가져다 주세요. </string>
     <string name="bpmtext3">측정이 완료 될때 까지 \n 손가락을 고정시켜 주세요.  </string>
 
+    <!--aed activity-->
+    <string name="aed_button">\nAED 위치</string>
+    <string name="aed_button_change">\n다른 AED 위치 찾기</string>
+
 
 </resources>

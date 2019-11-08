@@ -1,6 +1,8 @@
 package com.jieun.cardiocare;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -103,7 +105,10 @@ public class AEDActivity extends AppCompatActivity
             public void onClick(View arg0)
             {
 
-                ShowLocationButton.setText("Click AEDs ");
+                ShowLocationButton.setText(R.string.aed_button_change);
+                ShowLocationButton.setCompoundDrawables(null, getDrawable(R.drawable.ic_aed_change_image),null,null);
+                ShowLocationButton.setBackground(getDrawable(R.drawable.btn_change_aed));
+
                 location_layout.setVisibility(View.VISIBLE);
                 gpsTracker = new GpsTracker(AEDActivity.this);
 
