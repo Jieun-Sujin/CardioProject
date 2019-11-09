@@ -253,6 +253,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/firstBtn_layout"
                     android:layout_marginTop="30dp"
                     android:visibility="visible"
                     android:orientation="vertical"

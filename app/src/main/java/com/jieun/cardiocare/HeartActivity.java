@@ -98,6 +98,7 @@ public class HeartActivity extends AppCompatActivity {
     private PowerManager.WakeLock wakeLock;
     private TextView textMon;
     private ImageView beatanim;
+    private LinearLayout firstBtn_layout;
 
     private Drawable beatdraw;
     private TextView bpmText;
@@ -148,7 +149,7 @@ public class HeartActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.navigator_left);
 
-
+        firstBtn_layout =(LinearLayout)findViewById(R.id.firstBtn_layout);
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
         //beat anim
@@ -662,6 +663,7 @@ public class HeartActivity extends AppCompatActivity {
                 }
                 SimpleDateFormat Sformat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
                 String format_time1 = Sformat.format (System.currentTimeMillis());
+                firstBtn_layout.setVisibility(View.GONE);
                 textMon.setText(format_time1);
                 bpmText.setText("BPM is " + value);
                 bpmseekBar.setProgress((int)value);

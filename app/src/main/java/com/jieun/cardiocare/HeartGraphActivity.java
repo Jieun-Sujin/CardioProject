@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     TextView dateText, timeText, bpmText, statusText;
     Spinner timeSpinner, statusSpinner;
     TextView max_v, min_v, avg_v;
+    RelativeLayout current_layout;
 
     static int clicked1 = 0, clicked2 = 0;
 
@@ -81,8 +83,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
 
         initFireBase();
-        init();
         calculateWeekData();
+        init();
 
     }
     private void initFireBase(){
@@ -135,15 +137,18 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         HeartUser huser = (HeartUser)intent.getSerializableExtra("user");
         if(huser !=null){
             String[] statusList = getResources().getStringArray(R.array.status_array);
-            dateText.setText(huser.getDate());
-            bpmText.setText((int)huser.getBpm()+ " BPM");
+            String date = huser.getDate();
+
+            dateText.setText(date.substring(0,9));
+            timeText.setText(date.substring(10));
+            bpmText.setText((int)huser.getBpm()+ "  BPM");
             statusText.setText(statusList[huser.getStatus()]);
 
         }else{
-            dateText.setText("");
-            timeText.setText("");
-            bpmText.setText("");
-            statusText.setText("");
+            current_layout =(RelativeLayout)findViewById(R.id.current_layout1);
+            current_layout.setVisibility(View.GONE);
+            //current_layout.setVisibility(View.INVISIBLE);
+
         }
 
     }
