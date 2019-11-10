@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -99,6 +100,8 @@ public class HeartActivity extends AppCompatActivity {
     private TextView textMon;
     private ImageView beatanim;
     private LinearLayout firstBtn_layout;
+    private Button historyBtn;
+
 
     private Drawable beatdraw;
     private TextView bpmText;
@@ -130,6 +133,9 @@ public class HeartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart);
 
+        ActionBar ab = getSupportActionBar() ;
+        ab.setTitle(R.string.bpmBtnText) ;
+
         //심박패턴을 측정하는 동안 화면이 꺼지지 않도록 제어하기 위해 전원관리자를 얻어옵니다
         powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(
@@ -140,15 +146,18 @@ public class HeartActivity extends AppCompatActivity {
         initFireBase();
         //initUI();
 
+        /*
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
         setTitle(R.string.bpmBtnText);
+        */
+
 
         /* toolbar.setTitleMargin(0,0,10,0);*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.navigator_left);
-
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //toolbar.setNavigationIcon(R.drawable.navigator_left);
+        historyBtn = (Button) findViewById(R.id.btnHistory);
         firstBtn_layout =(LinearLayout)findViewById(R.id.firstBtn_layout);
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
@@ -290,9 +299,11 @@ public class HeartActivity extends AppCompatActivity {
                     AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
                     avd.start();
                 }
+
+                historyBtn.setVisibility(View.GONE);
                 finger.setVisibility(View.GONE);
                 beatLayout.setVisibility(View.VISIBLE);
-                btn.setText("Waiting");
+                btn.setText("STOP");
                 bCheckStarted = true;
                 //화면이 꺼지지 않도록 설정합니다
                 wakeLock.acquire();
@@ -665,7 +676,7 @@ public class HeartActivity extends AppCompatActivity {
                 String format_time1 = Sformat.format (System.currentTimeMillis());
                 firstBtn_layout.setVisibility(View.GONE);
                 textMon.setText(format_time1);
-                bpmText.setText("BPM is " + value);
+                bpmText.setText("BPM is " + (int)value);
                 bpmseekBar.setProgress((int)value);
 
                 btnStart.setVisibility(View.GONE);

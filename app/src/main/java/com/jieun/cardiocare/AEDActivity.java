@@ -1,5 +1,6 @@
 package com.jieun.cardiocare;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
@@ -82,6 +83,8 @@ public class AEDActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aed);
 
+        ActionBar ab = getSupportActionBar() ;
+        ab.setTitle(R.string.aedBtnText) ;
         /*
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
@@ -158,13 +161,16 @@ public class AEDActivity extends AppCompatActivity
     }
 
     private void init(){
+       /*
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
         setTitle(R.string.aedBtnText);
 
+        */
+
         /* toolbar.setTitleMargin(0,0,10,0);*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.navigator_left);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //toolbar.setNavigationIcon(R.drawable.navigator_left);
 
 
         //textView =(TextView)findViewById(R.id.textView);
@@ -421,7 +427,7 @@ public class AEDActivity extends AppCompatActivity
                     case XmlPullParser.START_TAG:
 
                         tag= xpp.getName(); // 태그 이름 얻어오기
-
+                        Log.i("tag", tag);
                         if(tag.equals("item")) ;
 
                         else if(tag.equals("buildPlace")){
@@ -438,6 +444,7 @@ public class AEDActivity extends AppCompatActivity
                         else if(tag.equals("buildAddress")){
                             xpp.next();
                             buildAddress.add(xpp.getText());
+                            Log.i("ADRRESS", xpp.getText());
 
                         }
                         else if(tag.equals("distance")){

@@ -85,6 +85,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         initFireBase();
         calculateWeekData();
         init();
+        setupGraph();
+        getVal(0, 0);
 
     }
     private void initFireBase(){
@@ -95,13 +97,13 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     public void init() {
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        this.setSupportActionBar(toolbar);
-        setTitle("BPM Graph");
+        //this.setSupportActionBar(toolbar);
+        //setTitle("BPM Graph");
         /* toolbar.setTitleMargin(0,0,10,0);*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.navigator_left);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //toolbar.setNavigationIcon(R.drawable.navigator_left);
 
         dateText = (TextView) findViewById(R.id.dateText);
         timeText = (TextView) findViewById(R.id.timeText);
