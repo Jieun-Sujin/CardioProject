@@ -7,7 +7,7 @@
     <string name="failed_login">로그인에 실패하였습니다.</string>
     <string name="facebook_app_id">884710338595518</string>
     <string name="google_map_api_key">AIzaSyDtzD-CDvyhvklAv8riCF3X0QifO6e7cmc</string>
-    <string name="aed_api_key">Xu03ZpGvY9%2F84YPrKHdMG7KiVdbWzJTSmgyU3zdKEw4IU8LgyJWDPoJuRIAPPjwrB4m0FZN%2FbMLqA2PvH5GDMg%3D%3D</string>
+    <string name="aed_api_key">o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D</string>
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
     <string name="permission_failed1">퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.</string>
     <string name="permission_failed2">퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다.</string>

@@ -111,8 +111,11 @@ public class AEDActivity extends AppCompatActivity
 
                 latitude = gpsTracker.getLatitude();
                 longitude = gpsTracker.getLongitude();
+                Log.i("latitude", latitude + "");
+                Log.i("longitude", longitude + "");
 
                 address = getCurrentAddress(latitude, longitude);
+                Log.i("Address", address);
 
                 mapFragment = (SupportMapFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.map);
@@ -383,10 +386,10 @@ public class AEDActivity extends AppCompatActivity
                 +"WGS84_LON="+WGS84_LON
                 +"&WGS84_LAT="+WGS84_LAT
                 +"&numOfRows=10"
-                +"&serviceKey="+key;
+                +"&serviceKey="+ "o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D";
 
-//        String queryUrl
-//                ="http://apis.data.go.kr/B552657/AEDInfoInqireService/getAedLcinfoInqire?WGS84_LON=127.0467336&WGS84_LAT=37.2852528&numOfRows=10&serviceKey=o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D";
+        //String queryUrl
+        //       ="http://apis.data.go.kr/B552657/AEDInfoInqireService/getAedLcinfoInqire?WGS84_LON=127.0467336&WGS84_LAT=37.2852528&numOfRows=10&serviceKey=o6Ea0CAH7jCtTwXGrSM8WWWyEGtMDjmxQJBi7pUh%2Fn5Ec4tEPWIKzx%2Fe8YuOKCb2jwn5CqwAcxrqVD6rNRsFwg%3D%3D";
 
         try {
 
@@ -403,11 +406,12 @@ public class AEDActivity extends AppCompatActivity
 
             xpp.setInput( new InputStreamReader(is, "UTF-8") );
 
-            String tag;
+            String tag = "";
 
             xpp.next();
 
             int eventType= xpp.getEventType();
+
 
             buildAddress = new ArrayList<>();
             buildPlace = new ArrayList<>();
@@ -418,7 +422,7 @@ public class AEDActivity extends AppCompatActivity
 
 
             while( eventType != XmlPullParser.END_DOCUMENT ){
-
+                Log.i("eventType",eventType + "");
                 switch( eventType ){
 
                     case XmlPullParser.START_DOCUMENT:
@@ -427,48 +431,52 @@ public class AEDActivity extends AppCompatActivity
                     case XmlPullParser.START_TAG:
 
                         tag= xpp.getName(); // 태그 이름 얻어오기
+
                         Log.i("tag", tag);
+
                         if(tag.equals("item")) ;
 
                         else if(tag.equals("buildPlace")){
                             xpp.next();
                             buildPlace.add(xpp.getText());
+                            Log.i("buildPlace", xpp.getText());
                         }
 
                         else if(tag.equals("clerkTel")){
-
                             xpp.next();
                             clerkTel.add(xpp.getText());
+                            Log.i("clerkTel", xpp.getText());
 
                         }
                         else if(tag.equals("buildAddress")){
                             xpp.next();
                             buildAddress.add(xpp.getText());
-                            Log.i("ADRRESS", xpp.getText());
+                            Log.i("buildAddress", xpp.getText());
 
                         }
                         else if(tag.equals("distance")){
                             xpp.next();
                             distance.add(xpp.getText());
+                            Log.i("distance", xpp.getText());
                         }
                         else if(tag.equals("wgs84Lat")){
                             xpp.next();
                             wgs84Lat.add(xpp.getText());
+                            Log.i("wgs84Lat", xpp.getText());
                         }
                         else if(tag.equals("wgs84Lon")){
                             xpp.next();
                             wgs84Lon.add(xpp.getText());
+                            Log.i("wgs84Lon", xpp.getText());
                         }
                         break;
-
-
 
                     case XmlPullParser.TEXT:
                         break;
 
                     case XmlPullParser.END_TAG:
 
-                        tag= xpp.getName(); // 태그 이름 얻어오기
+                        tag = xpp.getName(); // 태그 이름 얻어오기
 
                         break;
                 }
