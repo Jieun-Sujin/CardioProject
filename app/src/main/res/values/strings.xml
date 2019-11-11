@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">CardioCare</string>
-    
+    <string name="app_name">Cardict</string>
+    <string name="firebase_key">ilsyA81vr9UygsO6OoJNwnA2pBo1</string>
+
     <!-- MainActivity -->
    
     <string name="success_login">로그인 되었습니다.</string>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroud"
     tools:context=".HomeActivity">
 
     <Button
@@ -15,6 +16,7 @@
         android:drawablePadding="-70dp"
         android:onClick="clickInputMydata"
         android:paddingLeft="52dp"
+        android:background="@drawable/button2"
         android:text="@string/dataInputBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
@@ -29,6 +31,7 @@
         android:onClick="clickAed"
         android:paddingLeft="50dp"
         android:text="@string/aedBtnText"
+        android:background="@drawable/button3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bpmBtn" />
 
@@ -41,6 +44,7 @@
         android:drawablePadding="-70dp"
         android:onClick="clickMyPredict"
         android:paddingLeft="40dp"
+        android:background="@drawable/button3"
         android:text="@string/predictBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataInputBtn" />
@@ -54,6 +58,7 @@
         android:drawablePadding="-75dp"
         android:onClick="clickHeart"
         android:paddingLeft="53dp"
+        android:background="@drawable/button2"
         android:text="@string/bpmBtnText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/predictBtn" />

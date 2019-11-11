@@ -4,6 +4,12 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <!--main color EB8C8C-->
+    <color name="backgroud">#FFF0F5</color>
+    <color name="maincolor1">#FFCFDA</color>
+    <color name="edgecolor">#696969</color>
+    <color name="maincolor2">#dcdcdc</color>
+
     <color name="empty">@android:color/transparent</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>

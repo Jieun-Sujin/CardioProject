@@ -34,8 +34,8 @@ public class HomeActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        final String userId = user.getUid();
-        final String userName = user.getDisplayName();
+        //final String userId = user.getUid();
+        final String userName = "김지은";
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "님");
