@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,9 +29,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import shortbread.Shortcut;
 
 @Shortcut(id = "PROFILE", icon = R.drawable.ic_noun_profile, shortLabelRes = R.string.label_profile, rank = 1)
@@ -50,6 +54,10 @@ public class UserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userdata_input);
+
+        Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar3);
+        toolbar.setTitle("내 정보 입력");
+        setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -125,26 +133,31 @@ public class UserInfoActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar, menu) ;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_home:
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     public String getDay() {
 
-        /*
-        String birthY = birthday.getYear() + "";
-        String birthM = "";
-        String birthD = "";
-
-        if(birthday.getMonth() + 1 < 10)
-            birthM = "0" + (birthday.getMonth() + 1);
-        else
-            birthM = (birthday.getMonth() + 1) + "";
-
-        if(birthday.getDayOfMonth() < 10)
-            birthD = "0" + (birthday.getDayOfMonth());
-        else
-            birthD = (birthday.getDayOfMonth()) + "";
-
-        return birthY + birthM + birthD;
-
-         */
         String year = mYear + "";
         String month = "";
         String day = "";

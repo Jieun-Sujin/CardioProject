@@ -58,7 +58,7 @@ public class AEDActivity extends AppCompatActivity
     private GoogleMap mMap;
     private GpsTracker gpsTracker;
 
-    //private static final int GPS_ENABLE_REQUEST_CODE = 2001;
+    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     //private static final int PERMISSIONS_REQUEST_CODE = 100;
     //String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
@@ -83,15 +83,15 @@ public class AEDActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aed);
 
-        ActionBar ab = getSupportActionBar() ;
-        ab.setTitle(R.string.aedBtnText) ;
-        /*
+
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
-        }else {
+        }
+        /*
+        else {
             checkRunTimePermission();
         }
-         */
+        */
 
         init();
 
@@ -164,12 +164,7 @@ public class AEDActivity extends AppCompatActivity
     }
 
     private void init(){
-       /*
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
-        setTitle(R.string.aedBtnText);
 
-        */
 
         /* toolbar.setTitleMargin(0,0,10,0);*/
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -314,14 +309,14 @@ public class AEDActivity extends AppCompatActivity
 
     }
 
-    /*
+
     //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AEDActivity.this);
         builder.setTitle("위치 서비스 비활성화");
         builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
-                + "위치 설정을 수정하실래요?");
+                + "위치 서비스를 활성화하시겠습니까?");
         builder.setCancelable(true);
         builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
             @Override
@@ -340,7 +335,7 @@ public class AEDActivity extends AppCompatActivity
         builder.create().show();
     }
 
-     */
+
     /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -364,7 +359,7 @@ public class AEDActivity extends AppCompatActivity
         }
     }
 
-
+    */
     public boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -373,7 +368,7 @@ public class AEDActivity extends AppCompatActivity
     }
 
 
-     */
+
 
     public void getData(){
 

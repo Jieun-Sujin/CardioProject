@@ -1,10 +1,13 @@
 package com.jieun.cardiocare;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,16 +33,27 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.appName);
+        setSupportActionBar(toolbar);
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //final String userId = user.getUid();
-        final String userName = "김지은";
+        final String userName = user.getDisplayName();
+        //final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "님");
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar, menu) ;
+        return true;
     }
 
 

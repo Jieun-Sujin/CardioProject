@@ -27,6 +27,7 @@
     <string name="predictBtnText">심혈관질환 예측하기</string>
     <string name="bpmBtnText">심박수 측정하기</string>
     <string name="aedBtnText">주변 AED 찾아보기</string>
+    <string name="appName">Cardict</string>
 
     <!-- HeartAnim -->
     <string name="heartpath_origin">

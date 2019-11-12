@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -133,8 +135,9 @@ public class HeartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart);
 
-        ActionBar ab = getSupportActionBar() ;
-        ab.setTitle(R.string.bpmBtnText) ;
+        Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar5);
+        toolbar.setTitle("심박수 측정");
+        setSupportActionBar(toolbar);
 
         //심박패턴을 측정하는 동안 화면이 꺼지지 않도록 제어하기 위해 전원관리자를 얻어옵니다
         powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
@@ -146,12 +149,6 @@ public class HeartActivity extends AppCompatActivity {
         initFireBase();
         //initUI();
 
-        /*
-        //toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
-        setTitle(R.string.bpmBtnText);
-        */
 
 
         /* toolbar.setTitleMargin(0,0,10,0);*/
@@ -230,6 +227,28 @@ public class HeartActivity extends AppCompatActivity {
 
         //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
         //checkAndRequestPermissions();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar, menu) ;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_home:
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initFireBase(){

@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <Button
         android:id="@+id/btnAphi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button3"
         android:onClick="clickAphi"
-        android:background="@drawable/button2"
         android:text="mmHg"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,35 +35,35 @@
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
         android:text="생년월일"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
     <TextView
         android:id="@+id/height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="신장"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gender" />
 
     <TextView
         android:id="@+id/weight"
-        android:layout_width="39dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="몸무게"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/height" />
 
@@ -70,11 +71,11 @@
         android:id="@+id/ap_hi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="최고혈압"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
 
@@ -82,11 +83,11 @@
         android:id="@+id/ap_lo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="최저혈압"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ap_hi" />
 
@@ -94,11 +95,11 @@
         android:id="@+id/chol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="콜레스테롤"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ap_lo" />
 
@@ -106,11 +107,11 @@
         android:id="@+id/smoke"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="흡연여부"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chol" />
 
@@ -118,11 +119,11 @@
         android:id="@+id/alco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
         android:text="음주여부"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/smoke" />
 
@@ -130,11 +131,11 @@
         android:id="@+id/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="성별"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age" />
 
@@ -167,7 +168,7 @@
         android:id="@+id/smokeSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:checkedButton="@id/Nonsmoker"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -217,7 +218,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:onClick="clickHeight"
-        android:background="@drawable/button2"
+        android:background="@drawable/button3"
         android:text="cm"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -228,9 +229,9 @@
         android:id="@+id/btnAplo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button3"
         android:onClick="clickAplo"
-        android:background="@drawable/button2"
         android:text="mmHg"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -241,9 +242,9 @@
         android:id="@+id/btnChol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button3"
         android:onClick="clickChol"
-        android:background="@drawable/button2"
         android:text="mg/dl"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,7 +257,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="clickWeight"
-        android:background="@drawable/button2"
+        android:background="@drawable/button3"
         android:text="kg"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
@@ -267,19 +268,29 @@
         android:id="@+id/btnBirthday"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:background="@drawable/button2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button3"
         android:onClick="clickBirthday"
         android:text="1900년 00월 00일"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.24" />
+        app:layout_constraintGuide_percent="0.29" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

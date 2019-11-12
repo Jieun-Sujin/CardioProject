@@ -1,5 +1,6 @@
 package com.jieun.cardiocare;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -89,6 +91,13 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         getVal(0, 0);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar, menu) ;
+        return true;
+    }
+
     private void initFireBase(){
         mAuth = FirebaseAuth.getInstance();
         fuser = mAuth.getCurrentUser();
@@ -97,10 +106,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     public void init() {
 
 
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        //this.setSupportActionBar(toolbar);
-        //setTitle("BPM Graph");
         /* toolbar.setTitleMargin(0,0,10,0);*/
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //toolbar.setNavigationIcon(R.drawable.navigator_left);
