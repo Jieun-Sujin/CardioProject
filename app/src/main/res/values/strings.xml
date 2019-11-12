@@ -3,7 +3,7 @@
     <string name="firebase_key">ilsyA81vr9UygsO6OoJNwnA2pBo1</string>
 
     <!-- MainActivity -->
-   
+
     <string name="success_login">로그인 되었습니다.</string>
     <string name="failed_login">로그인에 실패하였습니다.</string>
     <string name="facebook_app_id">884710338595518</string>
@@ -12,7 +12,7 @@
     <string name="fb_login_protocol_scheme">fb884710338595518</string>
     <string name="permission_failed1">퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.</string>
     <string name="permission_failed2">퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다.</string>
-    
+
     <!-- CardioPredictActivity -->
 
     <string name="predict_info">님의 예상 심혈관질환 발병률</string>
@@ -53,6 +53,9 @@
     <!--aed activity-->
     <string name="aed_button">\nAED 위치</string>
     <string name="aed_button_change">\n다른 AED 위치 찾기</string>
-
-
+    <string name="tab">\u0009</string>
+    <string name="aedtext">
+        짧은 순간에 강한 전류를 심장에 통과시켜  심장이 다시 정상적인 전기활동을 할 수 있도록 유도하는 것이다.
+    </string>
+    <string name="aedlink">https://www.e-gen.or.kr/egen/aed_usage.do</string>
 </resources>
