@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,8 +63,11 @@ public class CardioPredictActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cardio_predict);
 
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar4);
         toolbar.setTitle("실혈관질환 예측");
+        toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
 

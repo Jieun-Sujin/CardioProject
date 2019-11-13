@@ -80,9 +80,15 @@ public class AEDActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aed);
 
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar6);
         toolbar.setTitle("주변 AED 찾기");
+        toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
+
+
+
+
 
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
@@ -436,10 +442,10 @@ public class AEDActivity extends AppCompatActivity
 
         String key ="@string/aed_api_key";
 
-        String WGS84_LON =  Double.toString(longitude);
-        String WGS84_LAT =  Double.toString(latitude);
-        //String WGS84_LON =  Double.toString(127.1643387);
-        //String WGS84_LAT =  Double.toString(37.6074135);
+        //String WGS84_LON =  Double.toString(longitude);
+        //String WGS84_LAT =  Double.toString(latitude);
+        String WGS84_LON =  Double.toString(127.1643387);
+        String WGS84_LAT =  Double.toString(37.6074135);
 
         String queryUrl="http://apis.data.go.kr/B552657/AEDInfoInqireService/getAedLcinfoInqire?"
                 +"WGS84_LON="+WGS84_LON

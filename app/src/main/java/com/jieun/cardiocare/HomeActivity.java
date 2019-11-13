@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -33,9 +35,12 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
 
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.appName);
+        toolbar.setTitleTextColor(getColor(R.color.maincolor1));
+        toolbar.setTitleMargin(start,0,0,0);
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
@@ -44,8 +49,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //final String userId = user.getUid();
 
-        final String userName = user.getDisplayName();
-        //final String userName = "김지은"; // 수진 테스트 할 때
+        //final String userName = user.getDisplayName();
+        final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "님");
@@ -53,12 +58,12 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.app_bar, menu) ;
         return true;
     }
-
+*/
 
     private void initUI(){
 

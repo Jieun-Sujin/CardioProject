@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,8 +85,11 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_graph);
 
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar7);
         toolbar.setTitle("심박수 기록");
+        toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
         initFireBase();

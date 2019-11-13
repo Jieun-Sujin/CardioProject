@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,8 +56,11 @@ public class UserInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userdata_input);
 
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar3);
         toolbar.setTitle("내 정보 입력");
+        toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -135,9 +136,13 @@ public class HeartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart);
 
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar5);
         toolbar.setTitle("심박수 측정");
+        toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
+
+
 
         //심박패턴을 측정하는 동안 화면이 꺼지지 않도록 제어하기 위해 전원관리자를 얻어옵니다
         powerManager = (PowerManager)getSystemService(Context.POWER_SERVICE);
@@ -152,8 +157,7 @@ public class HeartActivity extends AppCompatActivity {
 
 
         /* toolbar.setTitleMargin(0,0,10,0);*/
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //toolbar.setNavigationIcon(R.drawable.navigator_left);
+
         historyBtn = (Button) findViewById(R.id.btnHistory);
         firstBtn_layout =(LinearLayout)findViewById(R.id.firstBtn_layout);
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
