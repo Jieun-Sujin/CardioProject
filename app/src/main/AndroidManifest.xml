@@ -8,8 +8,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,27 +18,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".AEDPopupActivity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".HeartGraphActivity" />
-        <activity android:name=".HeartActivity"/>
-        <activity android:name=".AEDActivity"/>
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".HeartActivity" />
+        <activity android:name=".AEDActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UserInfoActivity"/>
-        <activity android:name=".CardioPredictActivity"/>
-        <activity android:name=".DataCheckActivity"/>
-        <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".UserInfoActivity" />
+        <activity android:name=".CardioPredictActivity" />
+        <activity android:name=".DataCheckActivity" />
+        <activity
+            android:name=".PopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api_key" />
-
     </application>
+
 </manifest>

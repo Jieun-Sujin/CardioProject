@@ -2,74 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".AEDActivity">
 
-
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="100dp">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/textView"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:textSize="13sp"-->
-    <!--            android:textStyle="bold" />-->
-
-    <!--    </ScrollView>-->
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="400dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar6"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_aed"
-        android:drawableTop="@drawable/ic_aed_image"
-        android:paddingBottom="5dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="@string/aed_button"
-        android:textColor="@color/white" />
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
     <LinearLayout
-        android:id="@+id/location_layout"
+
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
+        android:id="@+id/location_layout"
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ListView
+            android:dividerHeight="5dp"
+            android:divider="@color/white"
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="550dp">
         </ListView>
+        <Button
+            android:adjustViewBounds="true"
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <ScrollView
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/end_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <fragment
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"
+                    android:layout_height="330dp"
                     android:id="@+id/map"
                     android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:visibility="invisible"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/aed_tab"
-                    android:id="@+id/select_linear_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
+                    android:layout_height="155dp"
                     android:padding="10dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -106,6 +93,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:layout_marginTop="3dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:ellipsize="end"
@@ -115,6 +103,7 @@
                             android:textSize="15dp" />
 
                         <TextView
+                            android:layout_marginTop="3dp"
                             android:id="@+id/distance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -153,19 +142,28 @@
                             android:text="clerkTel"
                             android:textColorLink="#0000FF"
                             android:autoLink="phone"
-                            android:textStyle="bold"
                             android:textSize="15dp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
-
-
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/question_mark_btn"
+                    android:layout_gravity="right"
+                    android:id="@+id/popBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+                </Button>
 
 
             </LinearLayout>
 
         </ScrollView>
 
+
+
     </LinearLayout>
+
 </LinearLayout>
