@@ -106,17 +106,7 @@ public class AEDActivity extends AppCompatActivity
         {
             @Override
             public void onClick(View arg0) {
-                LayoutInflater inflater = getLayoutInflater();
-                View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
-
-                TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
-                Toast toast = new Toast(getApplicationContext());
-                toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.setView(toastDesign);
-                toast.show();
-
-
+                initToast("위치가 업로드 되었습니다");
                 initScreen();
             }
         });
@@ -340,26 +330,35 @@ public class AEDActivity extends AppCompatActivity
         }
     }
      */
+    private void initToast(String msg){
+        LayoutInflater inflater = getLayoutInflater();
+        View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+
+        TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
+        text.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastDesign);
+        toast.show();
+
+    }
 
     public String getCurrentAddress( double latitude, double longitude) {
 
         //GPS 주소로 변환
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-
         List<Address> addresses;
 
         try {
 
-            addresses = geocoder.getFromLocation(
-                    latitude,
-                    longitude,
-                    7);
+            addresses = geocoder.getFromLocation(latitude,longitude,7);
         } catch (IOException ioException) {
             //네트워크 문제
-            Toast.makeText(this, "지오스터 서비스 사용불가", Toast.LENGTH_LONG).show();
-            return "지오코더 서비스 사용불가";
+            initToast("서비스 사용 불가");
+            return "지오코더 서비스 사용 불가";
         } catch (IllegalArgumentException illegalArgumentException) {
-            Toast.makeText(this, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
+            initToast("GPS가 인식이 되지 않습니다.");
             return "잘못된 GPS 좌표";
 
         }
@@ -367,9 +366,9 @@ public class AEDActivity extends AppCompatActivity
 
 
         if (addresses == null || addresses.size() == 0) {
-            Toast.makeText(this, "주소 미발견", Toast.LENGTH_LONG).show();
-            return "주소 미발견";
-
+            initToast("주변에 AED가 존재하지 않습니다.");
+            onBackPressed();
+            return null;
         }
 
         Address address = addresses.get(0);
