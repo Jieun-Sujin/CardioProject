@@ -1,9 +1,12 @@
 package com.jieun.cardiocare;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,17 +14,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -29,13 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -54,9 +48,10 @@ public class AEDActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
 
-    private Toolbar toolbar;
+    private Button showLocationButton,popBtn;
     private GoogleMap mMap;
     private GpsTracker gpsTracker;
+    private static MarkerOptions markerOptions;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     //private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -72,11 +67,11 @@ public class AEDActivity extends AppCompatActivity
     AEDViewAdaptor mMyAdapter;
 
     //select listView
-    LinearLayout select_linear_layout;
     TextView buildAddressText,buildPlaceText,clerkTelText,distanceText;
 
     //map
     static SupportMapFragment mapFragment;
+    LinearLayout end_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,51 +89,32 @@ public class AEDActivity extends AppCompatActivity
         */
 
         init();
+        initScreen();
 
-        final Button ShowLocationButton = (Button) findViewById(R.id.button);
-        ShowLocationButton.setOnClickListener(new View.OnClickListener()
+        showLocationButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View arg0)
-            {
+            public void onClick(View arg0) {
+                LayoutInflater inflater = getLayoutInflater();
+                View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
 
-                ShowLocationButton.setText(R.string.aed_button_change);
-                ShowLocationButton.setCompoundDrawables(null, getDrawable(R.drawable.ic_aed_change_image),null,null);
-                ShowLocationButton.setBackground(getDrawable(R.drawable.btn_change_aed));
+                TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setView(toastDesign);
+                toast.show();
 
-                location_layout.setVisibility(View.VISIBLE);
-                gpsTracker = new GpsTracker(AEDActivity.this);
 
-                latitude = gpsTracker.getLatitude();
-                longitude = gpsTracker.getLongitude();
-                Log.i("latitude", latitude + "");
-                Log.i("longitude", longitude + "");
-
-                address = getCurrentAddress(latitude, longitude);
-                Log.i("Address", address);
-
-                mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.map);
-                mapFragment.getMapAsync(AEDActivity.this);
-
-                new Thread(new Runnable() {
-
-                    @Override
-
-                    public void run() {
-                        getData(); // 하단의 getData 메소드를 통해 데이터를 파싱
-                        runOnUiThread(new Runnable() {
-
-                            @Override
-
-                            public void run() {
-                                listViewDataAdd();
-                            }
-
-                        });
-                    }
-
-                }).start();
+                initScreen();
+            }
+        });
+        popBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AEDPopupActivity.class);
+                intent.putExtra("data", "Test Popup");
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -147,9 +123,16 @@ public class AEDActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int position, long id) {
+                final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+                final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
-                select_linear_layout.setVisibility(View.VISIBLE);
+                LinearLayout.LayoutParams pm
+                        = new LinearLayout.LayoutParams(width,height); //레이아웃파라미터 생성pm.gravity = Gravity.LEFT; //버튼의 Gravity를 지정
+                showLocationButton.setLayoutParams(pm);
+                showLocationButton.setBackground(getDrawable(R.drawable.navigator_left));
 
+                listView.setVisibility(View.GONE);
+                end_layout.setVisibility(View.VISIBLE);
                 AEDItem selected_aed = (AEDItem)mMyAdapter.getItem(position);
                 buildAddressText.setText(selected_aed.getBuildAddress());
                 buildPlaceText.setText(selected_aed.getBuildPlace());
@@ -171,11 +154,13 @@ public class AEDActivity extends AppCompatActivity
         //toolbar.setNavigationIcon(R.drawable.navigator_left);
 
 
-        //textView =(TextView)findViewById(R.id.textView);
+
+        showLocationButton = (Button) findViewById(R.id.button);
+        popBtn =(Button)findViewById(R.id.popBtn);
         location_layout =(LinearLayout)findViewById(R.id.location_layout);
         listView =(ListView)findViewById(R.id.listView);
+        end_layout =(LinearLayout)findViewById(R.id.end_layout);
 
-        select_linear_layout =(LinearLayout)findViewById(R.id.select_linear_layout);
         buildAddressText =(TextView)findViewById(R.id.buildAddress);
         buildPlaceText =(TextView)findViewById(R.id.buildPlace);
         clerkTelText =(TextView)findViewById(R.id.clerkTel);
@@ -184,19 +169,69 @@ public class AEDActivity extends AppCompatActivity
 
     }
 
+    private void initScreen(){
+
+        final int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+        final int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+        final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+        final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+
+
+
+        LinearLayout.LayoutParams pm
+                = new LinearLayout.LayoutParams(width,height); //레이아웃파라미터 생성
+        pm.gravity = Gravity.RIGHT; //버튼의 Gravity를 지정
+        pm.setMargins(0,top,right,0);
+        showLocationButton.setLayoutParams(pm);
+        showLocationButton.setBackground(getDrawable(R.drawable.ic_compass));
+        showLocationButton.setText("");
+
+
+        end_layout.setVisibility(View.GONE);
+        location_layout.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.VISIBLE);
+        gpsTracker = new GpsTracker(AEDActivity.this);
+
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
+
+        address = getCurrentAddress(latitude, longitude);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(AEDActivity.this);
+
+        new Thread(new Runnable() {
+
+            @Override
+
+            public void run() {
+                getData(); // 하단의 getData 메소드를 통해 데이터를 파싱
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        listViewDataAdd();
+                    }
+
+                });
+            }
+
+        }).start();
+
+    }
     @Override
     public void onMapReady(final GoogleMap googleMap) {
 
+        markerOptions = new MarkerOptions();
         mMap = googleMap;
-
-        LatLng SEOUL = new LatLng(latitude, longitude);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title(address);
+        LatLng loc = new LatLng(latitude, longitude);
+        markerOptions.position(loc);
+        /*        markerOptions.title(address);*/
+        mMap.clear();
         mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
     }
@@ -320,10 +355,12 @@ public class AEDActivity extends AppCompatActivity
         builder.setCancelable(true);
         builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int id) {
-                Intent callGPSSettingIntent
-                        = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                    Intent callGPSSettingIntent
+                            = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
+
             }
         });
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -373,9 +410,11 @@ public class AEDActivity extends AppCompatActivity
     public void getData(){
 
         String key ="@string/aed_api_key";
+
         String WGS84_LON =  Double.toString(longitude);
         String WGS84_LAT =  Double.toString(latitude);
-
+        //String WGS84_LON =  Double.toString(127.1643387);
+        //String WGS84_LAT =  Double.toString(37.6074135);
 
         String queryUrl="http://apis.data.go.kr/B552657/AEDInfoInqireService/getAedLcinfoInqire?"
                 +"WGS84_LON="+WGS84_LON

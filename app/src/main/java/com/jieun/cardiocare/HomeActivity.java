@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,11 +43,13 @@ public class HomeActivity extends AppCompatActivity {
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //final String userId = user.getUid();
+
         final String userName = user.getDisplayName();
         //final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "님");
+        initUI();
 
     }
 
@@ -64,17 +67,21 @@ public class HomeActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("HH");
-        int hour = Integer.parseInt(sdfNow.format(date));
 
+        int hour = Integer.parseInt(sdfNow.format(date));
         String[] msgList = getResources().getStringArray(R.array.msg_array);
 
         if(7<=hour && 9>=hour){
+            //아침
             msgText.setText(msgList[0]);
         }else if(9<hour && 18>=hour){
+            //점심
             msgText.setText(msgList[1]);
         }else if(18<hour && 22>=hour){
+            //저녁
             msgText.setText(msgList[2]);
         }else{
+            //잠
             msgText.setText(msgList[3]);
         }
     }
