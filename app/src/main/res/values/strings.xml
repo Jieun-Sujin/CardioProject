@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Cardict</string>
     <string name="firebase_key">ilsyA81vr9UygsO6OoJNwnA2pBo1</string>
+    <string name="logo_width">20</string>
 
     <!-- MainActivity -->
 

@@ -29,20 +29,15 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     TextView msgText;
+    TextView timeText;
     TextView userNameTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
 
-        Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.appName);
-        toolbar.setTitleTextColor(getColor(R.color.maincolor1));
-        toolbar.setTitleMargin(start,0,0,0);
-        setSupportActionBar(toolbar);
-
+        initToolbar();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         //mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -53,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
-        userNameTxt.setText(userName + "님");
+        userNameTxt.setText(userName + "   님");
         initUI();
 
     }
@@ -64,16 +59,43 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 */
+   private void initToolbar(){
+       final int cardict = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+       //final int logout = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+
+       Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
+       toolbar.setTitle("");
+       /*toolbar.setTitle(R.string.appName);
+       toolbar.setTitleTextColor(getColor(R.color.maincolor1));
+       toolbar.setNavigationIcon(R.drawable.ic_logout);
+       toolbar.setTitleMarginStart(cardict);
+       */
+       //toolbar.setContentInsetStartWithNavigation(logout);
+       setSupportActionBar(toolbar);
+       /*toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Toast.makeText(getApplicationContext(),"logout",Toast.LENGTH_SHORT).show();
+               //mAuth.signOut();
+               //finish();
+           }
+       });*/
+
+
+   }
 
     private void initUI(){
-
-        msgText =(TextView)findViewById(R.id.msgText);
-
         long now = System.currentTimeMillis();
         Date date = new Date(now);
-        SimpleDateFormat sdfNow = new SimpleDateFormat("HH");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:ss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
 
-        int hour = Integer.parseInt(sdfNow.format(date));
+        timeText =(TextView)findViewById(R.id.timeText);
+        timeText.setText(sdf1.format(date));
+        msgText =(TextView)findViewById(R.id.msgText);
+
+
+        int hour = Integer.parseInt(sdf2.format(date));
         String[] msgList = getResources().getStringArray(R.array.msg_array);
 
         if(7<=hour && 9>=hour){
@@ -112,9 +134,10 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickLogout(View view) {
-        mAuth.signOut();
-        finish();
+   public void clickLogout(View view) {
+        Toast.makeText(getApplicationContext(),"logout",Toast.LENGTH_SHORT).show();
+        //mAuth.signOut();
+        //finish();
     }
 
 }
