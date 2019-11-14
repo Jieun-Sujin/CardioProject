@@ -71,11 +71,8 @@ public class MainActivity extends AppCompatActivity {
     //googleapi
     private boolean authInProgress = false;
     private static final int AUTH_REQUEST = 1;
-    private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
-            Manifest.permission.BODY_SENSORS
-    };
-    private static final int REQUEST_PERMISSION_CODE = 12345;
-    private List<String> missingPermission = new ArrayList<>();
+    private static final int PERMISSION_CODE = 12345;
+    //private List<String> missingPermission = new ArrayList<>();
 
     private String TAG = MainActivity.class.getName();
 
@@ -83,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     //gps
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    private String[] REQUIRED_PERMISSIONS  = {Manifest.permission.BODY_SENSORS, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Shortbread.create(this);
 
-        //gps permission 요청
+
         checkRunTimePermission();
 
         mAuth = FirebaseAuth.getInstance();
@@ -131,36 +127,31 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // 구글로그인 버튼 응답
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // 구글 로그인 성공
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                Log.w("tag", "Google sign in failed", e);
-            }
-        }
-
-        //google api
-        if (requestCode == AUTH_REQUEST) {
-            authInProgress = false;
-
-            if (resultCode == RESULT_OK) {
-
-                if (!this.mGoogleApiClient.isConnecting() && !this.mGoogleApiClient.isConnected()) {
-                    this.mGoogleApiClient.connect();
-                    Log.d(TAG, "onActivityResult googleApiClient.connect() attempted in background");
-                }
-            }
-        }
-
-        //Gps
         switch (requestCode) {
+            case RC_SIGN_IN:
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    // 구글 로그인 성공
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    firebaseAuthWithGoogle(account);
+                } catch (ApiException e) {
+                    Log.w("tag", "Google sign in failed", e);
+                }
+                break;
+
+            case AUTH_REQUEST:
+                authInProgress = false;
+
+                if (resultCode == RESULT_OK) {
+
+                    if (!this.mGoogleApiClient.isConnecting() && !this.mGoogleApiClient.isConnected()) {
+                        this.mGoogleApiClient.connect();
+                        Log.d(TAG, "onActivityResult googleApiClient.connect() attempted in background");
+                    }
+                }
+                break;
 
             case GPS_ENABLE_REQUEST_CODE:
-
                 checkRunTimePermission();
                 break;
         }
@@ -278,7 +269,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkAndRequestPermissions() {
         // Check for permissions
-        for (String eachPermission : REQUIRED_PERMISSION_LIST) {
+        /*
+        for (String eachPermission : REQUIRED_PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(this, eachPermission) != PackageManager.PERMISSION_GRANTED) {
                 missingPermission.add(eachPermission);
             }
@@ -296,6 +288,10 @@ public class MainActivity extends AppCompatActivity {
                 this.mGoogleApiClient.connect();
         }
 
+         */
+        if (this.mGoogleApiClient != null)
+            this.mGoogleApiClient.connect();
+
     }
 
     public void onRequestPermissionsResult(int requestCode,
@@ -303,91 +299,90 @@ public class MainActivity extends AppCompatActivity {
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        switch (requestCode) {
+            /*
+            case REQUEST_PERMISSION_CODE:
 
-        // Check for granted permission and remove from missing list
-        if (requestCode == REQUEST_PERMISSION_CODE) {
-            for (int i = grantResults.length - 1; i >= 0; i--) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    missingPermission.remove(permissions[i]);
+                for (int i = grantResults.length - 1; i >= 0; i--) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        missingPermission.remove(permissions[i]);
+                    }
                 }
-            }
-        }
-        // If there is enough permission, we will start the registration
-        if (missingPermission.isEmpty()) {
-            initGoogleApiClient();
-            if (this.mGoogleApiClient != null)
-                this.mGoogleApiClient.connect();
-        } else {
-            Toast.makeText(getApplicationContext(), "Failed get permissions", Toast.LENGTH_LONG).show();
-            Log.i("missingpermission", missingPermission.get(0) + "");
-            //finish();
-        }
-
-        //gps
-        if ( requestCode == PERMISSIONS_REQUEST_CODE && grantResults.length == REQUIRED_PERMISSIONS.length) {
-
-            // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
-            boolean check_result = true;
-
-            // 모든 퍼미션을 허용했는지 체크합니다.
-            for (int result : grantResults) {
-                if (result != PackageManager.PERMISSION_GRANTED) {
-                    check_result = false;
-                    break;
+                if (missingPermission.isEmpty()) {
+                    initGoogleApiClient();
+                    if (this.mGoogleApiClient != null)
+                        this.mGoogleApiClient.connect();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed get permissions", Toast.LENGTH_LONG).show();
+                    Log.i("missingpermission", missingPermission.get(0) + "");
+                    //finish();
                 }
-            }
-            if ( check_result ) {
-                //위치 값을 가져올 수 있음
-            }
-            else {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
-                        || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
+                break;
+             */
+            case PERMISSION_CODE:
+                if(grantResults.length == REQUIRED_PERMISSIONS.length) {
+                    // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
+                    boolean check_result = true;
 
-                    Toast.makeText(MainActivity.this, R.string.permission_failed1, Toast.LENGTH_LONG).show();
-                    finish();
-                }else {
-                    Toast.makeText(MainActivity.this, R.string.permission_failed2, Toast.LENGTH_LONG).show();
+                    // 모든 퍼미션을 허용했는지 체크합니다.
+                    for (int result : grantResults) {
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            check_result = false;
+                            break;
+                        }
+                    }
+
+                    if( !check_result) {
+                        if ( ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
+                                || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])
+                                || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[2])) {
+
+                            Toast.makeText(MainActivity.this, R.string.permission_failed1, Toast.LENGTH_LONG).show();
+                            finish();
+                        }else {
+                            Toast.makeText(MainActivity.this, R.string.permission_failed2, Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
-            }
+                break;
         }
     }
-
-    /*
-    public boolean checkLocationServicesStatus() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-     */
 
     public void checkRunTimePermission(){
 
-        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
+        int hasBodySensorPermission = ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.BODY_SENSORS);
+
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
+        if(hasBodySensorPermission != PackageManager.PERMISSION_GRANTED) {
 
-        } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0])) {
+            Toast.makeText(this,"권한 승인이 필요합니다",Toast.LENGTH_LONG).show();
 
-                Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
-                ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
-
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.BODY_SENSORS)) {
             } else {
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
+                        PERMISSION_CODE);
+            }
+        } else if(hasFineLocationPermission != PackageManager.PERMISSION_GRANTED ||
+                hasCoarseLocationPermission != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[1])) {
+                Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+                ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
+                        PERMISSION_CODE);
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
+                        PERMISSION_CODE);
             }
         }
-    }
 
+    }
 
     @Override
     protected void onStart() {

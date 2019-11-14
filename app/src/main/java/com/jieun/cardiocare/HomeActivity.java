@@ -1,10 +1,14 @@
 package com.jieun.cardiocare;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.Menu;
@@ -22,6 +26,7 @@ import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     //private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -103,13 +108,51 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void clickAed(View view) {
-        Intent intent = new Intent(getApplicationContext(), AEDActivity.class);
-        startActivity(intent);
+
+        if (!checkLocationServicesStatus()) {
+            showDialogForLocationServiceSetting();
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), AEDActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void clickLogout(View view) {
         mAuth.signOut();
+        Toast.makeText(this, "로그아웃", Toast.LENGTH_LONG).show();
         finish();
+    }
+
+    private void showDialogForLocationServiceSetting() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+        builder.setTitle("위치 서비스 비활성화");
+        builder.setMessage("이 기능을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
+                + "위치 설정을 활성화 하시겠습니까?");
+        builder.setCancelable(true);
+        builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                Intent callGPSSettingIntent
+                        = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
+    }
+
+    public boolean checkLocationServicesStatus() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
 }
