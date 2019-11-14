@@ -10,6 +10,13 @@
     <color name="edgecolor">#696969</color>
     <color name="maincolor2">#dcdcdc</color>
 
+    <color name="profile_color">#F3EA70</color>
+    <color name="predict_color">#6FBCE8</color>
+    <color name="bpm_color">#F952A3</color>
+    <color name="aed_color">#71D479</color>
+
+
+
     <color name="empty">@android:color/transparent</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>

@@ -12,17 +12,10 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="120dp"
-            android:src="@drawable/ic_logo"
-            android:layout_width="55dp"
-            android:layout_height="55dp">
-
-        </ImageView>
         <TextView
             android:id="@+id/titleText"
-            android:text="Cardict "
+            android:text="Cardict"
+            android:layout_marginStart="155dp"
             android:textColor="@color/maincolor1"
             android:textStyle="bold"
             android:textSize="25sp"
@@ -32,13 +25,12 @@
         <Button
             android:id="@+id/logout"
             android:onClick="clickLogout"
-            android:layout_marginStart="85dp"
+            android:layout_marginStart="105dp"
             android:background="@drawable/ic_logout"
             android:layout_width="35dp"
             android:layout_height="35dp">
 
         </Button>
-
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -53,99 +45,135 @@
         android:onClick="clickLogout"
         android:text="로그아웃" />
 -->
-
     <LinearLayout
+        android:background="@color/maincolor1"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:layout_height="250dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/msgText"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:text="Good Morning!!"
-                android:textSize="18sp" />
-
+                android:text="김지은 님"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
             <TextView
                 android:id="@+id/timeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="75dp"
+                android:layout_marginStart="200dp"
                 android:layout_marginTop="16dp"
                 android:text="18 :50"
-                android:textSize="18sp" />
-
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:text="TextView" />
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+        </ImageView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/msgText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="Good Morning!!"
+                android:textColor="@color/white"
+                android:letterSpacing="0.15"
+                android:textStyle="bold"
+                android:textSize="23sp" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="40dp"
         android:orientation="vertical"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:padding="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/dataInputBtn"
-                android:background="@drawable/btn_home"
-                android:onClick="clickInputMydata"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-            </Button>
-            <Button
-                android:id="@+id/predictBtn"
-                android:background="@drawable/btn_home"
-                android:onClick="clickMyPredict"
-                android:layout_marginLeft="30dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-            </Button>
 
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:padding="30dp"
+        <Button
+            android:id="@+id/dataInputBtn"
+            android:background="@drawable/btn_home"
+            android:drawableStart="@drawable/ic_noun_person_data"
+            android:drawableEnd="@drawable/ic_navigator_profile"
+            android:drawablePadding="-30dp"
+            android:paddingLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/dataInputBtnText"
+            android:textColor="@color/profile_color"
+            android:textStyle="bold"
+            android:onClick="clickInputMydata"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/bpmBtn"
-                android:background="@drawable/btn_home"
-                android:onClick="clickHeart"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-            </Button>
-            <Button
-                android:id="@+id/aedBtn"
-                android:background="@drawable/btn_home"
-                android:onClick="clickAed"
-                android:layout_marginLeft="30dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp">
-            </Button>
-
-        </LinearLayout>
+            android:layout_height="80dp">
+        </Button>
+        <Button
+            android:id="@+id/predictBtn"
+            android:background="@drawable/btn_home"
+            android:drawableStart="@drawable/ic_noun_neural_network1"
+            android:drawableEnd="@drawable/ic_navigator_predict"
+            android:drawablePadding="-30dp"
+            android:paddingLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/predictBtnText"
+            android:textColor="@color/predict_color"
+            android:textStyle="bold"
+            android:onClick="clickMyPredict"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+        </Button>
+        <Button
+            android:id="@+id/bpmBtn"
+            android:background="@drawable/btn_home"
+            android:drawableEnd="@drawable/ic_navigator_bpm"
+            android:drawableStart="@drawable/ic_noun_heart"
+            android:drawablePadding="30dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="40dp"
+            android:text="@string/bpmBtnText"
+            android:textColor="@color/bpm_color"
+            android:textStyle="bold"
+            android:onClick="clickHeart"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+        </Button>
+        <Button
+            android:id="@+id/aedBtn"
+            android:background="@drawable/btn_home"
+            android:drawableStart="@drawable/ic_noun_map"
+            android:drawableEnd="@drawable/ic_navigator_aed"
+            android:drawablePadding="-30dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="40dp"
+            android:text="@string/aedBtnText"
+            android:textColor="@color/aed_color"
+            android:textStyle="bold"
+            android:onClick="clickAed"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+        </Button>
     </LinearLayout>
     <!--<Button
         android:id="@+id/dataInputBtn"

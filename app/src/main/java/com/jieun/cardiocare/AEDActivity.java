@@ -56,8 +56,6 @@ public class AEDActivity extends AppCompatActivity
     private static MarkerOptions markerOptions;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    //private static final int PERMISSIONS_REQUEST_CODE = 100;
-    //String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
     static double latitude,longitude;
     static String address;
@@ -93,11 +91,6 @@ public class AEDActivity extends AppCompatActivity
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
         }
-        /*
-        else {
-            checkRunTimePermission();
-        }
-        */
 
         init();
         initScreen();
@@ -172,12 +165,6 @@ public class AEDActivity extends AppCompatActivity
     private void init(){
 
 
-        /* toolbar.setTitleMargin(0,0,10,0);*/
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //toolbar.setNavigationIcon(R.drawable.navigator_left);
-
-
-
         showLocationButton = (Button) findViewById(R.id.button);
         popBtn =(Button)findViewById(R.id.popBtn);
         location_layout =(LinearLayout)findViewById(R.id.location_layout);
@@ -198,7 +185,6 @@ public class AEDActivity extends AppCompatActivity
         final int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-
 
 
         LinearLayout.LayoutParams pm
@@ -377,12 +363,11 @@ public class AEDActivity extends AppCompatActivity
     }
 
 
-    //여기부터는 GPS 활성화를 위한 메소드들
     private void showDialogForLocationServiceSetting() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AEDActivity.this);
         builder.setTitle("위치 서비스 비활성화");
-        builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
+        builder.setMessage("이 기능을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
                 + "위치 설정을 활성화 하시겠습니까?");
         builder.setCancelable(true);
         builder.setPositiveButton("설정", new DialogInterface.OnClickListener() {
@@ -403,30 +388,7 @@ public class AEDActivity extends AppCompatActivity
     }
 
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-
-            case GPS_ENABLE_REQUEST_CODE:
-
-                //사용자가 GPS 활성 시켰는지 검사
-                if (checkLocationServicesStatus()) {
-                    if (checkLocationServicesStatus()) {
-
-                        Log.d("@@@", "onActivityResult : GPS 활성화 되있음");
-                        //checkRunTimePermission();
-                        return;
-                    }
-                }
-
-                break;
-        }
-    }
-
-    */
     public boolean checkLocationServicesStatus() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -435,9 +397,8 @@ public class AEDActivity extends AppCompatActivity
     }
 
 
-
-
     public void getData(){
+
 
         String key ="@string/aed_api_key";
 
@@ -445,7 +406,6 @@ public class AEDActivity extends AppCompatActivity
         //String WGS84_LAT =  Double.toString(latitude);
         String WGS84_LON =  Double.toString(127.1643387);
         String WGS84_LAT =  Double.toString(37.6074135);
-
         String queryUrl="http://apis.data.go.kr/B552657/AEDInfoInqireService/getAedLcinfoInqire?"
                 +"WGS84_LON="+WGS84_LON
                 +"&WGS84_LAT="+WGS84_LAT
