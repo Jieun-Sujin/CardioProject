@@ -52,7 +52,7 @@
 
     <!--question-->
     <string name="bpmtext1">심박수는 온도, 자세, 활동, 감정 등의 요인에 따라 \n영향을 받을 수 있습니다. </string>
-    <string name="bpmtext2">휴대폰 뒤 센서에 \n 손가락을 가져다 주세요. </string>
+    <string name="bpmtext2">휴대폰 뒤 센서에 \n 손가락을 대 주세요.</string>
     <string name="bpmtext3">완료 될 때 까지 \n 손을 움직이지 마세요.  </string>
 
     <!--aed activity-->

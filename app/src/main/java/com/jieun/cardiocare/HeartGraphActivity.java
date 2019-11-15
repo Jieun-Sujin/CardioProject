@@ -214,7 +214,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     private void calculateWeekData() {
 
         final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
-        String id = fuser.getUid();
+        //String id = fuser.getUid();
+        String id = getString(R.string.firebase_key);
 
         mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

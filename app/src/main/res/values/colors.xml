@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#FFCFDA</color>
+    <color name="colorPrimaryDark">#F79494</color>
     <color name="colorAccent">#D81B60</color>
 
     <!--main color EB8C8C-->
     <color name="backgroud">#FFF0F5</color>
-    <color name="maincolor1">#FFCFDA</color>
+    <color name="maincolor1">#F79494</color>
     <color name="edgecolor">#696969</color>
     <color name="maincolor2">#dcdcdc</color>
 

@@ -12,8 +12,11 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,15 +97,13 @@ public class HomeActivity extends AppCompatActivity {
     private void initUI() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
-        SimpleDateFormat sdf1 = new SimpleDateFormat("HH:ss");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
+        SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
+        SimpleDateFormat minSdf = new SimpleDateFormat("ss");
 
         timeText = (TextView) findViewById(R.id.timeText);
-        timeText.setText(sdf1.format(date));
         msgText = (TextView) findViewById(R.id.msgText);
 
-
-        int hour = Integer.parseInt(sdf2.format(date));
+        int hour = Integer.parseInt(hourSdf.format(date));
         String[] msgList = getResources().getStringArray(R.array.msg_array);
 
         if (7 <= hour && 9 >= hour) {
@@ -118,6 +119,14 @@ public class HomeActivity extends AppCompatActivity {
             //잠
             msgText.setText(msgList[3]);
         }
+
+        if(1<=hour && hour<=12){
+            timeText.setText(hour + " : "+ minSdf.format(date) +" AM");
+        }else{
+            timeText.setText((hour -12) + " : "+ minSdf.format(date) +" PM");
+        }
+
+
     }
 
 
@@ -148,7 +157,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public void clickLogout(View view) {
         mAuth.signOut();
-        Toast.makeText(this, "로그아웃", Toast.LENGTH_LONG).show();
+        initToast("로그아웃 되었습니다.");
+
         finish();
     }
 
@@ -181,6 +191,21 @@ public class HomeActivity extends AppCompatActivity {
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    private void initToast(String msg){
+
+        LayoutInflater inflater = getLayoutInflater();
+        View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+
+        TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
+        text.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastDesign);
+        toast.show();
+
     }
 
 }

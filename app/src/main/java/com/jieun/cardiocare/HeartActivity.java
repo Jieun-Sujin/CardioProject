@@ -13,9 +13,13 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -152,13 +156,9 @@ public class HeartActivity extends AppCompatActivity {
         wakeLock.acquire(5000);
 
         initFireBase();
-        //initUI();
+        initUI();
 
-
-
-        /* toolbar.setTitleMargin(0,0,10,0);*/
-
-        historyBtn = (Button) findViewById(R.id.btnHistory);
+     /*   historyBtn = (Button) findViewById(R.id.btnHistory);
         firstBtn_layout =(LinearLayout)findViewById(R.id.firstBtn_layout);
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
@@ -189,9 +189,7 @@ public class HeartActivity extends AppCompatActivity {
         });
 
         bGoogleConnected = true; //추가
-        btnStart.setText("Start");
         btnStart.setEnabled(true);
-
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,35 +197,10 @@ public class HeartActivity extends AppCompatActivity {
             }
         });
 
-        initPrograssBar();
-        //initIcons();
-
-        iconText =(TextView)findViewById(R.id.statusText);
-        icons =(RadioGroup)findViewById(R.id.statusIcons);
-        icons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                // This will get the radiobutton that has changed in its check state
-                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
-                // This puts the value (true/false) into the variable
-                boolean isChecked = checkedRadioButton.isChecked();
-                // If the radiobutton that has changed in check state is now checked...
-                if (isChecked)
-                {
-                    // Changes the textview's text to "Checked: example radiobutton text"
-                    if(i == R.id.stableBtn){ userStatus = 0;}
-                    if(i == R.id.exciteBtn){ userStatus = 1;}
-                    if(i == R.id.runningBtn){ userStatus = 2;}
-                    if(i == R.id.depressBtn){ userStatus = 3;}
-                    if(i == R.id.sleepBtn){ userStatus = 4;}
-                    iconText.setText("Check : " + checkedRadioButton.getText());
-
-                }
-                else {
-                    Log.i("ischecked","check 안됨");
-                }
-            }
-        });
+        bpmseekBar =(SeekBar)findViewById(R.id.bpmseekbar);
+        text_seekbar =(TextView)findViewById(R.id.statusText);
+*/
+        initIcons();
 
         //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
         //checkAndRequestPermissions();
@@ -262,9 +235,8 @@ public class HeartActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        //심박수를 측정하는 Google API의 호출을 위해 API 클라이언트를 초기화 합니다
-        //initGoogleApiClient();
 
+        firstBtn_layout =(LinearLayout)findViewById(R.id.firstBtn_layout);
         endLayout =(LinearLayout)findViewById(R.id.end_layout);
         btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
         //beat anim
@@ -282,10 +254,27 @@ public class HeartActivity extends AppCompatActivity {
         //btnStart.setText("Wait please ...");
         //btnStart.setEnabled(false);
 
-        bGoogleConnected = true; //추가
-        btnStart.setText("Start");
-        btnStart.setEnabled(true);
+        questionBtn =(Button)findViewById(R.id.questionBtn);
+        questionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
+                intent.putExtra("data", "Test Popup");
+                startActivityForResult(intent, 1);
 
+            }
+        });
+        historyBtn = (Button) findViewById(R.id.btnHistory);
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bGoogleConnected = true; //추가
+        btnStart.setEnabled(true);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -293,6 +282,40 @@ public class HeartActivity extends AppCompatActivity {
             }
         });
 
+        bpmseekBar =(SeekBar)findViewById(R.id.bpmseekbar);
+        text_seekbar =(TextView)findViewById(R.id.statusText);
+
+    }
+
+    private void initIcons(){
+        iconText =(TextView)findViewById(R.id.statusText);
+        icons =(RadioGroup)findViewById(R.id.statusIcons);
+        icons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    if(i == R.id.stableBtn){ userStatus = 0;}
+                    if(i == R.id.exciteBtn){ userStatus = 1;}
+                    if(i == R.id.runningBtn){ userStatus = 2;}
+                    if(i == R.id.depressBtn){ userStatus = 3;}
+                    if(i == R.id.sleepBtn){ userStatus = 4;}
+                    iconText.setTextColor(getColor(R.color.maincolor1));
+                    iconText.setText(checkedRadioButton.getText());
+                    storeBtn.setEnabled(true);
+                }
+                else {
+                    iconText.setTextColor(getColor(R.color.maincolor2));
+                    storeBtn.setEnabled(false); // 버튼 클릭 안되게
+                    Log.i("ischecked","check 안됨");
+                }
+            }
+        });
 
     }
 
@@ -300,7 +323,8 @@ public class HeartActivity extends AppCompatActivity {
 
         if (bCheckStarted) {
             endLayout.setVisibility(View.GONE);
-            btn.setText("Start");
+            textMon.setVisibility(View.GONE);
+            btn.setText("BPM 측정하기");
             bCheckStarted = false;
             finger.setVisibility(View.VISIBLE);
             beatLayout.setVisibility(View.GONE);
@@ -326,7 +350,7 @@ public class HeartActivity extends AppCompatActivity {
                 historyBtn.setVisibility(View.GONE);
                 finger.setVisibility(View.GONE);
                 beatLayout.setVisibility(View.VISIBLE);
-                btn.setText("STOP");
+                btn.setText("BPM 측정 중지");
                 bCheckStarted = true;
                 //화면이 꺼지지 않도록 설정합니다
                 wakeLock.acquire();
@@ -341,59 +365,7 @@ public class HeartActivity extends AppCompatActivity {
         }
     }
 
-    private void initIcons(){
-        iconText =(TextView)findViewById(R.id.statusText);
-        icons =(RadioGroup)findViewById(R.id.statusIcons);
-        icons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                // This will get the radiobutton that has changed in its check state
-                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
-                // This puts the value (true/false) into the variable
-                boolean isChecked = checkedRadioButton.isChecked();
-                // If the radiobutton that has changed in check state is now checked...
-                if (isChecked)
-                {
-                    if(i == R.id.stableBtn){ userStatus = 0;}
-                    if(i == R.id.exciteBtn){ userStatus = 1;}
-                    if(i == R.id.runningBtn){ userStatus = 2;}
-                    if(i == R.id.depressBtn){ userStatus = 3;}
-                    if(i == R.id.sleepBtn){ userStatus = 4;}
-                    iconText.setText("Check : " + checkedRadioButton.getText());
 
-                }
-                else {
-                    Log.i("ischecked","check 안됨");
-                }
-            }
-        });
-
-    }
-
-    private void initPrograssBar(){
-        bpmseekBar =(SeekBar)findViewById(R.id.bpmseekbar);
-        text_seekbar =(TextView)findViewById(R.id.statusText);
-/*        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                text_seekbar.setText("" + progress);
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });*/
-
-
-
-    }
 
     /*
     private void initGoogleApiClient() {
@@ -604,8 +576,8 @@ public class HeartActivity extends AppCompatActivity {
                     public void onResult(Status status) {
                         if (status.isSuccess()) {
                             Log.d(TAG, "Listener was removed!");
-                            Toast.makeText(getApplicationContext(),"Listener was removed",Toast.LENGTH_LONG).show();
-
+                            //Toast.makeText(getApplicationContext(),"Listener was removed",Toast.LENGTH_LONG).show();
+                            initToast("심박수 측정을 다시 해주세요.");
                             if (beatdraw instanceof AnimatedVectorDrawable) {
                                 AnimatedVectorDrawable avd = (AnimatedVectorDrawable) beatdraw;
                                 avd.stop();
@@ -615,7 +587,8 @@ public class HeartActivity extends AppCompatActivity {
                             }
 
                         } else {
-                            Toast.makeText(getApplicationContext(),"not removed",Toast.LENGTH_LONG).show();
+                            initToast("심박수 측정이 완료되지 않았습니다.");
+                            //Toast.makeText(getApplicationContext(),"not removed",Toast.LENGTH_LONG).show();
                             Log.d(TAG, "Listener was not removed.");
                         }
                     }
@@ -626,7 +599,7 @@ public class HeartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(getApplicationContext(),"onStart connect attempted",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"onStart connect attempted",Toast.LENGTH_LONG).show();
         Log.d(TAG, "onStart connect attempted");
     }
 
@@ -695,12 +668,38 @@ public class HeartActivity extends AppCompatActivity {
                     AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) beatdraw;
                     avd.stop();
                 }
-                SimpleDateFormat Sformat = new SimpleDateFormat ( "yyyy-MM-dd HH:mm");
-                String format_time1 = Sformat.format (System.currentTimeMillis());
+
+                long now = System.currentTimeMillis();
+                Date date = new Date(now);
+                SimpleDateFormat yearSdf = new SimpleDateFormat("yyyy");
+                SimpleDateFormat monthSdf = new SimpleDateFormat("MM");
+                SimpleDateFormat daySdf = new SimpleDateFormat("MM");
+                SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
+                SimpleDateFormat minSdf = new SimpleDateFormat("ss");
+
+                int year = Integer.parseInt(yearSdf.format(date));
+                int month= Integer.parseInt(monthSdf.format(date));
+                int day  = Integer.parseInt(daySdf.format(date));
+                int hour = Integer.parseInt(hourSdf.format(date));
+                int min  = Integer.parseInt(minSdf.format(date));
+
                 firstBtn_layout.setVisibility(View.GONE);
-                textMon.setText(format_time1);
-                bpmText.setText("BPM is " + (int)value);
+                beatLayout.setVisibility(View.GONE);
+                textMon.setVisibility(View.VISIBLE);
+
+                if(1<=hour && hour<=12){
+                    textMon.setText(year + "년 "+ month + "월" + day + "일" + hour + " : "+min +" AM");
+                }else{
+                    textMon.setText(year + "년 "+ month + "월" + day + "일" + (hour -12) + " : "+ min +" PM");
+                }
+
+                bpmText.setText("BPM  " + (int)value);
                 bpmseekBar.setProgress((int)value);
+
+                //seekbar not touchable
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
                 btnStart.setVisibility(View.GONE);
                 btnLayout2.setVisibility(View.VISIBLE);
@@ -729,7 +728,7 @@ public class HeartActivity extends AppCompatActivity {
                             user.setStatus(userStatus);
                             String id = fuser.getUid();
                             mDatabase.child("Bpm").child(id).child(getDateStr()).child(getTimeStr()).setValue(user);
-                            Toast.makeText(HeartActivity.this, "BPM 입력 완료", Toast.LENGTH_SHORT).show();
+                            initToast("심박수 측정이 완료 되었습니다.");
 
                             Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
                             intent.putExtra("user",user);
@@ -740,5 +739,19 @@ public class HeartActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void initToast(String msg){
+        LayoutInflater inflater = getLayoutInflater();
+        View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+
+        TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
+        text.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastDesign);
+        toast.show();
+
     }
 }
