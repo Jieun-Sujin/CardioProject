@@ -4,7 +4,7 @@
     <aapt:attr name="android:drawable">
         <vector
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:width="200dp"
+            android:width="400dp"
             android:height="80dp"
             android:viewportWidth="100"
             android:viewportHeight="50">
@@ -14,7 +14,7 @@
                 <path
                     android:name="path_1"
                     android:pathData="@string/heartpath"
-                    android:strokeColor="#000000"
+                    android:strokeColor="@color/maincolor1"
                     android:strokeWidth="0.7"
                     android:trimPathEnd="0"
                     android:strokeLineCap="round"
