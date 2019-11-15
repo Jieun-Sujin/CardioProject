@@ -11,12 +11,12 @@
         android:id="@+id/btnAphi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button3"
         android:onClick="clickAphi"
         android:text="mmHg"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/btnWeight" />
 
@@ -36,12 +36,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
         android:text="생년월일"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+        app:layout_constraintStart_toStartOf="@+id/checkView"
+        app:layout_constraintTop_toTopOf="@+id/checkView" />
 
     <TextView
         android:id="@+id/height"
@@ -50,9 +51,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="신장"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/gender" />
 
     <TextView
@@ -62,9 +64,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="몸무게"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/height" />
 
     <TextView
@@ -74,9 +77,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="최고혈압"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
 
     <TextView
@@ -86,9 +90,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="최저혈압"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/ap_hi" />
 
     <TextView
@@ -98,9 +103,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="콜레스테롤"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/ap_lo" />
 
     <TextView
@@ -110,9 +116,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="흡연여부"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/chol" />
 
     <TextView
@@ -122,9 +129,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
         android:text="음주여부"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/smoke" />
 
     <TextView
@@ -134,9 +142,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="45dp"
         android:text="성별"
+        android:letterSpacing="0.12"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/age" />
 
 
@@ -147,7 +156,7 @@
         android:layout_marginTop="24dp"
         android:checkedButton="@id/man"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/btnBirthday">
 
@@ -155,12 +164,14 @@
             android:id="@+id/man"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/maincolor1"
             android:text="남" />
 
         <RadioButton
             android:id="@+id/woman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/maincolor1"
             android:text="여" />
     </RadioGroup>
 
@@ -168,10 +179,10 @@
         android:id="@+id/smokeSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="26dp"
         android:checkedButton="@id/Nonsmoker"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/btnChol">
 
@@ -179,12 +190,14 @@
             android:id="@+id/smoker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/maincolor1"
             android:text="예" />
 
         <RadioButton
             android:id="@+id/Nonsmoker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/maincolor1"
             android:text="아니요" />
     </RadioGroup>
 
@@ -192,10 +205,10 @@
         android:id="@+id/alcoSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:checkedButton="@id/Nondrink"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/smokeSelect">
 
@@ -203,12 +216,14 @@
             android:id="@+id/drinking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/maincolor1"
             android:text="예" />
 
         <RadioButton
             android:id="@+id/Nondrink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/maincolor1"
             android:text="아니요" />
     </RadioGroup>
 
@@ -216,12 +231,12 @@
         android:id="@+id/btnHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:onClick="clickHeight"
+        android:layout_marginTop="26dp"
         android:background="@drawable/button3"
+        android:onClick="clickHeight"
         android:text="cm"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/genderSelect" />
 
@@ -229,12 +244,12 @@
         android:id="@+id/btnAplo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button3"
         android:onClick="clickAplo"
         android:text="mmHg"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/btnAphi" />
 
@@ -242,12 +257,12 @@
         android:id="@+id/btnChol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button3"
         android:onClick="clickChol"
         android:text="mg/dl"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/btnAplo" />
 
@@ -255,12 +270,12 @@
         android:id="@+id/btnWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="clickWeight"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button3"
+        android:onClick="clickWeight"
         android:text="kg"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/btnHeight" />
 
@@ -272,16 +287,16 @@
         android:background="@drawable/button3"
         android:onClick="clickBirthday"
         android:text="1900년 00월 00일"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/checkView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+        app:layout_constraintTop_toTopOf="@+id/checkView" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.29" />
+        app:layout_constraintGuide_percent="0.32" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -292,5 +307,128 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="-2dp" />
+
+    <View
+        android:id="@+id/checkView"
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/view_border"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.666" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/age"
+        app:layout_constraintEnd_toStartOf="@+id/age" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/gender"
+        app:layout_constraintEnd_toStartOf="@+id/gender" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/height"
+        app:layout_constraintEnd_toStartOf="@+id/height" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/weight"
+        app:layout_constraintEnd_toStartOf="@+id/weight" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ap_hi"
+        app:layout_constraintEnd_toStartOf="@+id/ap_hi" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ap_lo"
+        app:layout_constraintEnd_toStartOf="@+id/ap_lo" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/chol"
+        app:layout_constraintEnd_toStartOf="@+id/chol" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/smoke"
+        app:layout_constraintEnd_toStartOf="@+id/smoke" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="ㆍ"
+        android:textColor="#F79494"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/alco"
+        app:layout_constraintEnd_toStartOf="@+id/alco" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
