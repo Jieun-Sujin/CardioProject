@@ -108,6 +108,7 @@
             android:id="@+id/time_layout"
             android:layout_width="180dp"
             android:layout_height="50dp"
+            android:layout_margin="10dp"
             android:layout_marginRight="3dp"
             android:layout_weight=".28"
             android:background="@drawable/spinner_border"
@@ -140,6 +141,7 @@
             android:layout_toRightOf="@+id/time_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_margin="10dp"
             android:layout_marginRight="3dp"
             android:layout_marginLeft="15dp"
             android:layout_weight=".28"
@@ -187,6 +189,7 @@
 
         <TableLayout
             android:id="@+id/valuetable"
+            android:layout_margin="13dp"
             android:layout_width="match_parent"
             android:layout_height="60dp">
             <TableRow
@@ -255,6 +258,7 @@
             android:id="@+id/linechart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_below="@+id/valuetable"
             android:layout_centerInParent="true"
             android:layout_marginTop="0dp"

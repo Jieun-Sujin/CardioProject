@@ -11,8 +11,8 @@
         android:layout_height="53dp"
         android:background="@color/white"
         android:gravity="center"
-        android:text="HOW TO ?"
-        android:textColor="#298A08"
+        android:text="측정 방법?"
+        android:textColor="@color/maincolor1"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -117,10 +117,10 @@
             android:textStyle="bold"
             android:text="CLOSE"
             android:textSize="15sp"
-            android:textColor="#DF3A01"
+            android:textColor="@color/white"
             android:padding="16dp"
             android:gravity="center"
-            android:background="#00000000"
+            android:background="@color/maincolor1"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:onClick="mOnClose"/>
