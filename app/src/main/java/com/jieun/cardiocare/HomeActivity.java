@@ -51,8 +51,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //final String userId = user.getUid();
 
-        //final String userName = user.getDisplayName();
-        final String userName = "김지은"; // 수진 테스트 할 때
+        final String userName = user.getDisplayName();
+        //final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "   님");

@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
+        android:text="@string/lowAphi"
+        android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/cholBar" />
 
     <TextView
@@ -23,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
+        android:textColor="#042E52"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/aphiBar"
         app:layout_constraintTop_toBottomOf="@+id/aphiPredict" />
@@ -31,13 +34,12 @@
         android:id="@+id/aphiBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="13dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:max="100"
-        android:progressTint="#F03D30"
-        android:scaleY="3"
-        app:layout_constraintStart_toStartOf="parent"
+        android:progressDrawable="@drawable/custom_progressbar"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/aphiPredict" />
 
     <TextView
@@ -46,8 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
+        android:text="@string/nonSmoke"
+        android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/aphiBar" />
 
     <TextView
@@ -56,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
+        android:textColor="#042E52"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/smokeBar"
         app:layout_constraintTop_toBottomOf="@+id/smokePredict" />
@@ -64,13 +69,12 @@
         android:id="@+id/smokeBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="13dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:max="100"
-        android:progressTint="#F03D30"
-        android:scaleY="3"
-        app:layout_constraintStart_toStartOf="parent"
+        android:progressDrawable="@drawable/custom_progressbar"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/smokePredict" />
 
     <TextView
@@ -78,21 +82,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:text="@string/predict_info"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/user_name"
         app:layout_constraintStart_toEndOf="@+id/user_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="OOO"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
@@ -101,8 +106,8 @@
         android:id="@+id/cardio_pst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="@+id/circularProgressbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +120,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="50dp"
         android:indeterminate="false"
         android:max="100"
         android:progress="50"
@@ -130,6 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/circularProgressbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,23 +146,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:text="@string/TenYearsLater"
+        android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circularProgressbar" />
+        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintTop_toTopOf="@+id/pctView" />
 
     <ProgressBar
         android:id="@+id/ageBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="13dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:max="100"
-        android:progressTint="#F03D30"
-        android:scaleY="3"
-        app:layout_constraintStart_toStartOf="parent"
+        android:progressDrawable="@drawable/custom_progressbar"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/agePredict" />
 
     <TextView
@@ -165,6 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="13dp"
+        android:textColor="#042E52"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/ageBar"
         app:layout_constraintTop_toBottomOf="@+id/agePredict" />
@@ -175,21 +182,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="40dp"
+        android:text="@string/lowChol"
+        android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/ageBar" />
 
     <ProgressBar
         android:id="@+id/cholBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="13dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:max="100"
-        android:progressTint="#F03D30"
-        android:scaleY="3"
-        app:layout_constraintStart_toStartOf="parent"
+        android:progressDrawable="@drawable/custom_progressbar"
+        app:layout_constraintStart_toStartOf="@id/pctView"
         app:layout_constraintTop_toBottomOf="@+id/cholPredict" />
 
     <TextView
@@ -197,7 +205,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#042E52"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/cholBar"
         app:layout_constraintTop_toBottomOf="@+id/cholPredict" />
@@ -212,5 +221,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp" />
 
+    <View
+        android:id="@+id/pctView"
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/view_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

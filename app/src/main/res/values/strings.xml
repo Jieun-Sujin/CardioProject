@@ -18,6 +18,9 @@
 
     <string name="predict_info">님의 예상 심혈관질환 발병률</string>
     <string name="TenYearsLater">10년 후 발병률</string>
+    <string name="lowChol">콜레스테롤을 낮출 경우 발병률</string>
+    <string name="lowAphi">혈압을 낮출 경우 발병률</string>
+    <string name="nonSmoke">비흡연할 경우 발병률</string>
     <string name="Pct20">건강 관리를 잘하고 계시네요!</string>
     <string name="Pct40">조금 더 건강에 신경써주세요.</string>
     <string name="Pct70">심장이 건강하지 않습니다. 더욱 더 주의를 귀울여 주세요.</string>

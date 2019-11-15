@@ -57,6 +57,10 @@ public class CardioPredictActivity extends AppCompatActivity {
     TextView cardio_pst;
 
     int pStatus = 0;
+    int ageStatus = 0;
+    int cholStatus = 0;
+    int aphiStatus = 0;
+    int smokeStatus = 0;
     private Handler handler = new Handler();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +157,7 @@ public class CardioPredictActivity extends AppCompatActivity {
                                             }
                                         });
                                         try {
-                                            Thread.sleep(20);
+                                            Thread.sleep(30);
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
@@ -162,15 +166,79 @@ public class CardioPredictActivity extends AppCompatActivity {
                             });
                             progressThread.start();
 
+                            /*
+                            try {
+                                progressThread.join();
+                                cardio_pst.setText(percentage + "%");
+                                if(percentage < 20) {
+                                    comment.setText(R.string.Pct20);
+                                } else if (percentage < 40) {
+                                    comment.setText(R.string.Pct40);
+                                } else if (percentage < 70) {
+                                    comment.setText(R.string.Pct70);
+                                } else {
+                                    comment.setText(R.string.Pct100);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                             */
+
                             //10년 후 발병률
                             float[] input2 = new float[]{age + 3650,gender,height,weight,aphi,aplo,cholesterol,smoke,alco};
                             final double tenYearsPct = predictCardio(data, input2);
 
+                            final Thread ageThread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    while (ageStatus < tenYearsPct - 1) {
+                                        ageStatus += 1;
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ageBar.setProgress(ageStatus);
+                                                agePct.setText(ageStatus + "%");
+                                            }
+                                        });
+                                        try {
+                                            Thread.sleep(20);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            });
+                            ageThread.start();
+
                             //콜레스테롤 2또는 3일경우
                             float[] input5 = new float[]{age,gender,height,weight,aphi,aplo,cholesterol - 1,smoke,alco};
                             final double lowcholPct = predictCardio(data, input5);
+
                             if(cholesterol >= 2) {
-                                cholPredictTxt.setText("콜레스테롤을 낮출 경우 발병률");
+
+                                Thread cholThread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        while (cholStatus < lowcholPct - 1) {
+                                            cholStatus += 1;
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    cholBar.setProgress(cholStatus);
+                                                    cholPct.setText(cholStatus + "%");
+                                                }
+                                            });
+                                            try {
+                                                Thread.sleep(20);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                });
+                                cholThread.start();
+
                             } else { // 1일때
                                 cholPredictTxt.setVisibility(View.GONE);
                                 cholBar.setVisibility(View.GONE);
@@ -180,7 +248,29 @@ public class CardioPredictActivity extends AppCompatActivity {
                             float[] input3 = new float[]{age,gender,height,weight,aphi,aplo,cholesterol, 0,alco};
                             final double nonSmokePct = predictCardio(data, input3);
                             if(smoke == 1) {
-                                smokePredictTxt.setText("비흡연할 경우 발병률");
+
+                                final Thread smokeThread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        while (smokeStatus < nonSmokePct - 1) {
+                                            smokeStatus += 1;
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    smokeBar.setProgress(smokeStatus);
+                                                    smokePct.setText(smokeStatus + "%");
+                                                }
+                                            });
+                                            try {
+                                                Thread.sleep(20);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                });
+                                smokeThread.start();
+
                             } else {
                                 smokePredictTxt.setVisibility(View.GONE);
                                 smokeBar.setVisibility(View.GONE);
@@ -190,7 +280,29 @@ public class CardioPredictActivity extends AppCompatActivity {
                             float[] input4 = new float[]{age,gender,height,weight,aphi - 20 ,aplo,cholesterol,smoke, 0};
                             final double lowAphiPct = predictCardio(data, input4);
                             if(aphi > 140){
-                                aphiPredictTxt.setText("혈압을 낮출 경우 발병률");
+
+                                Thread aphiThread = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        while (aphiStatus < lowAphiPct - 1) {
+                                            aphiStatus += 1;
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    aphiBar.setProgress(aphiStatus);
+                                                    aphiPct.setText(aphiStatus + "%");
+                                                }
+                                            });
+                                            try {
+                                                Thread.sleep(20);
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                });
+                                aphiThread.start();
+
                             } else {
                                 aphiPredictTxt.setVisibility(View.GONE);
                                 aphiBar.setVisibility(View.GONE);
@@ -205,10 +317,10 @@ public class CardioPredictActivity extends AppCompatActivity {
                                                 @Override
                                                 public void run() {
                                                     Thread.State state = progressThread.getState();
+                                                    Thread.State ageState = ageThread.getState();
+
                                                     if(state == Thread.State.TERMINATED) {
                                                         cardio_pst.setText(percentage + "%");
-                                                        ageBar.setProgress((int)tenYearsPct);
-                                                        agePct.setText(tenYearsPct + "%");
 
                                                         if(percentage < 20) {
                                                             comment.setText(R.string.Pct20);
@@ -221,19 +333,24 @@ public class CardioPredictActivity extends AppCompatActivity {
                                                         }
 
                                                         if(cholesterol >= 2) {
-                                                            cholBar.setProgress((int) lowcholPct);
+                                                            //cholBar.setProgress((int) lowcholPct);
                                                             cholPct.setText(lowcholPct + "%");
                                                         }
                                                         if(smoke == 1) {
-                                                            smokeBar.setProgress((int)nonSmokePct);
+                                                            //smokeBar.setProgress((int)nonSmokePct);
                                                             smokePct.setText(nonSmokePct + "%");
                                                         }
 
                                                         if(aphi > 140) {
-                                                            aphiBar.setProgress((int)lowAphiPct);
+                                                            //aphiBar.setProgress((int)lowAphiPct);
                                                             aphiPct.setText(lowAphiPct + "%");
                                                         }
                                                     }
+
+                                                    if(ageState == Thread.State.TERMINATED) {
+                                                        agePct.setText(tenYearsPct + "%");
+                                                    }
+
                                                 }
                                             });
                                             Thread.sleep(100);
