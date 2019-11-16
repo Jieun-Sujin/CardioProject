@@ -39,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     TextView msgText;
-    TextView timeText;
     TextView userNameTxt;
 
     @Override
@@ -100,7 +99,6 @@ public class HomeActivity extends AppCompatActivity {
         SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
         SimpleDateFormat minSdf = new SimpleDateFormat("ss");
 
-        timeText = (TextView) findViewById(R.id.timeText);
         msgText = (TextView) findViewById(R.id.msgText);
 
         int hour = Integer.parseInt(hourSdf.format(date));
@@ -119,13 +117,6 @@ public class HomeActivity extends AppCompatActivity {
             //잠
             msgText.setText(msgList[3]);
         }
-
-        if(1<=hour && hour<=12){
-            timeText.setText(hour + " : "+ minSdf.format(date) +" AM");
-        }else{
-            timeText.setText((hour -12) + " : "+ minSdf.format(date) +" PM");
-        }
-
 
     }
 
