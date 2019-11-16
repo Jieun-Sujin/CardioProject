@@ -729,11 +729,6 @@ public class HeartActivity extends AppCompatActivity {
                             String id = fuser.getUid();
                             mDatabase.child("Bpm").child(id).child(getDateStr()).child(getTimeStr()).setValue(user);
                             initToast("심박수 측정이 완료 되었습니다.");
-
-                            Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
-                            intent.putExtra("user",user);
-                            startActivity(intent);
-
                         }
                     }
                 });
