@@ -12,9 +12,10 @@
     <color name="edgecolor">#696969</color>
     <color name="maincolor2">#dcdcdc</color>
 
-    <color name="profile_color">#F7D358</color>
-    <color name="predict_color">#01A9DB</color>
-    <color name="bpm_color">#FA5858</color>
+
+    <color name="profile_color">#F3B14F</color>
+    <color name="predict_color">#6FBCE8</color>
+    <color name="bpm_color">#F952A3</color>
     <color name="aed_color">#71D479</color>
 
 
