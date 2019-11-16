@@ -26,4 +26,10 @@
         <item name="colorAccent">#F79494</item>
     </style>
 
+    <style name="ToolbarText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.11</item>
+    </style>
+
 </resources>

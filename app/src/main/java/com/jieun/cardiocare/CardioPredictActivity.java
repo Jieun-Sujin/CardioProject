@@ -70,7 +70,8 @@ public class CardioPredictActivity extends AppCompatActivity {
         final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
 
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar4);
-        toolbar.setTitle("실혈관질환 예측");
+        toolbar.setTitle("심혈관질환 예측");
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
         toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 

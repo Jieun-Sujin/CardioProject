@@ -61,6 +61,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar3);
         toolbar.setTitle("내 정보 입력");
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
         toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 

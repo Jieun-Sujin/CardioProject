@@ -143,6 +143,7 @@ public class HeartActivity extends AppCompatActivity {
         final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar5);
         toolbar.setTitle("심박수 측정");
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
         toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 

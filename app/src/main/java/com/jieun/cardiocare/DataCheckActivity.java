@@ -3,6 +3,7 @@ package com.jieun.cardiocare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,8 +33,12 @@ public class DataCheckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_check);
 
+        final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar2);
-        toolbar.setTitle("실혈관질환 예측");
+        toolbar.setTitle("심혈관질환 예측");
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
+        toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
