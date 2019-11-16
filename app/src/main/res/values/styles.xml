@@ -29,7 +29,7 @@
     <style name="ToolbarText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">0.11</item>
+        <item name="android:letterSpacing">0.1</item>
     </style>
 
 </resources>

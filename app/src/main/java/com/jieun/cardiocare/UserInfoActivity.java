@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
@@ -128,7 +129,8 @@ public class UserInfoActivity extends AppCompatActivity {
 
                 UserData user = new UserData(userName, gender, age, height, weight, aphi, aplo, chol, smoke, alco);
                 mDatabase.child("BodyInfo").child(userId).setValue(user);
-                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
+                initToast("저장되었습니다");
+                //Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
 
                 if(!join) { // 새로 가입하여 처음 저장하는 경우
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -511,6 +513,20 @@ public class UserInfoActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = d.create();
         alertDialog.show();
+    }
+
+    private void initToast(String msg){
+        LayoutInflater inflater = getLayoutInflater();
+        View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+
+        TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
+        text.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastDesign);
+        toast.show();
+
     }
 
 }

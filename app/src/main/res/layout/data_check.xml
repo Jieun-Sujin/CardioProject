@@ -128,6 +128,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -141,6 +142,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -154,6 +156,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -167,6 +170,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -180,6 +184,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -193,6 +198,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -206,6 +212,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toTopOf="@+id/checkView" />
 
@@ -219,6 +226,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -232,6 +240,7 @@
         android:textColor="#F79494"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:letterSpacing="0.1"
         app:layout_constraintStart_toStartOf="@+id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -251,24 +260,26 @@
 
     <Button
         android:id="@+id/predictBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="88dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button2"
         android:onClick="clickPredict"
         android:text="예측하기"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/changeBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/button2"
+        android:background="@drawable/button3"
         android:onClick="clickChange"
         android:text="수정하기"
+        android:textColor="@color/maincolor1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.328"

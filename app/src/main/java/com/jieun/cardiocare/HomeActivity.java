@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void clickLogout(View view) {
         mAuth.signOut();
-        initToast("로그아웃 되었습니다.");
+        initToast("로그아웃 되었습니다");
 
         finish();
     }
@@ -196,7 +196,7 @@ public class HomeActivity extends AppCompatActivity {
     private void initToast(String msg){
 
         LayoutInflater inflater = getLayoutInflater();
-        View toastDesign = inflater.inflate(R.layout.toast_design, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+        View toastDesign = inflater.inflate(R.layout.toast_design2, (ViewGroup)findViewById(R.id.toast_design_root2)); //toast_design.xml 파일의 toast_design_root 속성을 로드
 
         TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
         text.setText(msg);
