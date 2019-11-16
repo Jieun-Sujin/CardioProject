@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:layout_marginEnd="42dp"
+        android:layout_marginEnd="48dp"
         android:text="000"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="48dp"
         android:text="00"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:layout_marginEnd="43dp"
+        android:layout_marginEnd="50dp"
         android:text="000"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -384,7 +384,7 @@
 
     <View
         android:id="@+id/weightView"
-        android:layout_width="80dp"
+        android:layout_width="85dp"
         android:layout_height="40dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/custom_edge"
@@ -395,7 +395,7 @@
 
     <View
         android:id="@+id/aphiView"
-        android:layout_width="90dp"
+        android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/custom_edge"
@@ -406,7 +406,7 @@
 
     <View
         android:id="@+id/aploView"
-        android:layout_width="90dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginTop="38dp"
         android:background="@drawable/custom_edge"
@@ -417,7 +417,7 @@
 
     <View
         android:id="@+id/cholView"
-        android:layout_width="95dp"
+        android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginTop="38dp"
         android:background="@drawable/custom_edge"

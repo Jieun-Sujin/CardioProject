@@ -39,9 +39,8 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     TextView msgText;
-    TextView timeText;
     TextView userNameTxt;
-
+    TextView dateText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +53,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //final String userId = user.getUid();
 
-        final String userName = user.getDisplayName();
-        //final String userName = "김지은"; // 수진 테스트 할 때
+        // final String userName = user.getDisplayName();
+        final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "   님");
@@ -98,10 +97,12 @@ public class HomeActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
-        SimpleDateFormat minSdf = new SimpleDateFormat("ss");
+        //SimpleDateFormat minSdf = new SimpleDateFormat("ss");
+        SimpleDateFormat todaySdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        timeText = (TextView) findViewById(R.id.timeText);
         msgText = (TextView) findViewById(R.id.msgText);
+        dateText =(TextView)findViewById(R.id.dateText);
+        dateText.setText(todaySdf.format(date));
 
         int hour = Integer.parseInt(hourSdf.format(date));
         String[] msgList = getResources().getStringArray(R.array.msg_array);
@@ -119,13 +120,6 @@ public class HomeActivity extends AppCompatActivity {
             //잠
             msgText.setText(msgList[3]);
         }
-
-        if(1<=hour && hour<=12){
-            timeText.setText(hour + " : "+ minSdf.format(date) +" AM");
-        }else{
-            timeText.setText((hour -12) + " : "+ minSdf.format(date) +" PM");
-        }
-
 
     }
 

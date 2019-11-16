@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -143,7 +144,6 @@ public class HeartActivity extends AppCompatActivity {
         final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar5);
         toolbar.setTitle("심박수 측정");
-        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
         toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
@@ -697,9 +697,17 @@ public class HeartActivity extends AppCompatActivity {
                 bpmText.setText("BPM  " + (int)value);
                 bpmseekBar.setProgress((int)value);
 
-                //seekbar not touchable
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                //seekBar not touch
+                bpmseekBar.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event)
+                    {
+                        return true;
+                    }
+                });
+
+
+                출처: https://itpangpang.xyz/212 [ITPangPang]
 
 
                 btnStart.setVisibility(View.GONE);

@@ -74,7 +74,7 @@
 
                 <ImageView
                     android:id="@+id/beatanim"
-                    android:layout_marginTop="200dp"
+                    android:layout_marginTop="150dp"
                     android:layout_width="400dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="300dp"
@@ -92,6 +92,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
 
                     <TextView
                         android:id="@+id/bpmText"
@@ -229,7 +230,7 @@
                         android:layout_marginTop="60dp"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <Button
                             android:id="@+id/againBtn"
