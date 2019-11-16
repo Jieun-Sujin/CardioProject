@@ -290,7 +290,7 @@ public class UserInfoActivity extends AppCompatActivity {
         int month = Integer.parseInt(birthBtn.getText().toString().substring(6,8));
         int day = Integer.parseInt(birthBtn.getText().toString().substring(10,12));
 
-        DatePickerDialog dialog = new DatePickerDialog(this, callbackMethod, year, month-1, day);
+        DatePickerDialog dialog = new DatePickerDialog(this, R.style.DialogStyle, callbackMethod, year, month-1, day);
         dialog.show();
     }
 
@@ -324,7 +324,7 @@ public class UserInfoActivity extends AppCompatActivity {
         Log.i("num", num + "");
         Log.i("dec", dec + "");
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.double_picker_dialog, null);
         d.setTitle("신장 설정");
@@ -368,7 +368,7 @@ public class UserInfoActivity extends AppCompatActivity {
         String num = weight.substring(0, weight.length()-4);
         String dec = weight.substring(weight.length()-3, weight.length()-2);
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.double_picker_dialog, null);
         d.setTitle("체중 설정");
@@ -411,7 +411,7 @@ public class UserInfoActivity extends AppCompatActivity {
         String aphi = String.valueOf(aphiBtn.getText());
         String setAphi = aphi.substring(0,aphi.length()-4);
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.picker_dialog2, null);
         d.setTitle("최고혈압 설정");
@@ -446,7 +446,7 @@ public class UserInfoActivity extends AppCompatActivity {
         String aplo = String.valueOf(aploBtn.getText());
         String setAplo = aplo.substring(0,aplo.length()-4);
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.picker_dialog2, null);
         d.setTitle("최저혈압 설정");
@@ -481,7 +481,7 @@ public class UserInfoActivity extends AppCompatActivity {
         String chol = String.valueOf(cholBtn.getText());
         String setChol = chol.substring(0,chol.length()-5);
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.picker_dialog2, null);
         d.setTitle("콜레스테롤 설정");

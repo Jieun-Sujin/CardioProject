@@ -365,7 +365,7 @@ public class AEDActivity extends AppCompatActivity
 
     private void showDialogForLocationServiceSetting() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(AEDActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(AEDActivity.this, R.style.DialogStyle);
         builder.setTitle("위치 서비스 비활성화");
         builder.setMessage("이 기능을 사용하기 위해서는 위치 서비스가 필요합니다.\n"
                 + "위치 설정을 활성화 하시겠습니까?");
