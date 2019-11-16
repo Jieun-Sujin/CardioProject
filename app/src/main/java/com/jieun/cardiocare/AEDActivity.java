@@ -81,6 +81,7 @@ public class AEDActivity extends AppCompatActivity
         final int start = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar6);
         toolbar.setTitle("주변 AED 찾기");
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
         toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
