@@ -15,7 +15,7 @@
                     android:name="path_1"
                     android:pathData="@string/heartpath"
                     android:strokeColor="@color/maincolor1"
-                    android:strokeWidth="0.7"
+                    android:strokeWidth="1.0"
                     android:trimPathEnd="0"
                     android:strokeLineCap="round"
                     android:strokeLineJoin="round"/>

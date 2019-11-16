@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
 
     TextView msgText;
     TextView userNameTxt;
-
+    TextView dateText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,9 +97,12 @@ public class HomeActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
-        SimpleDateFormat minSdf = new SimpleDateFormat("ss");
+        //SimpleDateFormat minSdf = new SimpleDateFormat("ss");
+        SimpleDateFormat todaySdf = new SimpleDateFormat("yyyy-MM-dd");
 
         msgText = (TextView) findViewById(R.id.msgText);
+        dateText =(TextView)findViewById(R.id.dateText);
+        dateText.setText(todaySdf.format(date));
 
         int hour = Integer.parseInt(hourSdf.format(date));
         String[] msgList = getResources().getStringArray(R.array.msg_array);
