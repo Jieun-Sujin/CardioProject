@@ -60,7 +60,7 @@ public class BPMViewAdaptor extends BaseAdapter {
         }
 
         dateText.setText(userItem.getDate());
-        bpmText.setText(String.valueOf((int)userItem.getBpm()));
+        bpmText.setText(String.valueOf((int)userItem.getBpm()) +"  BPM");
         return convertView;
     }
 

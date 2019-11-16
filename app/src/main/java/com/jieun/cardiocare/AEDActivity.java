@@ -86,13 +86,13 @@ public class AEDActivity extends AppCompatActivity
 
 
 
-
-
         if (!checkLocationServicesStatus()) {
             showDialogForLocationServiceSetting();
         }
 
         init();
+        initToast("위치가 업로드 되었습니다");
+        initScreen();
         initScreen();
 
         showLocationButton.setOnClickListener(new View.OnClickListener()
@@ -241,7 +241,7 @@ public class AEDActivity extends AppCompatActivity
         mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
 
     }
 

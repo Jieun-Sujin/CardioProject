@@ -6,17 +6,16 @@
         android:background="#FAFAFA"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/statusIcon"
-            android:layout_marginLeft="20dp"
             android:src="@drawable/ic_status_stable_on"
-            android:layout_width="60dp"
-            android:layout_height="60dp">
+            android:layout_width="40dp"
+            android:layout_height="40dp">
 
         </ImageView>
         <LinearLayout
@@ -32,12 +31,12 @@
                 android:maxLines="1"
                 android:text="2019 - 11 - 10  4 : 33 AM "
                 android:textColor="@color/maincolor2"
-                android:textSize="15dp"
+                android:textSize="13dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/bpmText"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

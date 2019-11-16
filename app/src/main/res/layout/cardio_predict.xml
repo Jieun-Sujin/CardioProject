@@ -16,7 +16,7 @@
         android:text="@string/lowAphi"
         android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/cholBar" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_marginTop="13dp"
         android:max="100"
         android:progressDrawable="@drawable/custom_progressbar"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/aphiPredict" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:text="@string/nonSmoke"
         android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/aphiBar" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_marginTop="13dp"
         android:max="100"
         android:progressDrawable="@drawable/custom_progressbar"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/smokePredict" />
 
     <TextView
@@ -150,8 +150,8 @@
         android:text="@string/TenYearsLater"
         android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/pctView"
-        app:layout_constraintTop_toTopOf="@+id/pctView" />
+        app:layout_constraintStart_toStartOf="@id/checkView"
+        app:layout_constraintTop_toTopOf="@+id/checkView" />
 
     <ProgressBar
         android:id="@+id/ageBar"
@@ -162,7 +162,7 @@
         android:layout_marginTop="13dp"
         android:max="100"
         android:progressDrawable="@drawable/custom_progressbar"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/agePredict" />
 
     <TextView
@@ -185,7 +185,7 @@
         android:text="@string/lowChol"
         android:textColor="#042E52"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/ageBar" />
 
     <ProgressBar
@@ -197,7 +197,7 @@
         android:layout_marginTop="13dp"
         android:max="100"
         android:progressDrawable="@drawable/custom_progressbar"
-        app:layout_constraintStart_toStartOf="@id/pctView"
+        app:layout_constraintStart_toStartOf="@id/checkView"
         app:layout_constraintTop_toBottomOf="@+id/cholPredict" />
 
     <TextView
@@ -222,7 +222,7 @@
         tools:layout_editor_absoluteX="1dp" />
 
     <View
-        android:id="@+id/pctView"
+        android:id="@+id/checkView"
         android:layout_width="match_parent"
         android:layout_height="390dp"
         android:layout_marginStart="16dp"

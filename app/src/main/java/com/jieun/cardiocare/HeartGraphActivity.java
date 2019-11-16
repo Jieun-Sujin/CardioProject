@@ -15,11 +15,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -50,11 +52,13 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     final static int MONTH = 12;
     final static int STATUS =5;
 
-    Toolbar toolbar;
     TextView dateText, timeText, bpmText, statusText;
     Spinner timeSpinner, statusSpinner;
     TextView max_v, min_v, avg_v;
     RelativeLayout current_layout;
+    ListView listView;
+    BPMViewAdaptor adaptor;
+
 
     static int clicked1 = 0, clicked2 = 0;
 
@@ -95,8 +99,9 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         initFireBase();
         calculateWeekData();
         init();
-        setupGraph();
-        getVal(0, 0);
+
+
+
 
     }
 
@@ -129,32 +134,10 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
     public void init() {
 
-
-        /* toolbar.setTitleMargin(0,0,10,0);*/
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //toolbar.setNavigationIcon(R.drawable.navigator_left);
-
         dateText = (TextView) findViewById(R.id.dateText);
         timeText = (TextView) findViewById(R.id.timeText);
         bpmText = (TextView) findViewById(R.id.bpmText);
         statusText = (TextView) findViewById(R.id.statusText);
-
-        //spinner
-        timeSpinner = (Spinner) findViewById(R.id.time_spinner);
-        statusSpinner = (Spinner) findViewById(R.id.status_spinner);
-
-        ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_array, R.layout.spinner_text);
-        ArrayAdapter statusAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, R.layout.spinner_text);
-
-
-        timeAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-        timeSpinner.setAdapter(timeAdapter);
-
-        statusAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-        statusSpinner.setAdapter(statusAdapter);
-
-        statusSpinner.setOnItemSelectedListener(this);
-        timeSpinner.setOnItemSelectedListener(this);
 
         min_v = (TextView) findViewById(R.id.min_v);
         max_v = (TextView) findViewById(R.id.max_v);
@@ -163,42 +146,47 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         //chart
         mChart = (LineChart) findViewById(R.id.linechart);
 
+        //spinner
+        timeSpinner = (Spinner) findViewById(R.id.time_spinner);
+        timeSpinner.setSelection(0);
+        statusSpinner = (Spinner) findViewById(R.id.status_spinner);
+        statusSpinner.setSelection(0);
 
-        Intent intent = getIntent();
-        HeartUser huser = (HeartUser)intent.getSerializableExtra("user");
-        if(huser !=null){
-            String[] statusList = getResources().getStringArray(R.array.status_array);
-            String date = huser.getDate();
+        ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_array, R.layout.spinner_text);
+        ArrayAdapter statusAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, R.layout.spinner_text);
 
-            dateText.setText(date.substring(0,9));
-            timeText.setText(date.substring(10));
-            bpmText.setText((int)huser.getBpm()+ "  BPM");
-            statusText.setText(statusList[huser.getStatus()]);
+        timeAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        timeSpinner.setAdapter(timeAdapter);
+        statusAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        statusSpinner.setAdapter(statusAdapter);
 
-        }else{
-            current_layout =(RelativeLayout)findViewById(R.id.current_layout1);
-            current_layout.setVisibility(View.GONE);
-            //current_layout.setVisibility(View.INVISIBLE);
+        setupGraph();
+        getVal(clicked1, clicked2);
 
-        }
+        statusSpinner.setOnItemSelectedListener(this);
+        timeSpinner.setOnItemSelectedListener(this);
+
+        initListView();
+
 
     }
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        setupGraph();
-        getVal(0, 0);
+        //TODO..
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
         switch (adapterView.getId()) {
             case R.id.time_spinner:
+                Toast.makeText(getApplicationContext(),"time",Toast.LENGTH_SHORT).show();
                 clicked1 = pos;
                 setupGraph();
                 getVal(clicked1, clicked2);
                 break;
 
             case R.id.status_spinner:
+                Toast.makeText(getApplicationContext(),"status",Toast.LENGTH_SHORT).show();
                 clicked2 = pos;
                 setupGraph();
                 getVal(clicked1, clicked2);
@@ -210,8 +198,117 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-
     private void calculateWeekData() {
+
+        final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
+        //String id = fuser.getUid();
+        String id = getString(R.string.firebase_key);
+
+        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                    String dateString = data.getKey();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    long now = System.currentTimeMillis();
+                    Date convertedDate = new Date(now);
+                    try {
+                        convertedDate = dateFormat.parse(dateString);
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    calendar.setTime(convertedDate);
+
+                    //월별로
+                    for (DataSnapshot timeData : data.getChildren()) {
+                        int type = Integer.parseInt(timeData.child("status").getValue().toString());
+                        float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
+                        week[calendar.get(Calendar.WEEK_OF_MONTH) - 1][type] += val;
+                        week_cnt[calendar.get(Calendar.WEEK_OF_MONTH) - 1][type] += 1;
+                    }
+
+                    //오늘과 같은 주.
+                    if (calendar.get(Calendar.WEEK_OF_MONTH) == curWeek) {
+
+                        //시간 별로
+                        for (DataSnapshot timeData : data.getChildren()) {
+
+                            int type = Integer.parseInt(timeData.child("status").getValue().toString());
+                            float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
+                            //해당 되는 주에 더하기.
+                            daily[calendar.get(Calendar.DAY_OF_WEEK) - 1][type] += val;
+                            daily_cnt[calendar.get(Calendar.DAY_OF_WEEK) - 1][type] += 1;
+                        }
+                    }
+
+
+                    //시간 별로
+                    for (DataSnapshot timeData : data.getChildren()) {
+                        int type = Integer.parseInt(timeData.child("status").getValue().toString());
+                        float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
+                        month[calendar.get(Calendar.MONTH)][type] += val;
+                        month_cnt[calendar.get(Calendar.MONTH)][type] += 1;
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+
+    private void initListView() {
+
+        listView =(ListView)findViewById(R.id.listView);
+        adaptor = new BPMViewAdaptor();
+        //String id = fuser.getUid();
+        String id = getString(R.string.firebase_key);
+
+        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                    String dateString = data.getKey();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    long now = System.currentTimeMillis();
+                    Date convertedDate = new Date(now);
+                    try {
+                        convertedDate = dateFormat.parse(dateString);
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    calendar.setTime(convertedDate);
+
+                    //오늘 날짜
+                    //Toast.makeText(getApplicationContext(),dateFormat.format(convertedDate),Toast.LENGTH_SHORT).show();
+                    for (DataSnapshot timeData : data.getChildren()) {
+                        String date =dateFormat.format(convertedDate) +"  "+timeData.getKey();
+                        int status = Integer.parseInt(timeData.child("status").getValue().toString());
+                        float bpm = Float.parseFloat(timeData.child("bpm").getValue().toString());
+                        adaptor.addItem(bpm,status,date);
+                    }
+
+                    listView.setAdapter(adaptor);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+    }
+
+    /*private void calculateWeekData() {
 
         final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
         //String id = fuser.getUid();
@@ -331,7 +428,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         });
 
-    }
+    }*/
 
     private void calculateB() {
 
@@ -435,6 +532,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     //graph setip
     private void setupGraph() {
         // add data
+        Toast.makeText(getApplicationContext(),"setData",Toast.LENGTH_SHORT).show();
         setData();
 
         // get the legend (only possible after setting data)
