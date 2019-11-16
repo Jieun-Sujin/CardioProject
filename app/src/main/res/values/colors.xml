@@ -7,6 +7,8 @@
     <!--main color EB8C8C-->
     <color name="backgroud">#FFF0F5</color>
     <color name="maincolor1">#F79494</color>
+
+    <!-->#FDA5A5 #F78B8B  -->
     <color name="edgecolor">#696969</color>
     <color name="maincolor2">#dcdcdc</color>
 
