@@ -12,16 +12,16 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/titleText"
-            android:text="Cardict"
-            android:layout_marginStart="165dp"
-            android:textColor="@color/maincolor1"
-            android:textStyle="bold"
-            android:textSize="28sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:text="Cardict"
+            android:textColor="@color/maincolor1"
+            android:textSize="28sp"
+            android:textStyle="bold"></TextView>
         <Button
             android:id="@+id/logout"
             android:onClick="clickLogout"
@@ -66,16 +66,17 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
+
             <TextView
                 android:id="@+id/dateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="110dp"
+                android:layout_marginLeft="200dp"
                 android:layout_marginTop="16dp"
                 android:text="2019 . 11 . 10 "
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="21sp"/>
+                android:textSize="21sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <ImageView
