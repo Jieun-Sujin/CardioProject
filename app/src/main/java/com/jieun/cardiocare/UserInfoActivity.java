@@ -189,7 +189,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
         int genderId = genderSelect.getCheckedRadioButtonId();
         RadioButton rb = (RadioButton) findViewById(genderId);
-        if("여".equals(rb.getText()))
+        if("여".equals(rb.getText().toString()))
             gender = 0;
         else //남자일때
             gender = 1;
@@ -203,7 +203,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
         int smokeId = smokeSelect.getCheckedRadioButtonId();
         RadioButton rb2 = (RadioButton) findViewById(smokeId);
-        if("예".equals(rb2.getText()))
+        if("예".equals(rb2.getText().toString()))
             smoke = 1;
         else // "아니요" 일 경우
             smoke = 0;
@@ -217,7 +217,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
         int alcoId = alcoSelect.getCheckedRadioButtonId();
         RadioButton rb3 = (RadioButton) findViewById(alcoId);
-        if("예".equals(rb3.getText()))
+        if("예".equals(rb3.getText().toString()))
             alco = 1;
         else // "아니요" 일 경우
             alco = 0;
