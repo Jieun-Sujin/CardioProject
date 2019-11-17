@@ -10,8 +10,12 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -194,11 +198,11 @@ public class MainActivity extends AppCompatActivity {
                                             // Getting Post failed, log a message
                                         }
                                     });
-
-                            Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
+                            initToast("로그인 되었습니다");
+                            //Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
                         } else { // 로그인 실패
-
-                            Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
+                            initToast("로그인 실패");
+                            //Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
                             Log.v("login","failed");
                         }
 
@@ -206,6 +210,20 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private void initToast(String msg){
+
+        LayoutInflater inflater = getLayoutInflater();
+        View toastDesign = inflater.inflate(R.layout.toast_design2, (ViewGroup)findViewById(R.id.toast_design_root2)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+
+        TextView text = toastDesign.findViewById(R.id.TextView_toast_design);
+        text.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER, 0, 800); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastDesign);
+        toast.show();
+
+    }
     private void initGoogleApiClient() {
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)

@@ -29,7 +29,6 @@
                 android:layout_height="30dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="2019 - 11 - 10  4 : 33 AM "
                 android:textColor="@color/maincolor2"
                 android:textSize="13dp"
                 android:textStyle="bold" />

@@ -91,8 +91,6 @@ public class AEDActivity extends AppCompatActivity
         }
 
         init();
-        //initToast("위치가 업로드 되었습니다");
-        initScreen();
 
         showLocationButton.setOnClickListener(new View.OnClickListener()
         {
@@ -212,7 +210,6 @@ public class AEDActivity extends AppCompatActivity
         new Thread(new Runnable() {
 
             @Override
-
             public void run() {
                 getData(); // 하단의 getData 메소드를 통해 데이터를 파싱
                 runOnUiThread(new Runnable() {
@@ -353,7 +350,7 @@ public class AEDActivity extends AppCompatActivity
         if (addresses == null || addresses.size() == 0) {
             initToast("주변에 AED가 존재하지 않습니다.");
             onBackPressed();
-            return null;
+            return "주소 미발견";
         }
 
         Address address = addresses.get(0);

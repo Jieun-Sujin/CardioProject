@@ -52,10 +52,13 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     final static int MONTH = 12;
     final static int STATUS =5;
 
-    TextView dateText, timeText, bpmText, statusText;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    long now;
+    Date convertedDate;
+
+
     Spinner timeSpinner, statusSpinner;
     TextView max_v, min_v, avg_v;
-    RelativeLayout current_layout;
     ListView listView;
     BPMViewAdaptor adaptor;
 
@@ -101,9 +104,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         calculateWeekData();
         init();
 
-
-
-
     }
 
     @Override
@@ -135,10 +135,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
     public void init() {
 
-        dateText = (TextView) findViewById(R.id.dateText);
-        timeText = (TextView) findViewById(R.id.timeText);
-        bpmText = (TextView) findViewById(R.id.bpmText);
-        statusText = (TextView) findViewById(R.id.statusText);
+        now = System.currentTimeMillis();
+        convertedDate = new Date(now);
 
         min_v = (TextView) findViewById(R.id.min_v);
         max_v = (TextView) findViewById(R.id.max_v);
@@ -149,9 +147,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         //spinner
         timeSpinner = (Spinner) findViewById(R.id.time_spinner);
-        timeSpinner.setSelection(0);
         statusSpinner = (Spinner) findViewById(R.id.status_spinner);
-        statusSpinner.setSelection(0);
 
         ArrayAdapter timeAdapter = ArrayAdapter.createFromResource(this, R.array.time_array, R.layout.spinner_text);
         ArrayAdapter statusAdapter = ArrayAdapter.createFromResource(this, R.array.status_array, R.layout.spinner_text);
@@ -161,14 +157,12 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         statusAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         statusSpinner.setAdapter(statusAdapter);
 
-        setupGraph();
-        getVal(clicked1, clicked2);
-
         statusSpinner.setOnItemSelectedListener(this);
         timeSpinner.setOnItemSelectedListener(this);
 
+        setupGraph();
+        getVal(clicked1, clicked2);
         initListView();
-
 
     }
     @Override
@@ -180,19 +174,13 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
         switch (adapterView.getId()) {
             case R.id.time_spinner:
-                Toast.makeText(getApplicationContext(),"time",Toast.LENGTH_SHORT).show();
                 clicked1 = pos;
                 setupGraph();
                 getVal(clicked1, clicked2);
                 break;
 
             case R.id.status_spinner:
-                Toast.makeText(getApplicationContext(),"status",Toast.LENGTH_SHORT).show();
                 clicked2 = pos;
-                setupGraph();
-                getVal(clicked1, clicked2);
-                break;
-            default:
                 setupGraph();
                 getVal(clicked1, clicked2);
                 break;
@@ -202,8 +190,8 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     private void calculateWeekData() {
 
         final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
-        //String id = fuser.getUid();
-        String id = getString(R.string.firebase_key);
+        String id = fuser.getUid();
+        //String id = getString(R.string.firebase_key);
 
         mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -278,7 +266,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
 
-                    String dateString = data.getKey();
+                    /*String dateString = data.getKey();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     long now = System.currentTimeMillis();
                     Date convertedDate = new Date(now);
@@ -290,7 +278,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
                     }
 
                     calendar.setTime(convertedDate);
-
+*/
                     //오늘 날짜
                     //Toast.makeText(getApplicationContext(),dateFormat.format(convertedDate),Toast.LENGTH_SHORT).show();
                     for (DataSnapshot timeData : data.getChildren()) {
@@ -479,7 +467,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         avg = 0;
         float sum = 0;
         int cnt = 0;
-
+        Toast.makeText(getApplicationContext(),"status :"+status +"time"+clicked1,Toast.LENGTH_SHORT).show();
         if (period == 0) {
             for (int i = 0; i < DAILY; i++) {
                 if (daily[i][status] != 0) {
@@ -578,9 +566,9 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
             xVals.clear();
             xVals.add("SUN");
             xVals.add("MON");
-            xVals.add("TUS");
-            xVals.add("WEN");
-            xVals.add("THR");
+            xVals.add("TUE");
+            xVals.add("WED");
+            xVals.add("THU");
             xVals.add("FRI");
             xVals.add("SAT");
         }
