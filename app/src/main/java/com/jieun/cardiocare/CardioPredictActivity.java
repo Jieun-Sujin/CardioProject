@@ -6,6 +6,7 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -100,6 +101,7 @@ public class CardioPredictActivity extends AppCompatActivity {
         final ProgressBar aphiBar = (ProgressBar) findViewById(R.id.aphiBar);
         final TextView aphiPct = (TextView) findViewById(R.id.aphiPct);
 
+        userNameTxt.setPaintFlags(userNameTxt.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         userNameTxt.setText(userName);
 
         Resources res = getResources();
@@ -167,24 +169,6 @@ public class CardioPredictActivity extends AppCompatActivity {
                             });
                             progressThread.start();
 
-                            /*
-                            try {
-                                progressThread.join();
-                                cardio_pst.setText(percentage + "%");
-                                if(percentage < 20) {
-                                    comment.setText(R.string.Pct20);
-                                } else if (percentage < 40) {
-                                    comment.setText(R.string.Pct40);
-                                } else if (percentage < 70) {
-                                    comment.setText(R.string.Pct70);
-                                } else {
-                                    comment.setText(R.string.Pct100);
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                             */
 
                             //10년 후 발병률
                             float[] input2 = new float[]{age + 3650,gender,height,weight,aphi,aplo,cholesterol,smoke,alco};
@@ -278,7 +262,7 @@ public class CardioPredictActivity extends AppCompatActivity {
                             }
 
                             // 혈압이 높은 사람일 경우
-                            float[] input4 = new float[]{age,gender,height,weight,aphi - 20 ,aplo,cholesterol,smoke, 0};
+                            float[] input4 = new float[]{age,gender,height,weight,aphi - 20 ,aplo,cholesterol,smoke, alco};
                             final double lowAphiPct = predictCardio(data, input4);
                             if(aphi > 140){
 

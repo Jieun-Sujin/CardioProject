@@ -130,7 +130,6 @@ public class UserInfoActivity extends AppCompatActivity {
                 UserData user = new UserData(userName, gender, age, height, weight, aphi, aplo, chol, smoke, alco);
                 mDatabase.child("BodyInfo").child(userId).setValue(user);
                 initToast("저장되었습니다");
-                //Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_SHORT).show();
 
                 if(!join) { // 새로 가입하여 처음 저장하는 경우
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -191,7 +190,7 @@ public class UserInfoActivity extends AppCompatActivity {
         int genderId = genderSelect.getCheckedRadioButtonId();
         RadioButton rb = (RadioButton) findViewById(genderId);
         if("여".equals(rb.getText()))
-            gender = 0; // 데이터 확인 해야함
+            gender = 0;
         else //남자일때
             gender = 1;
 
@@ -210,9 +209,6 @@ public class UserInfoActivity extends AppCompatActivity {
             smoke = 0;
 
         return smoke;
-
-        //음주여부
-
     }
 
     public int getAlco() {
