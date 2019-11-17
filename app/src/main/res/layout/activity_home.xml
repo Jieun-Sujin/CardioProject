@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/titleText"
             android:text="Cardict"
-            android:layout_marginStart="155dp"
+            android:layout_marginStart="165dp"
             android:textColor="@color/maincolor1"
             android:textStyle="bold"
             android:textSize="28sp"
@@ -116,64 +116,67 @@
 
         <Button
             android:id="@+id/dataInputBtn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_home"
             android:drawableStart="@drawable/ic_noun_person_data"
             android:drawableEnd="@drawable/ic_navigator_profile"
             android:drawablePadding="-30dp"
-            android:paddingLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/dataInputBtnText"
-            android:textColor="@color/profile_color"
-            android:textStyle="bold"
             android:onClick="clickInputMydata"
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-        </Button>
+            android:paddingLeft="40dp"
+            android:text="@string/dataInputBtnText"
+            android:textColor="#F3B14F"
+            android:textSize="16sp"
+            android:textStyle="bold"></Button>
+
         <Button
             android:id="@+id/predictBtn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_home"
             android:drawableStart="@drawable/ic_noun_neural_network1"
             android:drawableEnd="@drawable/ic_navigator_predict"
             android:drawablePadding="-30dp"
+            android:onClick="clickMyPredict"
             android:paddingLeft="30dp"
-            android:layout_marginTop="10dp"
             android:text="@string/predictBtnText"
             android:textColor="@color/predict_color"
-            android:textStyle="bold"
-            android:onClick="clickMyPredict"
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-        </Button>
+            android:textSize="16sp"
+            android:textStyle="bold"></Button>
+
         <Button
             android:id="@+id/bpmBtn"
-            android:background="@drawable/btn_home"
-            android:drawableEnd="@drawable/ic_navigator_bpm"
-            android:drawableStart="@drawable/ic_noun_heart"
-            android:drawablePadding="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/btn_home"
+            android:drawableStart="@drawable/ic_noun_heart"
+            android:drawableEnd="@drawable/ic_navigator_bpm"
+            android:drawablePadding="30dp"
+            android:onClick="clickHeart"
             android:paddingLeft="40dp"
             android:text="@string/bpmBtnText"
             android:textColor="@color/bpm_color"
-            android:textStyle="bold"
-            android:onClick="clickHeart"
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-        </Button>
+            android:textSize="16sp"
+            android:textStyle="bold"></Button>
+
         <Button
             android:id="@+id/aedBtn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_home"
             android:drawableStart="@drawable/ic_noun_map"
             android:drawableEnd="@drawable/ic_navigator_aed"
             android:drawablePadding="-30dp"
-            android:layout_marginTop="10dp"
+            android:onClick="clickAed"
             android:paddingLeft="40dp"
             android:text="@string/aedBtnText"
             android:textColor="@color/aed_color"
-            android:textStyle="bold"
-            android:onClick="clickAed"
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-        </Button>
+            android:textSize="16sp"
+            android:textStyle="bold"></Button>
     </LinearLayout>
     <!--<Button
         android:id="@+id/dataInputBtn"

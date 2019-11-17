@@ -93,6 +93,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar7);
         toolbar.setTitle("심박수 기록");
+        toolbar.setTitleTextAppearance(this, R.style.ToolbarText);
         toolbar.setTitleMarginStart(start);
         setSupportActionBar(toolbar);
 
