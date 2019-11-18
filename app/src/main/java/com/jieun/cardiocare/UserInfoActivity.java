@@ -204,9 +204,9 @@ public class UserInfoActivity extends AppCompatActivity {
         int smokeId = smokeSelect.getCheckedRadioButtonId();
         RadioButton rb2 = (RadioButton) findViewById(smokeId);
         if("예".equals(rb2.getText().toString()))
-            smoke = 1;
-        else // "아니요" 일 경우
             smoke = 0;
+        else // "아니요" 일 경우
+            smoke = 1;
 
         return smoke;
     }
@@ -218,9 +218,9 @@ public class UserInfoActivity extends AppCompatActivity {
         int alcoId = alcoSelect.getCheckedRadioButtonId();
         RadioButton rb3 = (RadioButton) findViewById(alcoId);
         if("예".equals(rb3.getText().toString()))
-            alco = 1;
-        else // "아니요" 일 경우
             alco = 0;
+        else // "아니요" 일 경우
+            alco = 1;
 
         return alco;
     }

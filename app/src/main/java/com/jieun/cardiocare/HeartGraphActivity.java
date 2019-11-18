@@ -258,7 +258,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         String id = fuser.getUid();
         //String id = "JdHe9AfAeUa9YeT687tzx7jLPPs2";
 
-
         final LinearLayout.LayoutParams pm
                 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT); //레이아웃파라미터 생성
 
@@ -497,9 +496,9 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         if (cnt != 0) {
             avg = sum / cnt;
-            min_v.setText("" + min);
-            max_v.setText("" + max);
-            avg_v.setText("" + avg);
+            min_v.setText("" + (int)min);
+            max_v.setText("" + (int)max);
+            avg_v.setText("" + (int)avg);
 
         } else {
             max_v.setText("");
@@ -513,7 +512,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     //graph setip
     private void setupGraph() {
         // add data
-        Toast.makeText(getApplicationContext(),"setData",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"setData",Toast.LENGTH_SHORT).show();
         setData();
 
         // get the legend (only possible after setting data)

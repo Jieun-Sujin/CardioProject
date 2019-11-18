@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -15,8 +16,10 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,14 +64,66 @@ public class HomeActivity extends AppCompatActivity {
         userNameTxt.setText(userName + "   님");
         initUI();
 
+        final Button inputBtn = (Button) findViewById(R.id.dataInputBtn);
+        Button predictBtn = (Button) findViewById(R.id.predictBtn);
+        Button bpmBtn = (Button) findViewById(R.id.bpmBtn);
+        Button aedBtn = (Button) findViewById(R.id.aedBtn);
+
+        Button.OnTouchListener onTouchListener = new Button.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                Button btn = (Button) view;
+                switch (motionEvent.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        btn.setTextColor(getColor(R.color.white));
+                        switch (btn.getId()) {
+                            case R.id.dataInputBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_person_data2),null, getDrawable(R.drawable.ic_navigator2),null);
+                                break;
+                            case R.id.predictBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_neural_network2),null, getDrawable(R.drawable.ic_navigator2),null);
+                                break;
+                            case R.id.bpmBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_heart2),null, getDrawable(R.drawable.ic_navigator2),null);
+                                break;
+                            case R.id.aedBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_map2),null, getDrawable(R.drawable.ic_navigator2),null);
+                                break;
+                        }
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        btn.setTextColor(getColor(R.color.home_navi_color));
+                        switch (btn.getId()) {
+                            case R.id.dataInputBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_person_data),null, getDrawable(R.drawable.ic_navigator),null);
+                                break;
+                            case R.id.predictBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_neural_network1),null, getDrawable(R.drawable.ic_navigator),null);
+                                break;
+                            case R.id.bpmBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_heart),null, getDrawable(R.drawable.ic_navigator),null);
+                                break;
+                            case R.id.aedBtn:
+                                btn.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_noun_map),null, getDrawable(R.drawable.ic_navigator),null);
+                                break;
+                        }
+                        break;
+                }
+                return false;
+            }
+        };
+
+        inputBtn.setOnTouchListener(onTouchListener);
+        predictBtn.setOnTouchListener(onTouchListener);
+        bpmBtn.setOnTouchListener(onTouchListener);
+        aedBtn.setOnTouchListener(onTouchListener);
+
     }
 
-    /* @Override
-     public boolean onCreateOptionsMenu(Menu menu) {
-         getMenuInflater().inflate(R.menu.app_bar, menu) ;
-         return true;
-     }
- */
     private void initToolbar() {
         final int cardict = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
         //final int logout = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
