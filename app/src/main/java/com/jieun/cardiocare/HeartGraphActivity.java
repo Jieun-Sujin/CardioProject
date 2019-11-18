@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -52,9 +53,9 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
     final static int MONTH = 12;
     final static int STATUS =5;
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    long now;
-    Date convertedDate;
+    long now = System.currentTimeMillis();
+    Date date = new Date(now);
+    final SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
 
 
     Spinner timeSpinner, statusSpinner;
@@ -135,9 +136,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
     public void init() {
 
-        now = System.currentTimeMillis();
-        convertedDate = new Date(now);
-
         min_v = (TextView) findViewById(R.id.min_v);
         max_v = (TextView) findViewById(R.id.max_v);
         avg_v = (TextView) findViewById(R.id.avg_v);
@@ -200,8 +198,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
                     String dateString = data.getKey();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    long now = System.currentTimeMillis();
-                    Date convertedDate = new Date(now);
+                    Date convertedDate = new Date();
                     try {
                         convertedDate = dateFormat.parse(dateString);
                     } catch (ParseException e) {
@@ -258,38 +255,33 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         listView =(ListView)findViewById(R.id.listView);
         adaptor = new BPMViewAdaptor();
-        //String id = fuser.getUid();
-        String id = getString(R.string.firebase_key);
+        String id = fuser.getUid();
+        //String id = "JdHe9AfAeUa9YeT687tzx7jLPPs2";
 
-        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        final LinearLayout.LayoutParams pm
+                = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT); //레이아웃파라미터 생성
+
+
+        mDatabase.child("Bpm").child(id).child(sdfNow.format(date)).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            String date2 = sdfNow.format(date);
+            //int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                for (DataSnapshot timeData : dataSnapshot.getChildren()) {
 
-                    /*String dateString = data.getKey();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    long now = System.currentTimeMillis();
-                    Date convertedDate = new Date(now);
-                    try {
-                        convertedDate = dateFormat.parse(dateString);
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    calendar.setTime(convertedDate);
-*/
-                    //오늘 날짜
-                    //Toast.makeText(getApplicationContext(),dateFormat.format(convertedDate),Toast.LENGTH_SHORT).show();
-                    for (DataSnapshot timeData : data.getChildren()) {
-                        String date =dateFormat.format(convertedDate) +"  "+timeData.getKey();
-                        int status = Integer.parseInt(timeData.child("status").getValue().toString());
-                        float bpm = Float.parseFloat(timeData.child("bpm").getValue().toString());
-                        adaptor.addItem(bpm,status,date);
-                    }
-
-                    listView.setAdapter(adaptor);
+                    String date = date2 +"  "+timeData.getKey();
+                    int status = Integer.parseInt(timeData.child("status").getValue().toString());
+                    float bpm = Float.parseFloat(timeData.child("bpm").getValue().toString());
+                    //height =height*2;
+                    adaptor.addItem(bpm,status,date);
                 }
+
+                //pm.setMargins(0,0,height,0);
+                //listView.setLayoutParams(pm);
+
+                listView.setAdapter(adaptor);
             }
 
             @Override
@@ -467,7 +459,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         avg = 0;
         float sum = 0;
         int cnt = 0;
-        Toast.makeText(getApplicationContext(),"status :"+status +"time"+clicked1,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"status :"+status +"time"+clicked1,Toast.LENGTH_SHORT).show();
         if (period == 0) {
             for (int i = 0; i < DAILY; i++) {
                 if (daily[i][status] != 0) {

@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { // 로그인 성공
                             FirebaseUser user = mAuth.getCurrentUser();
-     
+
                             Log.i("username",user.getDisplayName());
                             Log.i("userid",user.getUid());
 
@@ -305,7 +305,6 @@ public class MainActivity extends AppCompatActivity {
             if (this.mGoogleApiClient != null)
                 this.mGoogleApiClient.connect();
         }
-
          */
         if (this.mGoogleApiClient != null)
             this.mGoogleApiClient.connect();
@@ -320,7 +319,6 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             /*
             case REQUEST_PERMISSION_CODE:
-
                 for (int i = grantResults.length - 1; i >= 0; i--) {
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         missingPermission.remove(permissions[i]);
@@ -335,7 +333,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("missingpermission", missingPermission.get(0) + "");
                     //finish();
                 }
-
                 break;
              */
             case PERMISSION_CODE:

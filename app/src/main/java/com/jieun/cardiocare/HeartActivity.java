@@ -210,7 +210,7 @@ public class HeartActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.app_bar, menu) ;
+        getMenuInflater().inflate(R.menu.app_bar2, menu) ;
         return true;
     }
 
@@ -225,8 +225,17 @@ public class HeartActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 return true;
+
+            case R.id.question:
+                Intent intent2 = new Intent(getApplicationContext(), PopupActivity.class);
+                intent2.putExtra("data", "Test Popup");
+                startActivityForResult(intent2, 1);
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
+
+
         }
     }
 
@@ -256,7 +265,7 @@ public class HeartActivity extends AppCompatActivity {
         //btnStart.setText("Wait please ...");
         //btnStart.setEnabled(false);
 
-        questionBtn =(Button)findViewById(R.id.questionBtn);
+        /*questionBtn =(Button)findViewById(R.id.questionBtn);
         questionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -265,7 +274,7 @@ public class HeartActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
 
             }
-        });
+        });*/
         historyBtn = (Button) findViewById(R.id.btnHistory);
         historyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -690,9 +699,9 @@ public class HeartActivity extends AppCompatActivity {
                 textMon.setVisibility(View.VISIBLE);
 
                 if(1<=hour && hour<=12){
-                    textMon.setText(year + "년 "+ month + "월" + day + "일" + hour + " : "+min +" AM");
+                    textMon.setText(year + "년  "+ month + "월  " + day + "일  " + hour + " : "+min +" AM");
                 }else{
-                    textMon.setText(year + "년 "+ month + "월" + day + "일" + (hour -12) + " : "+ min +" PM");
+                    textMon.setText(year + "년  "+ month + "월  " + day + "일  " + (hour -12) + " : "+ min +" PM");
                 }
 
                 bpmText.setText("BPM  " + (int)value);
@@ -739,6 +748,11 @@ public class HeartActivity extends AppCompatActivity {
                             String id = fuser.getUid();
                             mDatabase.child("Bpm").child(id).child(getDateStr()).child(getTimeStr()).setValue(user);
                             initToast("심박수 측정이 완료 되었습니다.");
+
+                            Intent intent =new Intent(getApplicationContext(),HeartGraphActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
                         }
                     }
                 });

@@ -3,9 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/question"
+        android:icon="@drawable/question_mark_btn"
+        android:title="Home"
+        app:showAsAction="always" />
+
+    
+    <item
         android:id="@+id/action_home"
         android:icon="@drawable/ic_noun_home"
         android:title="Home"
         app:showAsAction="always" />
+
+
 
 </menu>

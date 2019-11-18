@@ -21,14 +21,17 @@
         android:orientation="vertical"
         android:id="@+id/location_layout"
         android:visibility="invisible"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="385dp"
         android:layout_height="match_parent">
         <ListView
+
+            android:background="@drawable/view_border"
             android:dividerHeight="5dp"
             android:divider="@color/white"
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="550dp">
+            android:layout_height="650dp">
         </ListView>
         <Button
             android:adjustViewBounds="true"

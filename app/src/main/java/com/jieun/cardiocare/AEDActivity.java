@@ -91,6 +91,7 @@ public class AEDActivity extends AppCompatActivity
         }
 
         init();
+        initScreen();
 
         showLocationButton.setOnClickListener(new View.OnClickListener()
         {
@@ -178,7 +179,7 @@ public class AEDActivity extends AppCompatActivity
 
     private void initScreen(){
 
-        final int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
+        final int top = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         final int right = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
