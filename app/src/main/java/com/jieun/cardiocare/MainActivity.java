@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(hasBodySensorPermission != PackageManager.PERMISSION_GRANTED) {
 
-            Toast.makeText(this,"권한 승인이 필요합니다",Toast.LENGTH_LONG).show();
+            //Toast.makeText(this,"권한 승인이 필요합니다",Toast.LENGTH_LONG).show();
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.BODY_SENSORS)) {

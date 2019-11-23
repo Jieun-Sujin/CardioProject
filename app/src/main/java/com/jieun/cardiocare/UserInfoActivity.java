@@ -273,7 +273,7 @@ public class UserInfoActivity extends AppCompatActivity {
                             weightBtn.setText(50 + "kg");
                             aphiBtn.setText(120 + "mmHg");
                             aploBtn.setText(80 + "mmHg");
-                            cholBtn.setText(20 + "mg/dl");
+                            cholBtn.setText(200 + "mg/dl");
                         }
                     }
 
@@ -319,7 +319,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickHeight(View view) {
 
         String height = String.valueOf(heightBtn.getText());
-        String num = height.substring(0, height.length()-4);
+        String num = height.substring(0, height.length()-2);
         String dec = height.substring(height.length()-3,height.length()-2);
         Log.i("num", num + "");
         Log.i("dec", dec + "");
@@ -365,7 +365,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickWeight(View view) {
 
         String weight = String.valueOf(weightBtn.getText());
-        String num = weight.substring(0, weight.length()-4);
+        String num = weight.substring(0, weight.length()-2);
         String dec = weight.substring(weight.length()-3, weight.length()-2);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);
