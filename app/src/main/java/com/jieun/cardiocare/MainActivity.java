@@ -199,10 +199,9 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                             initToast("로그인 되었습니다");
-                            //Toast.makeText(getApplicationContext(), R.string.success_login , Toast.LENGTH_SHORT).show();
+
                         } else { // 로그인 실패
                             initToast("로그인 실패");
-                            //Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
                             Log.v("login","failed");
                         }
 
@@ -286,26 +285,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkAndRequestPermissions() {
-        // Check for permissions
-        /*
-        for (String eachPermission : REQUIRED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this, eachPermission) != PackageManager.PERMISSION_GRANTED) {
-                missingPermission.add(eachPermission);
-            }
-        }
-        // Request for missing permissions
-        if (missingPermission.isEmpty()) {
-            if (this.mGoogleApiClient != null)
-                this.mGoogleApiClient.connect();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(this,
-                    missingPermission.toArray(new String[missingPermission.size()]),
-                    REQUEST_PERMISSION_CODE);
-        } else {
-            if (this.mGoogleApiClient != null)
-                this.mGoogleApiClient.connect();
-        }
-         */
+
         if (this.mGoogleApiClient != null)
             this.mGoogleApiClient.connect();
 
@@ -317,24 +297,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         switch (requestCode) {
-            /*
-            case REQUEST_PERMISSION_CODE:
-                for (int i = grantResults.length - 1; i >= 0; i--) {
-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        missingPermission.remove(permissions[i]);
-                    }
-                }
-                if (missingPermission.isEmpty()) {
-                    initGoogleApiClient();
-                    if (this.mGoogleApiClient != null)
-                        this.mGoogleApiClient.connect();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Failed get permissions", Toast.LENGTH_LONG).show();
-                    Log.i("missingpermission", missingPermission.get(0) + "");
-                    //finish();
-                }
-                break;
-             */
+
             case PERMISSION_CODE:
                 if(grantResults.length == REQUIRED_PERMISSIONS.length) {
                     // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면

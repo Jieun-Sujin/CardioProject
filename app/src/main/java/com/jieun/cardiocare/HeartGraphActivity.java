@@ -189,7 +189,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
 
         final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
         String id = fuser.getUid();
-        //String id = getString(R.string.firebase_key);
 
         mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -256,7 +255,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         listView =(ListView)findViewById(R.id.listView);
         adaptor = new BPMViewAdaptor();
         String id = fuser.getUid();
-        //String id = "JdHe9AfAeUa9YeT687tzx7jLPPs2";
 
         final LinearLayout.LayoutParams pm
                 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT); //레이아웃파라미터 생성
@@ -265,7 +263,7 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         mDatabase.child("Bpm").child(id).child(sdfNow.format(date)).addListenerForSingleValueEvent(new ValueEventListener() {
 
             String date2 = sdfNow.format(date);
-            //int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, getResources().getDisplayMetrics());
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot timeData : dataSnapshot.getChildren()) {
@@ -273,12 +271,9 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
                     String date = date2 +"  "+timeData.getKey();
                     int status = Integer.parseInt(timeData.child("status").getValue().toString());
                     float bpm = Float.parseFloat(timeData.child("bpm").getValue().toString());
-                    //height =height*2;
                     adaptor.addItem(bpm,status,date);
                 }
 
-                //pm.setMargins(0,0,height,0);
-                //listView.setLayoutParams(pm);
 
                 listView.setAdapter(adaptor);
             }
@@ -288,127 +283,6 @@ public class HeartGraphActivity extends AppCompatActivity implements AdapterView
         });
     }
 
-    /*private void calculateWeekData() {
-
-        final int curWeek = calendar.get(Calendar.WEEK_OF_MONTH);
-        //String id = fuser.getUid();
-        String id = getString(R.string.firebase_key);
-
-        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-
-                    String dateString = data.getKey();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date convertedDate = new Date();
-                    try {
-                        convertedDate = dateFormat.parse(dateString);
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    calendar.setTime(convertedDate);
-
-                    for (DataSnapshot timeData : data.getChildren()) {
-                        int type = Integer.parseInt(timeData.child("status").getValue().toString());
-                        float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
-                        week[calendar.get(Calendar.WEEK_OF_MONTH) - 1][type] += val;
-                        week_cnt[calendar.get(Calendar.WEEK_OF_MONTH) - 1][type] += 1;
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-
-        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    //이번주에 해당하는 날짜 가지고 오기
-                    String dateString = data.getKey();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date convertedDate = new Date();
-                    try {
-                        convertedDate = dateFormat.parse(dateString);
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    calendar.setTime(convertedDate);
-
-                    //오늘과 같은 주라면. 탐색
-                    if (calendar.get(Calendar.WEEK_OF_MONTH) == curWeek) {
-
-                        //시간 별로
-                        for (DataSnapshot timeData : data.getChildren()) {
-
-                            int type = Integer.parseInt(timeData.child("status").getValue().toString());
-                            float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
-                            //해당 되는 주에 더하기.
-                            daily[calendar.get(Calendar.DAY_OF_WEEK) - 1][type] += val;
-                            daily_cnt[calendar.get(Calendar.DAY_OF_WEEK) - 1][type] += 1;
-                        }
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-
-        mDatabase.child("Bpm").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-
-                    String dateString = data.getKey();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date convertedDate = new Date();
-                    try {
-                        convertedDate = dateFormat.parse(dateString);
-                    } catch (ParseException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    calendar.setTime(convertedDate);
-
-                    //시간 별로
-                    for (DataSnapshot timeData : data.getChildren()) {
-                        int type = Integer.parseInt(timeData.child("status").getValue().toString());
-                        float val = Float.parseFloat(timeData.child("bpm").getValue().toString());
-                        month[calendar.get(Calendar.MONTH)][type] += val;
-                        month_cnt[calendar.get(Calendar.MONTH)][type] += 1;
-                    }
-
-
-                }
-
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-
-    }*/
 
     private void calculateB() {
 

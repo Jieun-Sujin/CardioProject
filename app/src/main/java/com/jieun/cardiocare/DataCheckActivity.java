@@ -94,7 +94,6 @@ public class DataCheckActivity extends AppCompatActivity {
                         if(user != null){
                             gender.setText(user.getGender() == 0 ? "여" : "남");
                             age.setText(user.getAge().substring(0,4) +"년 " + user.getAge().substring(4,6)+"월 " + user.getAge().substring(6) + "일");
-                            //age.setText("만" + user.getAge()/365 + "세");
                             height.setText(String.valueOf(user.getHeight()));
                             weight.setText(String.valueOf(user.getWeight()));
                             aphi.setText(String.valueOf(user.getAp_hi()));

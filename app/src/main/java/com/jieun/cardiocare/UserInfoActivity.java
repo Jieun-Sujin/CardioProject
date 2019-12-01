@@ -235,12 +235,6 @@ public class UserInfoActivity extends AppCompatActivity {
                         UserData user = dataSnapshot.getValue(UserData.class);
                         if(user != null){ // 이미 가입되어 있다면 저장되어 있던 데이터 보여주기
                             join = true;
-                            /*
-                            int birhtY = Integer.parseInt(user.getAge().substring(0,4));
-                            int birthM = Integer.parseInt(user.getAge().substring(4,6));
-                            int birthD = Integer.parseInt(user.getAge().substring(6));
-                            Log.i("월",birthM+"");
-                             */
 
                             String birthday = user.getAge().substring(0,4) + "년 " + user.getAge().substring(4,6) + "월 " + user.getAge().substring(6) + "일";
                             birthBtn.setText(birthday);
@@ -319,7 +313,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickHeight(View view) {
 
         String height = String.valueOf(heightBtn.getText());
-        String num = height.substring(0, height.length()-2);
+        String num = height.substring(0, height.length()-4);
         String dec = height.substring(height.length()-3,height.length()-2);
         Log.i("num", num + "");
         Log.i("dec", dec + "");
@@ -365,7 +359,7 @@ public class UserInfoActivity extends AppCompatActivity {
     public void clickWeight(View view) {
 
         String weight = String.valueOf(weightBtn.getText());
-        String num = weight.substring(0, weight.length()-2);
+        String num = weight.substring(0, weight.length()-4);
         String dec = weight.substring(weight.length()-3, weight.length()-2);
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this, R.style.DialogStyle);

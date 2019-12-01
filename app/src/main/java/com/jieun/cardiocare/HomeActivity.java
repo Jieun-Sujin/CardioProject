@@ -58,7 +58,6 @@ public class HomeActivity extends AppCompatActivity {
         //final String userId = user.getUid();
 
         final String userName = user.getDisplayName();
-        //final String userName = "김지은"; // 수진 테스트 할 때
 
         userNameTxt = (TextView) findViewById(R.id.userName);
         userNameTxt.setText(userName + "   님");
@@ -130,22 +129,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
-       /*toolbar.setTitle(R.string.appName);
-       toolbar.setTitleTextColor(getColor(R.color.maincolor1));
-       toolbar.setNavigationIcon(R.drawable.ic_logout);
-       toolbar.setTitleMarginStart(cardict);
-       */
-        //toolbar.setContentInsetStartWithNavigation(logout);
         setSupportActionBar(toolbar);
-       /*toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Toast.makeText(getApplicationContext(),"logout",Toast.LENGTH_SHORT).show();
-               //mAuth.signOut();
-               //finish();
-           }
-       });*/
-
 
     }
 
@@ -153,7 +137,6 @@ public class HomeActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat hourSdf = new SimpleDateFormat("HH");
-        //SimpleDateFormat minSdf = new SimpleDateFormat("ss");
         SimpleDateFormat todaySdf = new SimpleDateFormat("yyyy-MM-dd");
 
         msgText = (TextView) findViewById(R.id.msgText);

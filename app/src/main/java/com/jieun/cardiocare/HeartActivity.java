@@ -84,18 +84,7 @@ public class HeartActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private String TAG = MainActivity.class.getName();
-    //private GoogleApiClient googleApiClient;
-    //private boolean authInProgress = false;
     private OnDataPointListener onDataPointListener;
-    //private static final int AUTH_REQUEST = 1;
-    /*
-    private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
-            Manifest.permission.BODY_SENSORS
-    };
-     */
-
-    //private static final int REQUEST_PERMISSION_CODE = 12345;
-    //private List<String> missingPermission = new ArrayList<>();
 
     private boolean bCheckStarted = false;
     private boolean bGoogleConnected = false;
@@ -160,52 +149,8 @@ public class HeartActivity extends AppCompatActivity {
         initFireBase();
         initUI();
 
-     /*   historyBtn = (Button) findViewById(R.id.btnHistory);
-        firstBtn_layout =(LinearLayout)findViewById(R.id.firstBtn_layout);
-        endLayout =(LinearLayout)findViewById(R.id.end_layout);
-        btnLayout2 = (LinearLayout)findViewById(R.id.btnLayout2);
-        //beat anim
-        beatanim =(ImageView)findViewById(R.id.beatanim);
-        beatdraw =beatanim.getDrawable();
-        bpmText =(TextView)findViewById(R.id.bpmText);
-        beatLayout =(LinearLayout)findViewById(R.id.beatLayout);
-
-        againBtn=(Button)findViewById(R.id.againBtn);
-        storeBtn=(Button)findViewById(R.id.storeBtn);
-        finger =(ImageView)findViewById(R.id.fingerImage);
-
-        textMon = findViewById(R.id.textMon);
-        btnStart = findViewById(R.id.btnStart);
-        //btnStart.setText("Wait please ...");
-        //btnStart.setEnabled(false);
-
-        questionBtn =(Button)findViewById(R.id.questionBtn);
-        questionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
-                intent.putExtra("data", "Test Popup");
-                startActivityForResult(intent, 1);
-
-            }
-        });
-
-        bGoogleConnected = true; //추가
-        btnStart.setEnabled(true);
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Measure(btnStart);
-            }
-        });
-
-        bpmseekBar =(SeekBar)findViewById(R.id.bpmseekbar);
-        text_seekbar =(TextView)findViewById(R.id.statusText);
-*/
         initIcons();
 
-        //필요한 권한을 얻었는지 확인하고, 얻지 않았다면 권한 요청을 하기 위한 코드를 호출합니다
-        //checkAndRequestPermissions();
     }
 
     @Override
@@ -262,19 +207,7 @@ public class HeartActivity extends AppCompatActivity {
 
         textMon = findViewById(R.id.textMon);
         btnStart = findViewById(R.id.btnStart);
-        //btnStart.setText("Wait please ...");
-        //btnStart.setEnabled(false);
 
-        /*questionBtn =(Button)findViewById(R.id.questionBtn);
-        questionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PopupActivity.class);
-                intent.putExtra("data", "Test Popup");
-                startActivityForResult(intent, 1);
-
-            }
-        });*/
         historyBtn = (Button) findViewById(R.id.btnHistory);
         historyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -376,134 +309,6 @@ public class HeartActivity extends AppCompatActivity {
         }
     }
 
-
-
-    /*
-    private void initGoogleApiClient() {
-        this.googleApiClient = new GoogleApiClient.Builder(this)
-                //.addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions) //추가
-                .addApi(Fitness.SENSORS_API)
-                .addScope(new Scope(Scopes.FITNESS_BODY_READ))
-                //.addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ))
-                .addConnectionCallbacks(
-                        new GoogleApiClient.ConnectionCallbacks() {
-
-                            //Google API 클라이언트의 로그인에 성공하면 호출이 되는 콜백입니다
-                            @Override
-                            public void onConnected(Bundle bundle) {
-                                Log.d(TAG, "initGoogleApiClient() onConnected good...");
-                                bGoogleConnected = true;
-                                btnStart.setText("Start");
-                                btnStart.setEnabled(true);
-                            }
-
-                            @Override
-                            public void onConnectionSuspended(int i) {
-
-                                if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_NETWORK_LOST) {
-                                    Log.d(TAG, "onConnectionSuspended() network_lost bad...");
-                                } else if (i == GoogleApiClient.ConnectionCallbacks.CAUSE_SERVICE_DISCONNECTED) {
-                                    Log.d(TAG, "onConnectionSuspended() service_disconnected bad...");
-
-                                }
-                            }
-                        }
-                )
-                .addOnConnectionFailedListener(
-                        new GoogleApiClient.OnConnectionFailedListener() {
-
-                            @Override
-                            public void onConnectionFailed(ConnectionResult result) {
-                                Log.d(TAG, "Connection failed. Cause: " + result.toString());
-
-                                if (!result.hasResolution()) {
-                                    HeartActivity.this.finish();
-                                    return;
-                                }
-
-                                if (!authInProgress) {
-                                    try {
-                                        Log.d(TAG, "Attempting to resolve failed connection");
-                                        authInProgress = true;
-                                        result.startResolutionForResult(HeartActivity.this,
-                                                AUTH_REQUEST);
-                                    } catch (IntentSender.SendIntentException e) {
-                                        Log.e(TAG,
-                                                "Exception while starting resolution activity", e);
-                                        HeartActivity.this.finish();
-                                    }
-                                }
-                                else {
-                                    HeartActivity.this.finish();
-                                }
-                            }
-                        }
-                )
-                .build();
-    }
-
-    */
-
-    /**
-     * Checks if there is any missing permissions, and
-     * requests runtime permission if needed.
-     */
-
-    /*
-    private void checkAndRequestPermissions() {
-        // Check for permissions
-        for (String eachPermission : REQUIRED_PERMISSION_LIST) {
-            if (ContextCompat.checkSelfPermission(this, eachPermission) != PackageManager.PERMISSION_GRANTED) {
-                missingPermission.add(eachPermission);
-            }
-        }
-        // Request for missing permissions
-        if (missingPermission.isEmpty()) {
-            if (HeartActivity.this.googleApiClient != null)
-                HeartActivity.this.googleApiClient.connect();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(this,
-                    missingPermission.toArray(new String[missingPermission.size()]),
-                    REQUEST_PERMISSION_CODE);
-        } else {
-            if (HeartActivity.this.googleApiClient != null)
-                HeartActivity.this.googleApiClient.connect();
-        }
-
-    }
-
-
-     */
-    /**
-     * Result of runtime permission request
-     */
-
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // Check for granted permission and remove from missing list
-        if (requestCode == REQUEST_PERMISSION_CODE) {
-            for (int i = grantResults.length - 1; i >= 0; i--) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    missingPermission.remove(permissions[i]);
-                }
-            }
-        }
-        // If there is enough permission, we will start the registration
-        if (missingPermission.isEmpty()) {
-            initGoogleApiClient();
-            if (HeartActivity.this.googleApiClient != null)
-                HeartActivity.this.googleApiClient.connect();
-        } else {
-            Toast.makeText(getApplicationContext(), "Failed get permissions", Toast.LENGTH_LONG).show();
-            finish();
-        }
-    }
-
-     */
     private void findDataSources() {
         Fitness.SensorsApi.findDataSources(MainActivity.mGoogleApiClient, new DataSourcesRequest.Builder()
                 .setDataTypes(DataType.TYPE_HEART_RATE_BPM)
@@ -629,26 +434,6 @@ public class HeartActivity extends AppCompatActivity {
         super.onDetachedFromWindow();
     }
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == AUTH_REQUEST) {
-            authInProgress = false;
-
-            if (resultCode == RESULT_OK) {
-
-                if (!this.googleApiClient.isConnecting() && !this.googleApiClient.isConnected()) {
-                    this.googleApiClient.connect();
-                    Log.d(TAG, "onActivityResult googleApiClient.connect() attempted in background");
-
-                }
-            }
-        }
-    }
-
-     */
 
     public String getDateStr(){
         long now = System.currentTimeMillis();
